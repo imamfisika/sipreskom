@@ -16,8 +16,16 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nim', 10)->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('angkatan')->virtualAs("SUBSTRING(nim, 6, 2)");
+            $table->string('semester');
+            $table->string('statusMahasiswa');
+            $table->string('sksLulus');
+            $table->string('ipk');
+            $table->string('ips');
+            $table->string('telepon', 15)->unique()->nullable()->comment('Format: +62XXXXXXXXXXX');
+
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

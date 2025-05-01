@@ -1,4 +1,4 @@
-<div class="w-1/2 place-content-center rounded-2xl text-white text-wrap bg-linear-to-bl from-teal-950 to-teal-800 my-8 ml-8">
+<div class="w-1/2 place-content-center rounded-2xl text-white text-wrap bg-linear-to-bl from-teal-950 to-teal-700 my-8 ml-8">
     <div class="px-20 text-center">
         <p class="mb-4 text-xl font-light">Selamat Datang di</p>
         <div class="text-4xl/normal font-bold mb-6">Sistem Informasi

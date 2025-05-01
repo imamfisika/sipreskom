@@ -1,16 +1,10 @@
-<aside id="separator-sidebar" class="h-screen fixed top-0 left-0 z-40 w-64">
+<aside id="separator-sidebar" class="h-screen fixed top-0 left-0 z-40 w-72">
     <div class="h-full px-3 py-4 overflow-y-auto bg-linear-to-bl from-teal-950 to-teal-700 border-r-1">
-
-
-
-        <div class="mt-2 ml-5 pt-5 pb-8 font-bold text-2xl text-white">
+        <div class="mt-2 ml-5 pt-5 pb-8 font-black text-2xl text-white">
             <a href="{{ route('dashboard') }}">
                 {{ config('app.name') }}
             </a>
         </div>
-
-
-
         <ul class="space-y-2">
             <li>
                 <div class="flex items-center p-2 mt-5 ml-3 mb-3 font-black text-gray-300 text-sm">
@@ -62,7 +56,7 @@
                 </div>
             </li>
             <li>
-                <a href="profile" class="flex items-center p-4 ml-1 text-gray-200 rounded-lg hover:bg-gray-100 hover:text-gray-900 group">
+                <a href="profil" class="flex items-center p-4 ml-1 text-gray-200 rounded-lg hover:bg-gray-100 hover:text-gray-900 group">
                     <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-gray-900"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                         <path
