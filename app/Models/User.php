@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Akademik;
+
 
 class User extends Authenticatable
 {
+    use Notifiable;
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -18,14 +21,30 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'nama',
-        'email',
-        'angkatan',
+        'name',
         'nim',
-        'semester',
+        'email',
+        'foto',
         'password',
     ];
 
+    public function setNimAttribute($value)
+    {
+        $this->attributes['nim'] = $value;
+
+        if (strlen($value) == 18) {
+            $this->attributes['role'] = 'admin';
+        } elseif (strlen($value) == 5) {
+            $this->attributes['role'] = 'superadmin';
+        } else {
+            $this->attributes['role'] = 'mahasiswa';
+        }
+    }
+
+    public function getFotoUrlAttribute()
+    {
+        return $this->foto ? asset('storage/' . $this->foto) : asset('images/profil.jpg');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -37,7 +56,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -47,5 +65,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function akademik()
+    {
+        return $this->hasOne(Akademik::class, 'nim', 'nim');
     }
 }

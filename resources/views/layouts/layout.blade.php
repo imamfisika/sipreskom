@@ -8,37 +8,35 @@
 
     <title>{{ $title ?? config('app.name') }}</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        {{-- @include('components.navigation') --}}
 
-        <!-- Page Heading -->
         @isset($header)
             <header class="bg-green-700 text-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>
-        @endisset
-        @include('components.sidebar')
+            @endisset
+            @if(auth()->user()->role === 'mahasiswa')
+            @include('components.sidebarMhs')
+            @elseif(auth()->user()->role === 'admin')
+            @include('components.sidebarDsn')
+            @elseif(auth()->user()->role === 'superadmin')
+            @include('components.sidebarAdm')
+        @endif
 
-
-        <!-- Page Content -->
         <main>
             {{ $slot }}
         </main>

@@ -8,20 +8,17 @@
 
     <title>{{ $title ?? config('app.name') }}</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
 <main>
-<body class="bg-indigo-100 h-screen px-20">
-    <div class="bg-white flex rounded-3xl shadow-md w-full">
-        <!-- Page Content -->
+<body class="bg-gray-100 content-center px-20">
+    <div class="bg-white flex rounded-3xl shadow-md h-[95vh] my-5 w-full">
             @include('components.welcomeBanner')
 
             {{ $slot }}

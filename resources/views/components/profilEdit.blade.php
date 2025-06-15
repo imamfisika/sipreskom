@@ -1,9 +1,7 @@
 <div>
-    {{-- <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6"> --}}
     <form method="post">
 
         @csrf
-        {{-- @method('patch') --}}
         <div class="grid gap-12 mb-10 grid-cols-2 text-md font-semibold">
             <div>
                 <div for="nama" class="block my-3 text-gray-400 ">Nama Lengkap</div>

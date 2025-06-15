@@ -13,37 +13,31 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('nim', 10)->unique();
+            $table->string('role')->default(value: 'mahasiswa');
+            $table->string('name');
+            $table->string('nim')->unique();
             $table->string('email')->unique();
-            $table->string('password');
-            $table->string('angkatan')->virtualAs("SUBSTRING(nim, 6, 2)");
-            $table->string('semester');
-            $table->string('statusMahasiswa');
-            $table->string('sksLulus');
-            $table->string('ipk');
-            $table->string('ips');
-            $table->string('telepon', 15)->unique()->nullable()->comment('Format: +62XXXXXXXXXXX');
-
+            $table->string(column: 'password');
+            // $table->string('foto')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-             $table->string('email')->primary();
-             $table->string('token');
-             $table->timestamp('created_at')->nullable();
-         });
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
 
-         Schema::create('sessions', function (Blueprint $table) {
-             $table->string('id')->primary();
-             $table->foreignId('user_id')->nullable()->index();
-             $table->string('ip_address', 45)->nullable();
-             $table->text('user_agent')->nullable();
-             $table->longText('payload');
-             $table->integer('last_activity')->index();
-         });
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
+        });
     }
 
     /**
