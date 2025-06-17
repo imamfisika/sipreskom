@@ -19,8 +19,8 @@ return new class extends Migration {
         Schema::create('nilais', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('id_mahasiswa');
-            $table->foreign('id_mahasiswa')->references('id')->on('mahasiswas')->onDelete('cascade');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_matkul');
             $table->foreign('id_matkul')->references('id')->on('matkuls')->onDelete('cascade');
             $table->float('bobot');

@@ -2,12 +2,12 @@
 
 namespace App\Service;
 
-use App\Models\Mahasiswa;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
 
-class MahasiswaService {
+class UserService {
 
     public function Register($request) {
 
@@ -18,15 +18,15 @@ class MahasiswaService {
             'password' => 'required',
         ]);
 
-        $mahasiswa = new Mahasiswa();
-        $mahasiswa->nama = $validated['nama'];
-        $mahasiswa->nim = $validated['nim'];
-        $mahasiswa->email = $validated['email'];
-        $mahasiswa->role = 'mahasiswa';
-        $mahasiswa->password = bcrypt($validated['password']);
-        $mahasiswa->save();
+        $user = new User();
+        $user->nama = $validated['nama'];
+        $user->nim = $validated['nim'];
+        $user->email = $validated['email'];
+        $user->role = 'mahasiswa';
+        $user->password = bcrypt($validated['password']);
+        $user->save();
 
-        return $mahasiswa;
+        return $user;
     }
 
     public function Login($request) {
