@@ -4,33 +4,46 @@
     </x-slot>
 
     <div class="w-1/2 px-48 place-content-center">
-        <div class="text-3xl font-bold py-2 mb-12">Silahkan Login</div>
+        <div class="text-3xl font-bold py-2 mb-12">Silakan Login</div>
 
-        <form method="POST" action="/login" class="space-y-4" novalidate>
+        <form method="POST" action="/login">
             @csrf
 
+            {{-- Error --}}
             @error('nim')
                 <p class="text-red-500 text-sm">{{ $message }}</p>
             @enderror
 
+            {{-- Nim --}}
             <div>
                 <label for="nim" class="block my-3 text-sm font-medium text-gray-900">
                     Nomor Induk Mahasiswa
                 </label>
-                <input type="text" name="nim" id="nim" required value="{{ old('nim') }}"
+                <input
+                    type="text"
+                    name="nim"
+                    id="nim"
+                    required
+                    value="{{ old('nim') }}"
                     class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                            focus:ring-indigo-700 focus:border-indigo-700 block w-full p-2.5">
             </div>
 
+            {{-- Password --}}
             <div>
                 <label for="password" class="block my-3 text-sm font-medium text-gray-900">
                     Password
                 </label>
-                <input type="password" name="password" id="password" required
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    required
                     class="mb-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                            focus:ring-indigo-700 focus:border-indigo-700 block w-full p-2.5">
             </div>
 
+            {{-- Login --}}
             <button type="submit"
                 class="w-full bg-teal-900 text-white py-3 rounded-md hover:bg-teal-950
                        focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1
@@ -38,9 +51,10 @@
                 {{ __('Login') }}
             </button>
 
+            {{-- Halaman Registrasi --}}
             <p class="pt-5 text-sm text-center font-light text-gray-500">
                 Belum memiliki akun?
-                <a href="/register" class="font-semibold text-teal-700 hover:underline">Register</a>
+                <a href="register" class="font-semibold text-teal-700 hover:underline">Register</a>
             </p>
         </form>
     </div>
