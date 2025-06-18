@@ -7,33 +7,24 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-class UserService {
+class UserService
+{
 
-    public function Register($request) {
-
-        $validated = $request->validate([
-            'nama' => 'required',
-            'nim' => 'required|max:10|unique:users,nim',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
-        ]);
-
+    public function register(array $validated)
+    {
         $user = new User();
         $user->nama = $validated['nama'];
         $user->nim = $validated['nim'];
         $user->email = $validated['email'];
-        $user->role = 'mahasiswa';
+        $user->role = $validated['role'];
         $user->password = bcrypt($validated['password']);
         $user->save();
 
-        if ($user) {
-            return true;
-        } else {
-            return false;
-        }
+        return (bool) $user;
     }
 
-    public function Login($request) {
+    public function login($request)
+    {
 
         $credentials = $request->only('nim', 'password');
 
@@ -44,7 +35,8 @@ class UserService {
         return null;
     }
 
-    public function getUser($request) {
+    public function getUser($request)
+    {
 
         $validated = $request->validate([
             'id' => 'required',
@@ -58,7 +50,8 @@ class UserService {
         return $user;
     }
 
-    public function deleteUser($request) {
+    public function deleteUser($request)
+    {
 
         $validated = $request->validate([
             'id' => 'required|exists:Users,id',
@@ -73,7 +66,8 @@ class UserService {
         return response()->json(['message' => 'User not found'], 404);
     }
 
-    public function updateUser($request) {
+    public function updateUser($request)
+    {
 
         $validated = $request->validate([
             'id' => 'required|exists:users,id',

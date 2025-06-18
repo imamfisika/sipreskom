@@ -20,13 +20,29 @@ class UserController extends Controller {
 
 
     public function register(Request $request) {
+        $validated = $request->validate([
+            'nama' => 'required',
+            'nim' => 'required|max:18|unique:users,nim',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+        ]);
+
+        $nimLength = strlen($validated['nim']);
+        if ($nimLength === 18) {
+            $validated['role'] = 'dosenpa';
+        } elseif ($nimLength === 5) {
+            $validated['role'] = 'adminprodi';
+        } else {
+            $validated['role'] = 'mahasiswa';
+        }
 
         $userService = new UserService();
-        $user = $userService->Register($request);
+        $success = $userService->register($validated);
 
-        if (!$user) {
+        if (!$success) {
             return back()->withErrors(['error' => 'Pendaftaran gagal. Silakan coba lagi.']);
         }
+
 
         return view('auth.login')->with('success', 'Akun berhasil dibuat. Silakan login.');
     }
