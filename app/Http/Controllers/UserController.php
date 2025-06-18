@@ -32,4 +32,8 @@ class UserController extends Controller {
     public function delete(Request $request) {
         // Logic to delete a user
     }
+
+    public function update(Request $request) {
+        // Logic to update a user
+    }
 }

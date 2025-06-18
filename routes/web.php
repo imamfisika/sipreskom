@@ -12,7 +12,7 @@ use App\Http\Controllers\PrestasiAkademikController;
 use App\Http\Controllers\PrestasiAkademikDsnController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RekomendasiController;
-
+use App\Http\Controllers\UserController;
 
 // Route::get('/', fn() => view('auth.login'));
 
@@ -22,14 +22,23 @@ use App\Http\Controllers\RekomendasiController;
 // Route::post('/register', [AuthController::class, 'register']);
 // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/', fn() => view(view: 'auth.login'))->name('login');
+//Route::get('/', fn() => view(view: 'auth.login'))->name('login');
 
-Route::get('/login', action: [LoginController::class, 'index'])->name('login');
-Route::post('/login', action: [LoginController::class, 'form'])->name('login.form');
+// Route::get('/login', action: [LoginController::class, 'index'])->name('login');
+// Route::post('/login', action: [LoginController::class, 'form'])->name('login.form');
 
 
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+// Route::get('/register', [RegisterController::class, 'index'])->name('register');
+// Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+
+
+
+Route::get('/register', [UserController::class, 'viewRegister']);
+Route::post('/register', [UserController::class, 'register']);
+Route::get('/get-user/{id}', [UserController::class, 'getById']);
+Route::delete('/delete-user/{id}', [UserController::class, 'delete']);
+Route::put('/users/{id}', [UserController::class, 'update']);
 
 
 Route::middleware(['auth'])->group(function () {
