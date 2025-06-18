@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Service\UserService;
 
 class UserController extends Controller {
@@ -19,34 +19,17 @@ class UserController extends Controller {
     }
 
 
-    public function register(Request $request) {
-        $validated = $request->validate([
-            'nama' => 'required',
-            'nim' => 'required|max:18|unique:users,nim',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
-        ]);
-
-        $nimLength = strlen($validated['nim']);
-        if ($nimLength === 18) {
-            $validated['role'] = 'dosenpa';
-        } elseif ($nimLength === 5) {
-            $validated['role'] = 'adminprodi';
-        } else {
-            $validated['role'] = 'mahasiswa';
-        }
-
+    public function register(Request $request)
+    {
         $userService = new UserService();
-        $success = $userService->register($validated);
+        $success = $userService->register($request);
 
         if (!$success) {
             return back()->withErrors(['error' => 'Pendaftaran gagal. Silakan coba lagi.']);
         }
 
-
         return view('auth.login')->with('success', 'Akun berhasil dibuat. Silakan login.');
     }
-
     // public function login(Request $request) {
     //     $request->validate([
     //         'nim' => 'required|string',

@@ -10,17 +10,32 @@ use Illuminate\Support\Facades\Auth;
 class UserService
 {
 
-    public function register(array $validated)
+    public function register($request)
     {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'nim' => 'required|string|max:18|unique:users,nim',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $nimLength = strlen($validated['nim']);
+        if ($nimLength === 18) {
+            $role = 'dosenpa';
+        } elseif ($nimLength === 5) {
+            $role = 'adminprodi';
+        } else {
+            $role = 'mahasiswa';
+        }
+
         $user = new User();
         $user->nama = $validated['nama'];
         $user->nim = $validated['nim'];
         $user->email = $validated['email'];
-        $user->role = $validated['role'];
+        $user->role = $role;
         $user->password = bcrypt($validated['password']);
-        $user->save();
 
-        return (bool) $user;
+        return $user->save();
     }
 
     public function login($request)
