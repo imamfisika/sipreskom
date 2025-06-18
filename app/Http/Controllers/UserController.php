@@ -14,24 +14,21 @@ class UserController extends Controller {
         return view('auth.register');
     }
 
-    // public function viewLogin() {
-    //     return view('auth.login');
-    // }
-
-    protected $userService;
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
+    public function viewLogin() {
+        return view('auth.login');
     }
 
-    public function register(Request $request)
-    {
-        $user = $this->userService->Register($request);
 
-        return response()->json([
-            'message' => 'Akun berhasil didaftarkan',
-            'user' => $user
-        ], 201);
+    public function register(Request $request) {
+
+        $userService = new UserService();
+        $user = $userService->Register($request);
+
+        if (!$user) {
+            return back()->withErrors(['error' => 'Pendaftaran gagal. Silakan coba lagi.']);
+        }
+
+        return view('auth.login')->with('success', 'Akun berhasil dibuat. Silakan login.');
     }
 
     // public function login(Request $request) {

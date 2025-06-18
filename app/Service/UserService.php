@@ -26,7 +26,11 @@ class UserService {
         $user->password = bcrypt($validated['password']);
         $user->save();
 
-        return $user;
+        if ($user) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function Login($request) {
@@ -40,7 +44,7 @@ class UserService {
         return null;
     }
 
-    public function getUser($request){
+    public function getUser($request) {
 
         $validated = $request->validate([
             'id' => 'required',
