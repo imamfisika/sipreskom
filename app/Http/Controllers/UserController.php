@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use App\Service\UserService;
 
 class UserController extends Controller
@@ -32,10 +30,10 @@ class UserController extends Controller
             : back()->withErrors(['error' => 'Pendaftaran gagal. Silakan coba lagi.']);
     }
     public function login(Request $request)
-    {
-        $userService = new UserService();
-        return $userService->login($request);
-    }
+{
+    $userService = new UserService();
+    return $userService->login($request);
+}
 
     public function getById(Request $request, $id)
     {

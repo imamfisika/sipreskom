@@ -1,28 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminprodiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DosenpaController;
+use App\Http\Controllers\AdminprodiController;
 use App\Http\Controllers\MahasiswaController;
-
-// Route::get('/', fn() => view('auth.login'));
-
-// Route::get('/login', [AuthController::class, 'showLogin']);
-// Route::post('/login', [AuthController::class, 'login'])->name('login');
-// Route::get('/register', [AuthController::class, 'showRegister']);
-// Route::post('/register', [AuthController::class, 'register']);
-// Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-//Route::get('/', fn() => view(view: 'auth.login'))->name('login');
-
-
-
-// Route::get('/register', [RegisterController::class, 'index'])->name('register');
-// Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-
-
 
 
 Route::get('/register', [UserController::class, 'viewRegister']);
@@ -36,16 +18,17 @@ Route::put('/users/{id}', [UserController::class, 'update']);
 
 
 Route::middleware(['auth', 'role:dosenpa'])->group(function () {
-    Route::get('/dashboard/dosenpa', [DosenpaController::class, 'dosenpa'])->name('dosenpa.dashboard');
+    Route::get('/dashboard/dosen', [DosenpaController::class, 'viewDosenpa'])->name('dosenpa.dashboard');
 });
 
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
-    Route::get('/dashboard/mahasiswa', [MahasiswaController::class, 'mahasiswa'])->name('mahasiswa.dashboard');
+    Route::get('/dashboard/mahasiswa', [MahasiswaController::class, 'viewMahasiswa'])->name('mahasiswa.dashboard');
 });
 
 Route::middleware(['auth', 'role:adminprodi'])->group(function () {
-    Route::get('/dashboard/adminprodi', [AdminprodiController::class, 'adminprodi'])->name('adminprodi.dashboard');
+    Route::get('/dashboard/admin', [AdminprodiController::class, 'viewAdminprodi'])->name('adminprodi.dashboard');
 });
+
 
     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // Route::get('/profil', [ProfilController::class, 'index'])->name('profil');

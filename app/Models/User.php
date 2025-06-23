@@ -21,11 +21,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'nim',
         'email',
         'foto',
         'password',
+        'role',
     ];
 
     public function setNimAttribute($value)
@@ -33,9 +34,9 @@ class User extends Authenticatable
         $this->attributes['nim'] = $value;
 
         if (strlen($value) == 18) {
-            $this->attributes['role'] = 'admin';
+            $this->attributes['role'] = 'dosenpa';
         } elseif (strlen($value) == 5) {
-            $this->attributes['role'] = 'superadmin';
+            $this->attributes['role'] = 'adminprodi';
         } else {
             $this->attributes['role'] = 'mahasiswa';
         }

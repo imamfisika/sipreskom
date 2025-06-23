@@ -55,50 +55,38 @@ class UserService
         return back()->withErrors(['error' => 'Login akun gagal, NIM atau password salah.']);
     }
 
-    private function redirectToDashboard(User $user)
+    private function redirectToDashboard($user)
     {
-        $routes = [
-            'dosenpa'     => 'dosenpa.dashboard',
-            'mahasiswa'   => 'mahasiswa.dashboard',
-            'adminprodi'  => 'adminprodi.dashboard',
-        ];
+        $nimLength = strlen($user->nim);
 
-        if (isset($routes[$user->role])) {
-            return redirect()->route($routes[$user->role])
-                ->with('success', 'Login berhasil sebagai ' . ucfirst($user->role) . '.');
+        $route = match ($nimLength) {
+            18 => 'dosenpa.dashboard',
+            10 => 'mahasiswa.dashboard',
+            5  => 'adminprodi.dashboard',
+            default => null,
+        };
+
+        if ($route) {
+            return redirect()->route($route)->with('success', 'Login berhasil.');
         }
 
         Auth::logout();
-        return back()->withErrors(['error' => 'Role tidak valid.']);
+        return back()->withErrors(['error' => 'NIM tidak dikenali.']);
     }
-
-
-    // private function handleRoleRedirect($user)
-    // {
-    //     $routes = [
-    //         'dosenpa' => 'dosenpa.dashboard',
-    //         'mahasiswa' => 'mahasiswa.dashboard',
-    //         'adminprodi' => 'adminprodi.dashboard',
-    //     ];
-
-    //     if (isset($routes[$user->role])) {
-    //         return redirect()->route($routes[$user->role])
-    //             ->with('success', 'Login berhasil sebagai ' . ucfirst($user->role) . '.');
-    //     }
-
-    //     Auth::logout();
-    //     return back()->withErrors(['error' => 'Role tidak valid.']);
-    // }
 
     public function getUser($request)
     {
+
         $validated = $request->validate([
-            'id' => 'required|exists:users,id',
+            'id' => 'required',
         ]);
 
         $user = User::find($validated['id']);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
 
-        return response()->json($user);
+        return $user;
     }
 
     public function deleteUser($request)
