@@ -1,4 +1,4 @@
-@if (auth()->user()->role === 'admin')
+@if (auth()->user()->role === 'dosen')
 
     <x-layout>
         <x-slot name="title">Dashboard</x-slot>
@@ -441,7 +441,7 @@
 
         <br><br><br>
     </x-layout>
-@elseif(auth()->user()->role === 'superadmin')
+@elseif(auth()->user()->role === 'adminprodi')
 <x-layout>
 
     @if (session('success'))
