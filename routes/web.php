@@ -24,8 +24,6 @@ use App\Http\Controllers\UserController;
 
 //Route::get('/', fn() => view(view: 'auth.login'))->name('login');
 
-// Route::get('/login', action: [LoginController::class, 'index'])->name('login');
-// Route::post('/login', action: [LoginController::class, 'form'])->name('login.form');
 
 
 // Route::get('/register', [RegisterController::class, 'index'])->name('register');
@@ -36,6 +34,8 @@ use App\Http\Controllers\UserController;
 
 Route::get('/register', [UserController::class, 'viewRegister']);
 Route::post('/register', [UserController::class, 'register']);
+Route::get('/login', action: [UserController::class, 'viewLogin']);
+Route::post('/login', action: [UserController::class, 'login']);
 Route::get('/get-user/{id}', [UserController::class, 'getById']);
 Route::delete('/delete-user/{id}', [UserController::class, 'delete']);
 Route::put('/users/{id}', [UserController::class, 'update']);

@@ -30,20 +30,20 @@ class UserController extends Controller {
 
         return view('auth.login')->with('success', 'Akun berhasil dibuat. Silakan login.');
     }
-    // public function login(Request $request) {
-    //     $request->validate([
-    //         'nim' => 'required|string',
-    //         'password' => 'required|string',
-    //     ]);
+    public function login(Request $request) {
+        $request->validate([
+            'nim' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-    //     $credentials = ['nim' => $request->nim, 'password' => $request->password];
+        $credentials = ['nim' => $request->nim, 'password' => $request->password];
 
-    //     if (Auth::attempt($credentials)) {
-    //         return redirect()->route('dashboard')->with('success', 'Login akun berhasil.');
-    //     }
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('dashboard')->with('success', 'Login akun berhasil.');
+        }
 
-    //     return back()->withErrors(['nim' => 'NIM tidak terdaftar.']);
-    // }
+        return back()->withErrors(['nim' => 'NIM tidak terdaftar.']);
+    }
 
     public function getById(Request $request, $id) {
         $user = User::find($id);

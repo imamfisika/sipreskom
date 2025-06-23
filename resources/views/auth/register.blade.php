@@ -103,7 +103,7 @@
         {{-- Halaman Login --}}
         <p class="pt-5 text-sm text-center font-light text-gray-500">
             Sudah memiliki akun?
-            <a href="/" class="font-semibold text-teal-700 hover:underline">Login</a>
+            <a href="login" class="font-semibold text-teal-700 hover:underline">Login</a>
         </p>
     </div>
 </x-form>
