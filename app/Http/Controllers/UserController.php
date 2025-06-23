@@ -32,18 +32,16 @@ class UserController extends Controller {
         }
     }
     public function login(Request $request) {
-        $request->validate([
-            'nim' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        {
+            $userService = new UserService();
+            $user = $userService->login($request);
 
-        $credentials = ['nim' => $request->nim, 'password' => $request->password];
+            if ($user) {
+                return redirect()->route('dashboard')->with('success', 'Login akun berhasil.');
+            }
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', 'Login akun berhasil.');
+            return back()->withErrors(['error' => 'Login akun gagal, NIM atau password salah.']);
         }
-
-        return back()->withErrors(['nim' => 'NIM tidak terdaftar.']);
     }
 
     public function getById(Request $request, $id) {

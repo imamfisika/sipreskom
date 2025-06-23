@@ -40,8 +40,15 @@ class UserService
 
     public function login($request)
     {
+        $validated = $request->validate([
+            'nim' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-        $credentials = $request->only('nim', 'password');
+        $credentials = [
+            'nim' => $validated['nim'],
+            'password' => $validated['password'],
+        ];
 
         if (Auth::attempt($credentials)) {
             return Auth::user();
