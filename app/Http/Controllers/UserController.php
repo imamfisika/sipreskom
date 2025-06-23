@@ -24,11 +24,12 @@ class UserController extends Controller {
         $userService = new UserService();
         $success = $userService->register($request);
 
+        if ($success) {
+            return redirect()->route('login')->with('success', 'Akun berhasil dibuat. Silakan login.');
+        }
         if (!$success) {
             return back()->withErrors(['error' => 'Pendaftaran gagal. Silakan coba lagi.']);
         }
-
-        return view('auth.login')->with('success', 'Akun berhasil dibuat. Silakan login.');
     }
     public function login(Request $request) {
         $request->validate([

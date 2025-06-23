@@ -9,22 +9,26 @@
         <form method="POST" action="/login">
             @csrf
 
-            {{-- Error --}}
-            @error('nim')
-                <p class="text-red-500 text-sm">{{ $message }}</p>
-            @enderror
 
+            @if (session('success'))
+                <div class="alert alert-success mb-2 text-green-600">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger mb-2 text-red-600">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
             {{-- Nim --}}
             <div>
                 <label for="nim" class="block my-3 text-sm font-medium text-gray-900">
                     Nomor Induk Mahasiswa
                 </label>
-                <input
-                    type="text"
-                    name="nim"
-                    id="nim"
-                    required
-                    value="{{ old('nim') }}"
+                <input type="text" name="nim" id="nim" required value="{{ old('nim') }}"
                     class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                            focus:ring-indigo-700 focus:border-indigo-700 block w-full p-2.5">
             </div>
@@ -34,11 +38,7 @@
                 <label for="password" class="block my-3 text-sm font-medium text-gray-900">
                     Password
                 </label>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    required
+                <input type="password" name="password" id="password" required
                     class="mb-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                            focus:ring-indigo-700 focus:border-indigo-700 block w-full p-2.5">
             </div>

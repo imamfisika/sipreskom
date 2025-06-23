@@ -34,7 +34,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/register', [UserController::class, 'viewRegister']);
 Route::post('/register', [UserController::class, 'register']);
-Route::get('/login', action: [UserController::class, 'viewLogin']);
+Route::get('/login', action: [UserController::class, 'viewLogin'])->name('login');
 Route::post('/login', action: [UserController::class, 'login']);
 Route::get('/get-user/{id}', [UserController::class, 'getById']);
 Route::delete('/delete-user/{id}', [UserController::class, 'delete']);
