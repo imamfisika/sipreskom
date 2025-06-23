@@ -8,13 +8,16 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Service\UserService;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
 
-    public function viewRegister() {
+    public function viewRegister()
+    {
         return view('auth.register');
     }
 
-    public function viewLogin() {
+    public function viewLogin()
+    {
         return view('auth.login');
     }
 
@@ -31,20 +34,20 @@ class UserController extends Controller {
             return back()->withErrors(['error' => 'Pendaftaran gagal. Silakan coba lagi.']);
         }
     }
-    public function login(Request $request) {
-        {
-            $userService = new UserService();
-            $user = $userService->login($request);
+    public function login(Request $request)
+    {
+        $userService = new UserService();
+        $user = $userService->login($request);
 
-            if ($user) {
-                return redirect()->route('dashboard')->with('success', 'Login akun berhasil.');
-            }
-
-            return back()->withErrors(['error' => 'Login akun gagal, NIM atau password salah.']);
+        if ($user) {
+            return redirect()->route('dashboard')->with('success', 'Login akun berhasil.');
         }
+
+        return back()->withErrors(['error' => 'Login akun gagal, NIM atau password salah.']);
     }
 
-    public function getById(Request $request, $id) {
+    public function getById(Request $request, $id)
+    {
         $user = User::find($id);
 
         if (!$user) {
@@ -54,12 +57,14 @@ class UserController extends Controller {
         return response()->json($user);
     }
 
-    public function getAll(Request $request) {
+    public function getAll(Request $request)
+    {
         $users = User::all();
         return response()->json($users);
     }
 
-    public function delete(Request $request, $id) {
+    public function delete(Request $request, $id)
+    {
         $user = User::find($id);
 
         if (!$user) {
@@ -70,7 +75,8 @@ class UserController extends Controller {
         return response()->json(['message' => 'Akun berhasil dihapus.']);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $user = User::find($id);
 
         if (!$user) {
