@@ -6,10 +6,8 @@
     <div class="w-1/2 px-48 place-content-center">
         <div class="text-3xl font-bold py-2 mb-12">Silakan Login</div>
 
-        <form method="POST" action="/login">
+        <form method="POST" action="{{ route('login.form') }}">
             @csrf
-
-
             @if (session('success'))
                 <div class="alert alert-success mb-2 text-green-600">
                     {{ session('success') }}
@@ -54,7 +52,7 @@
             {{-- Halaman Registrasi --}}
             <p class="pt-5 text-sm text-center font-light text-gray-500">
                 Belum memiliki akun?
-                <a href="register" class="font-semibold text-teal-700 hover:underline">Register</a>
+                <a href="{{ route('register') }}" class="font-semibold text-teal-700 hover:underline">Register</a>
             </p>
         </form>
     </div>

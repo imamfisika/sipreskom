@@ -8,7 +8,6 @@ use App\Service\UserService;
 
 class UserController extends Controller
 {
-
     public function viewRegister()
     {
         return view('auth.register');
@@ -19,7 +18,6 @@ class UserController extends Controller
         return view('auth.login');
     }
 
-
     public function register(Request $request)
     {
         $userService = new UserService();
@@ -29,11 +27,12 @@ class UserController extends Controller
             ? redirect()->route('login')->with('success', 'Akun berhasil didaftarkan. Silakan login.')
             : back()->withErrors(['error' => 'Pendaftaran gagal. Silakan coba lagi.']);
     }
+
     public function login(Request $request)
-{
-    $userService = new UserService();
-    return $userService->login($request);
-}
+    {
+        $userService = new UserService();
+        return $userService->login($request);
+    }
 
     public function getById(Request $request, $id)
     {

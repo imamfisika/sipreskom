@@ -57,21 +57,17 @@ class UserService
 
     private function redirectToDashboard($user)
     {
-        $nimLength = strlen($user->nim);
-
-        $route = match ($nimLength) {
-            18 => 'dosenpa.dashboard',
-            10 => 'mahasiswa.dashboard',
-            5  => 'adminprodi.dashboard',
-            default => null,
-        };
-
-        if ($route) {
-            return redirect()->route($route)->with('success', 'Login berhasil.');
+        switch ($user->role) {
+            case 'mahasiswa':
+                return redirect()->route('mahasiswa.dashboard')->with('success', 'Login berhasil.');
+            case 'dosenpa':
+                return redirect()->route('dosenpa.dashboard')->with('success', 'Login berhasil.');
+            case 'adminprodi':
+                return redirect()->route('adminprodi.dashboard')->with('success', 'Login berhasil.');
+            default:
+                Auth::logout();
+                return back()->withErrors(['error' => 'Role tidak dikenali.']);
         }
-
-        Auth::logout();
-        return back()->withErrors(['error' => 'NIM tidak dikenali.']);
     }
 
     public function getUser($request)

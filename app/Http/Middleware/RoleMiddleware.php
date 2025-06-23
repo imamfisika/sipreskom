@@ -7,24 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    public function handle($request, Closure $next, $expectedRole)
+    public function handle($request, Closure $next, $role)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-
-        $user = Auth::user();
-        $nimLength = strlen($user->nim);
-
-        $actualRole = match ($nimLength) {
-            18 => 'dosenpa',
-            10 => 'mahasiswa',
-            5  => 'adminprodi',
-            default => null,
-        };
-
-        if ($actualRole !== $expectedRole) {
-            abort(403, 'Akses ditolak: Anda tidak punya izin.');
+        if (!Auth::check() || Auth::user()->role !== $role) {
+            abort(403, 'Unauthorized');
         }
 
         return $next($request);

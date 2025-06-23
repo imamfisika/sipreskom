@@ -6,7 +6,7 @@
     <div class="w-1/2 px-48 place-content-center">
         <div class="text-3xl font-bold py-2 mb-12">Silakan Registrasi Akun</div>
 
-        <form method="POST" action="/register">
+        <form method="POST" action="{{ route('register.store') }}>
             @csrf
 
             {{-- Nama --}}
@@ -103,7 +103,7 @@
         {{-- Halaman Login --}}
         <p class="pt-5 text-sm text-center font-light text-gray-500">
             Sudah memiliki akun?
-            <a href="login" class="font-semibold text-teal-700 hover:underline">Login</a>
+            <a href="{{ route('login') }}" class="font-semibold text-teal-700 hover:underline">Login</a>
         </p>
     </div>
 </x-form>

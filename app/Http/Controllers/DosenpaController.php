@@ -8,6 +8,6 @@ class DosenpaController extends Controller
 {
     public function viewDosenpa()
     {
-        return view('dosenpa.dashboard');
+        return view('dosen.dashboard');
     }
 }
