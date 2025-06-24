@@ -1,7 +1,7 @@
 <aside id="separator-sidebar" class="h-screen fixed top-0 left-0 z-40 w-72">
     <div class="h-full px-3 py-4 overflow-y-auto bg-linear-to-bl from-teal-950 to-teal-700 border-r-1">
-        <div class="mt-2 ml-5 pt-5 pb-8 font-black text-2xl text-white">
-            <a href="dashboard">
+        <div class="mt-2 ml-5 pt-5 pb-8 font-bold text-2xl text-white">
+            <a href="{{ route('mahasiswa.dashboard') }}">
                 {{ config('app.name') }}
             </a>
         </div>
@@ -12,19 +12,19 @@
                 </div>
             </li>
             <li>
-                <a href="{{ route('dashboard') }}"
+                <a href="{{ route('mahasiswa.dashboard') }}"
                     class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('dashboard') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
                     <i class="fa fa-pie-chart" style="font-size:21px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Dashboard</span></a>
             </li>
             <li>
-                <a href="{{ route('prestasi-akademik') }}"
+                <a href="#"
                     class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('prestasi-akademik') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
                     <i class="fa fa-trophy" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Prestasi Akademik</span></a>
             </li>
             <li>
-                <a href="{{ route('rekomendasi') }}"
+                <a href="#"
                     class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('rekomendasi') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
                     <svg
                         class="shrink-0 w-5 h-5 text-gray-200 transition duration-75" aria-hidden="true"
@@ -42,19 +42,19 @@
                 </div>
             </li>
             <li>
-                <a href="{{ route('profil') }}"
+                <a href="#"
                     class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('profil') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
                     <i class="fa fa-user" style="font-size:25px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Profil Saya</span></a>
             </li>
             <li>
-                <a href="{{ route('login') }}"
+                <a href="#"
                     onclick="event.preventDefault(); if(confirm('Apakah Anda yakin ingin logout?')) { document.getElementById('logout-form').submit(); }"
                     class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer">
                     <i class="fa fa-sign-out" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Logout</span>
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="# " method="POST" style="display: none;">
                     @csrf
                 </form>
             </li>

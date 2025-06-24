@@ -21,7 +21,6 @@
                     @endforeach
                 </div>
             @endif
-            {{-- Nim --}}
             <div>
                 <label for="nim" class="block my-3 text-sm font-medium text-gray-900">
                     Nomor Induk Mahasiswa
@@ -31,7 +30,6 @@
                            focus:ring-indigo-700 focus:border-indigo-700 block w-full p-2.5">
             </div>
 
-            {{-- Password --}}
             <div>
                 <label for="password" class="block my-3 text-sm font-medium text-gray-900">
                     Password
@@ -41,7 +39,6 @@
                            focus:ring-indigo-700 focus:border-indigo-700 block w-full p-2.5">
             </div>
 
-            {{-- Login --}}
             <button type="submit"
                 class="w-full bg-teal-900 text-white py-3 rounded-md hover:bg-teal-950
                        focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1
@@ -49,7 +46,10 @@
                 {{ __('Login') }}
             </button>
 
-            {{-- Halaman Registrasi --}}
+            @error('login')
+                <div>{{ $message }}</div>
+            @enderror
+
             <p class="pt-5 text-sm text-center font-light text-gray-500">
                 Belum memiliki akun?
                 <a href="{{ route('register') }}" class="font-semibold text-teal-700 hover:underline">Register</a>

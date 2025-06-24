@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -41,18 +42,27 @@ class UserService
         return $user->save();
     }
 
-    public function login($request)
+    public function login(Request $request)
     {
-        $validated = $request->validate([
-            'nim' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $credentials = $request->only('nim', 'password');
 
-        if (Auth::attempt($validated)) {
-            return $this->redirectToDashboard(Auth::user());
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            switch ($user->role) {
+                case 'adminprodi':
+                    return redirect()->route('admin.dashboard');
+                case 'dosenpa':
+                    return redirect()->route('dosen.dashboard');
+                case 'mahasiswa':
+                    return redirect()->route('mahasiswa.dashboard');
+                default:
+                    Auth::logout();
+                    return redirect()->route('login')->withErrors(['login' => 'Role tidak dikenali.']);
+            }
         }
 
-        return back()->withErrors(['error' => 'Login akun gagal, NIM atau password salah.']);
+        return back()->withErrors(['login' => 'Login akun gagal, NIM atau password salah.']);
     }
 
     private function redirectToDashboard($user)

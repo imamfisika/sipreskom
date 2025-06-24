@@ -26,19 +26,19 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
     Route::get('/dashboard/admin', [AdminprodiController::class, 'viewAdminprodi'])->name('adminprodi.dashboard');
 });
 
-Route::get('/dashboard2', function() {
-    return view('test');
-});
+// Route::get('/dashboard2', function() {
+//     return view('test');
+// });
 
-Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
-    // Place routes here that require authentication and a specific role
-    // Example:
-    // Route::get('/dashboard', [SomeController::class, 'dashboard'])->name('dashboard');
-    
-
-    Route::get('/dashboard1', function() {
-        return view ('test');
-    });
+// Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
+//     // Place routes here that require authentication and a specific role
+//     // Example:
+//     // Route::get('/dashboard', [SomeController::class, 'dashboard'])->name('dashboard');
 
 
-});
+//     Route::get('/dashboard1', function() {
+//         return view ('test');
+//     });
+
+
+// });

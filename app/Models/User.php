@@ -2,24 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Akademik;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Akademik;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasFactory, Notifiable;
 
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'nama',
         'nim',
@@ -29,44 +21,34 @@ class User extends Authenticatable
         'role',
     ];
 
-    public function setNimAttribute($value)
-    {
-        $this->attributes['nim'] = $value;
-
-        if (strlen($value) == 18) {
-            $this->attributes['role'] = 'dosenpa';
-        } elseif (strlen($value) == 5) {
-            $this->attributes['role'] = 'adminprodi';
-        } else {
-            $this->attributes['role'] = 'mahasiswa';
-        }
-    }
-
-    public function getFotoUrlAttribute()
-    {
-        return $this->foto ? asset('storage/' . $this->foto) : asset('images/profil.jpg');
-    }
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    public function setNimAttribute($value)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        $this->attributes['nim'] = $value;
+
+        $this->attributes['role'] = match (strlen($value)) {
+            18 => 'dosenpa',
+            5  => 'adminprodi',
+            default => 'mahasiswa',
+        };
     }
+
+    public function getFotoUrlAttribute(): string
+    {
+        return $this->foto
+            ? asset('storage/' . $this->foto)
+            : asset('images/profil.jpg');
+    }
+
     public function akademik()
     {
         return $this->hasOne(Akademik::class, 'nim', 'nim');

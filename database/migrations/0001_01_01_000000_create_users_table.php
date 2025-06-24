@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('nim')->unique();
             $table->string('email')->unique();
             $table->string('foto')->nullable();
-            $table->enum('role', ['mahasiswa', 'dosenpa', 'adminprodi'])->default('mahasiswa');
+            $table->enum('role', ['mahasiswa', 'adminprodi', 'dosenpa']);
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

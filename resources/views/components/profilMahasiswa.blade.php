@@ -1,4 +1,4 @@
-<div class="flex items-center">
+{{-- <div class="flex items-center">
     <div class="w-32 overflow-hidden bg-gray-100 rounded-full">
         <img src="{{ $user->foto_url }}" class="object-cover w-full h-full aspect-square">
     </div>
@@ -9,5 +9,16 @@
             <div class="text-gray-500">Ilmu Komputer 20{{ substr($user->nim, 5, 2) }}</div>
         @endif
         <div class="text-gray-500">{{ $user->email }}</div>
+    </div>
+</div> --}}
+<div class="flex items-center">
+    <div class="w-32 overflow-hidden bg-gray-100 rounded-full">
+        <img src="/path/to/static/image.jpg" class="object-cover w-full h-full aspect-square">
+    </div>
+    <div class="ml-6 leading-7 truncate overflow-hidden text-ellipsis">
+        <div class="font-bold text-gray-900">John Doe</div>
+        <div class="text-gray-500">123456789</div>
+        <div class="text-gray-500">Ilmu Komputer 2020</div>
+        <div class="text-gray-500">johndoe@example.com</div>
     </div>
 </div>

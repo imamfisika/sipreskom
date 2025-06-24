@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
-@if(session('success'))
+@if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
@@ -33,7 +33,7 @@
                 </div>
             </header>
             @endisset
-            @if(auth()->user()->role === 'mahasiswa')
+            @if (auth()->user()->role === 'mahasiswa')
             @include('components.sidebarMhs')
             @elseif(auth()->user()->role === 'admin')
             @include('components.sidebarDsn')
@@ -51,30 +51,23 @@
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'SIPRESKOM')</title>
 
-    {{-- Bootstrap CSS --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- Custom CSS (jika ada) --}}
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
 
-    {{-- Navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="#">SIPRESKOM</a>
-            @auth
-                <div class="ms-auto text-white">
-                    Selamat datang, {{ Auth::user()->nama }} ({{ Auth::user()->role }})
-                </div>
-            @endauth
-        </div>
-    </nav>
+    @include('components.sidebarMahasiswa')
 
     {{-- Flash Message --}}
     <div class="container">
@@ -92,12 +85,12 @@
         @endif
     </div>
 
-    {{-- Main Content --}}
-    <main class="container">
+    <main class="sm:ml-64 pl-20 pt-12 pr-12 overflow-auto">
         @yield('content')
     </main>
 
     {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
