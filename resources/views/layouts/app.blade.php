@@ -66,9 +66,6 @@
 </head>
 
 <body>
-
-    @include('components.sidebarMahasiswa')
-
     {{-- Flash Message --}}
     <div class="container">
         @if (session('success'))

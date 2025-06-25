@@ -16,9 +16,9 @@
         <img src="/path/to/static/image.jpg" class="object-cover w-full h-full aspect-square">
     </div>
     <div class="ml-6 leading-7 truncate overflow-hidden text-ellipsis">
-        <div class="font-bold text-gray-900">John Doe</div>
+        <div class="font-bold text-gray-900">Fulan Fulanah</div>
         <div class="text-gray-500">123456789</div>
         <div class="text-gray-500">Ilmu Komputer 2020</div>
-        <div class="text-gray-500">johndoe@example.com</div>
+        <div class="text-gray-500">fulanf@gmail.com</div>
     </div>
 </div>

@@ -1,6 +1,9 @@
-@extends('layouts.appMahasiswa')
+@extends('layouts.app')
 
 @section('content')
+
+@include('components.sidebarMahasiswa')
+
     <div class="text-3xl font-semibold mb-12">Dashboard Mahasiswa</div>
 
     <div class="grid grid-cols-5 grid-rows-3 gap-6 mb-8">
