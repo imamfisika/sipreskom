@@ -6,10 +6,9 @@
     <div class="w-1/2 px-48 place-content-center">
         <div class="text-3xl font-bold py-2 mb-12">Silakan Registrasi Akun</div>
 
-        <form method="POST" action="{{ route('register.store') }}>
+        <form method="POST" action="{{ route('register.store') }}">
             @csrf
 
-            {{-- Nama --}}
             <div>
                 <label for="nama" class="block my-3 text-sm font-medium text-gray-900">
                     Nama Lengkap
@@ -26,7 +25,6 @@
                 @enderror
             </div>
 
-            {{-- NIM --}}
             <div>
                 <label for="nim" class="block my-3 text-sm font-medium text-gray-900">
                     Nomor Induk Mahasiswa/Pegawai
@@ -43,7 +41,6 @@
                 @enderror
             </div>
 
-            {{-- Email --}}
             <div>
                 <label for="email" class="block my-3 text-sm font-medium text-gray-900">
                     Alamat Email
@@ -60,7 +57,6 @@
                 @enderror
             </div>
 
-            {{-- Password --}}
             <div>
                 <label for="password" class="block my-3 text-sm font-medium text-gray-900">
                     Password
@@ -77,7 +73,6 @@
                 @enderror
             </div>
 
-            {{-- Konfirmasi Password --}}
             <div>
                 <label for="password_confirmation" class="block my-3 text-sm font-medium text-gray-900">
                     Konfirmasi Password
@@ -91,7 +86,6 @@
                            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             </div>
 
-            {{-- Submit --}}
             <button type="submit"
                 class="block w-full bg-teal-900 text-white py-3 rounded-md hover:bg-teal-950
                        focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1
@@ -100,7 +94,6 @@
             </button>
         </form>
 
-        {{-- Halaman Login --}}
         <p class="pt-5 text-sm text-center font-light text-gray-500">
             Sudah memiliki akun?
             <a href="{{ route('login') }}" class="font-semibold text-teal-700 hover:underline">Login</a>
