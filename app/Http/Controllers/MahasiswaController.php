@@ -10,4 +10,8 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswa.dashboard');
     }
+    public function viewPrestasiAkademik()
+    {
+        return view('mahasiswa.prestasi-akademik.index');
+    }
 }

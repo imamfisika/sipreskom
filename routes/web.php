@@ -26,6 +26,12 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
     Route::get('/dashboard/admin', [AdminprodiController::class, 'viewAdminprodi'])->name('adminprodi.dashboard');
 });
 
+
+Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
+    Route::get('/mahasiswa/prestasi-akademik', [MahasiswaController::class, 'viewPrestasiAkademik'])->name('mahasiswa.prestasi-akademik.index');
+});
+
+
 // Route::get('/dashboard2', function() {
 //     return view('test');
 // });

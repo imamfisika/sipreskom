@@ -18,7 +18,7 @@
                     <span class="flex-1 ml-4 whitespace-nowrap">Dashboard</span></a>
             </li>
             <li>
-                <a href="#"
+                <a href="{{ route('mahasiswa.prestasi-akademik.index') }}"
                     class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('prestasi-akademik') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
                     <i class="fa fa-trophy" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Prestasi Akademik</span></a>
