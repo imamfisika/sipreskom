@@ -15,20 +15,24 @@ Route::post('/register', [UserController::class, 'register'])->name('register.st
 
 
 Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
-    Route::get('/dashboard/mahasiswa', [MahasiswaController::class, 'viewMahasiswa'])->name('mahasiswa.dashboard');
+    Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'viewMahasiswa'])->name('mahasiswa.dashboard');
 });
 
 Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {
-    Route::get('/dashboard/dosen', [DosenpaController::class, 'viewDosenpa'])->name('dosenpa.dashboard');
+    Route::get('/dosenpa/dashboard', [DosenpaController::class, 'viewDosenpa'])->name('dosenpa.dashboard');
 });
 
 Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
-    Route::get('/dashboard/admin', [AdminprodiController::class, 'viewAdminprodi'])->name('adminprodi.dashboard');
+    Route::get('/adminprodi/kelola-pengguna', [AdminprodiController::class, 'viewAdminprodi'])->name('adminprodi.dashboard');
 });
 
 
 Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
     Route::get('/mahasiswa/prestasi-akademik', [MahasiswaController::class, 'viewPrestasiAkademik'])->name('mahasiswa.prestasi-akademik.index');
+});
+
+Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
+    Route::get('/adminprodi/kelola-prestasi-akademik', [AdminprodiController::class, 'viewPrestasiAkademik'])->name('adminprodi.prestasi-akademik.index');
 });
 
 

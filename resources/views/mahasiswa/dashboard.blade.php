@@ -14,7 +14,7 @@
             <div class="text-xl font-semibold text-left mb-4">
                 Selamat Datang,
             </div>
-            <div class="text-l">
+            <div class="text-normal">
                 Yuk pantau dan selalu tingkatkan prestasi akademik Anda melalui SIPRESKOM.
             </div>
         </div>
@@ -145,5 +145,6 @@
 
         </div>
     </div>
-    <br><br><br>
+    <br><br>
+
 @endsection

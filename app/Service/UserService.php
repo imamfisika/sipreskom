@@ -51,7 +51,7 @@ class UserService
 
             switch ($user->role) {
                 case 'adminprodi':
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('adminprodi.dashboard');
                 case 'dosenpa':
                     return redirect()->route('dosen.dashboard');
                 case 'mahasiswa':

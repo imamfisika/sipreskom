@@ -8,6 +8,10 @@ class AdminprodiController extends Controller
 {
     public function viewAdminprodi()
     {
-        return view('admin.dashboard');
+        return view('adminprodi.dashboard');
+    }
+    public function viewPrestasiAkademik()
+    {
+        return view('adminprodi.prestasi-akademik.index');
     }
 }

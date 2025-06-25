@@ -7,25 +7,25 @@
         </div>
         <ul class="space-y-2">
             <li>
-                <div class="flex items-center p-2 mt-5 ml-3 mb-3 font-black text-gray-300 text-sm">
+                <div class="flex items-center p-2 mt-5 ml-3 mb-3 font-extrabold text-gray-300 text-sm">
                     MAIN MENU
                 </div>
             </li>
             <li>
                 <a href="{{ route('mahasiswa.dashboard') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('dashboard') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.dashboard') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-pie-chart" style="font-size:21px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Dashboard</span></a>
             </li>
             <li>
                 <a href="{{ route('mahasiswa.prestasi-akademik.index') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('prestasi-akademik') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.prestasi-akademik.index') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-trophy" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Prestasi Akademik</span></a>
             </li>
             <li>
                 <a href="#"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('rekomendasi') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('#') ? 'text-white font-semibold' : '' }}">
                     <svg
                         class="shrink-0 w-5 h-5 text-gray-200 transition duration-75" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -43,7 +43,7 @@
             </li>
             <li>
                 <a href="#"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('profil') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('#') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-user" style="font-size:25px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Profil Saya</span></a>
             </li>
