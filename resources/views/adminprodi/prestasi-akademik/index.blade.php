@@ -4,5 +4,5 @@
 
 @section('content')
 
-    @include('components.sidebarAdminprodi')
-    @endsection
+    @include('components.sidebar.adminprodi')
+@endsection

@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('components.sidebarMahasiswa')
+    @include('components.sidebar.mahasiswa')
 
     <div class="text-3xl font-bold mb-12">Dashboard Mahasiswa</div>
 
@@ -24,7 +24,7 @@
         <div class="col-span-2 row-span-3 col-start-4 bg-white shadow-sm rounded-2xl pt-8 text-left border border-gray-300">
             <div class="text-center mb-6 text-xl font-bold">Profil Saya</div>
             <div class="pl-12 mb-6 pr-10">
-                @include('components.profilMahasiswa')
+                @include('components.profile.mahasiswa')
             </div>
             <div class="pl-12">
 
@@ -121,27 +121,27 @@
         <div class="pt-8 pb-12 text-center text-xl font-bold">Grafik Akademik</div>
         <div class="grid grid-cols-2 gap-6 pb-8 mx-12 items-center">
 
-        <x-ipk-chart :user="$user" :ip-data="[
-            ['semester' => 'Semester 1', 'ip' => 3.5],
-            ['semester' => 'Semester 2', 'ip' => 3.7],
-            ['semester' => 'Semester 3', 'ip' => 3.8],
-            ['semester' => 'Semester 4', 'ip' => 3.6],
-        ]" :ip-avg-data="[
-            ['semester' => 'Semester 1', 'ip' => 3.4],
-            ['semester' => 'Semester 2', 'ip' => 3.5],
-            ['semester' => 'Semester 3', 'ip' => 3.6],
-            ['semester' => 'Semester 4', 'ip' => 3.5],
-        ]" />
-        <div class="h-fit bg-gray-100 text-black border border-gray-400 rounded-lg p-8 text-left">
-            <div class="text-md leading-7">
-            Pada <strong>Semester 4</strong>, IP Anda adalah
-            <strong>3.6</strong>, yang berada
-            <strong>di atas rata-rata</strong> dibandingkan rata-rata IP seluruh mahasiswa yaitu
-            <strong>3.5</strong>.
-            Tren IP mahasiswa saat ini <strong>menurun</strong> dibandingkan semester
-            sebelumnya.
+            <x-ipk-chart :user="$user" :ip-data="[
+                ['semester' => 'Semester 1', 'ip' => 3.5],
+                ['semester' => 'Semester 2', 'ip' => 3.7],
+                ['semester' => 'Semester 3', 'ip' => 3.8],
+                ['semester' => 'Semester 4', 'ip' => 3.6],
+            ]" :ip-avg-data="[
+                ['semester' => 'Semester 1', 'ip' => 3.4],
+                ['semester' => 'Semester 2', 'ip' => 3.5],
+                ['semester' => 'Semester 3', 'ip' => 3.6],
+                ['semester' => 'Semester 4', 'ip' => 3.5],
+            ]" />
+            <div class="h-fit bg-gray-100 text-black border border-gray-400 rounded-lg p-8 text-left">
+                <div class="text-md leading-7">
+                    Pada <strong>Semester 4</strong>, IP Anda adalah
+                    <strong>3.6</strong>, yang berada
+                    <strong>di atas rata-rata</strong> dibandingkan rata-rata IP seluruh mahasiswa yaitu
+                    <strong>3.5</strong>.
+                    Tren IP mahasiswa saat ini <strong>menurun</strong> dibandingkan semester
+                    sebelumnya.
+                </div>
             </div>
-        </div>
 
         </div>
     </div>

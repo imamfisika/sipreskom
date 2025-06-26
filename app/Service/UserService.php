@@ -53,7 +53,7 @@ class UserService
                 case 'adminprodi':
                     return redirect()->route('adminprodi.dashboard');
                 case 'dosenpa':
-                    return redirect()->route('dosen.dashboard');
+                    return redirect()->route('dosenpa.dashboard');
                 case 'mahasiswa':
                     return redirect()->route('mahasiswa.dashboard');
                 default:

@@ -25,9 +25,8 @@
             </li>
             <li>
                 <a href="{{ route('mahasiswa.rekomendasi') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('#') ? 'text-white font-semibold' : '' }}">
-                    <svg
-                        class="shrink-0 w-5 h-5 text-gray-200 transition duration-75" aria-hidden="true"
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.rekomendasi') ? 'text-white font-semibold' : '' }}">
+                    <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path
                             d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
@@ -37,7 +36,7 @@
         </ul>
         <ul class="pt-4 mt-10 font-medium border-t-1 border-gray-400 space-y-2">
             <li>
-                <div class="flex items-center p-2 mt-6 mb-3 ml-3 font-black text-gray-300 text-sm">
+                <div class="flex items-center p-2 mt-6 mb-3 ml-3 font-extrabold text-gray-300 text-sm">
                     SETTING
                 </div>
             </li>

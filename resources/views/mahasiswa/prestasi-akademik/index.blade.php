@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @include('components.sidebarMahasiswa')
+    @include('components.sidebar.mahasiswa')
 
     <div class="mx-32">
         <div class="text-3xl font-bold mb-6">

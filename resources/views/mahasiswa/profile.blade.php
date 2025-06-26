@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @include('components.sidebarMahasiswa')
+    @include('components.sidebar.mahasiswa')
 
     <div class="mx-32">
         <div class="text-3xl font-bold mb-12">
@@ -13,7 +13,7 @@
 
         <div class="bg-white shadow-sm rounded-2xl border border-gray-300 pb-12">
             <div class="border-b border-gray-300 py-10 grid place-items-center">
-                @include('components.profilMahasiswa', ['user' => $user])
+                @include('components.profile.mahasiswa', ['user' => $user])
             </div>
 
             <div class="mx-32 mt-12 py-12 px-16 border rounded-2xl">
@@ -43,8 +43,8 @@
                                 disabled>
                         </div>
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-2">SKS Lulus</div>
-                            <input type="text" value="120"
+                            <div class="text-gray-600 mb-2">Email</div>
+                            <input type="text" value="johndoe@gmail.com"
                                 class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal"
                                 disabled>
                         </div>
@@ -56,6 +56,10 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal">
                         </div>
                         <div class="w-1/2">
+                            <div class="text-gray-600 mb-2">SKS Lulus</div>
+                            <input type="text" value="120"
+                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal"
+                                disabled>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @include('components.sidebarAdminprodi')
+    @include('components.sidebar.adminprodi')
 
     <div class="mx-32">
         <div class="text-3xl font-bold mb-12">
@@ -12,15 +12,15 @@
 
         <div class="flex flex-row gap-6 items-center mb-8 ">
 
-            <div class="text-2xl font-semibold">Pilih role : </div>
+            <div class="text-xl font-semibold">Pilih role : </div>
 
             <div class="inline-flex shadow-xs" role="group">
                 <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'dosen']) }}" type="button"
-                    class="px-5 py-3 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-teal-700 focus:z-10 focus:ring-2 focus:ring-teal-700 focus:text-teal-700">
+                    class="px-5 py-3 text-sm font-medium {{ request('role') === 'dosen' ? 'text-white bg-teal-700' : 'text-gray-900 bg-white' }} border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-teal-700 focus:z-10 focus:ring-2 focus:ring-teal-700 focus:text-teal-700">
                     Dosen
                 </a>
                 <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'mahasiswa']) }}" type="button"
-                    class="px-5 py-3 text-sm font-medium text-gray-900 bg-white border border-gray-300 border-l-0 rounded-e-lg hover:bg-gray-100 hover:text-teal-700 focus:z-10 focus:ring-2 focus:ring-teal-700 focus:text-teal-700">
+                    class="px-5 py-3 text-sm font-medium {{ request('role') === 'mahasiswa' ? 'text-white bg-teal-700' : 'text-gray-900 bg-white' }} border border-gray-300 border-l-0 rounded-e-lg hover:bg-gray-100 hover:text-teal-700 focus:z-10 focus:ring-2 focus:ring-teal-700 focus:text-teal-700">
                     Mahasiswa
                 </a>
             </div>

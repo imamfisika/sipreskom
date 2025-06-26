@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+// namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
-class DashboardController extends Controller
-{
-    public function dosenpa()
-    {
-        return view('dosenpa.dashboard');
-    }
+// class DashboardController extends Controller
+// {
+//     public function dosenpa()
+//     {
+//         return view('dosenpa.dashboard');
+//     }
 
-    public function mahasiswa()
-    {
-        return view('mahasiswa.dashboard');
-    }
+//     public function mahasiswa()
+//     {
+//         return view('mahasiswa.dashboard');
+//     }
 
-    public function adminprodi()
-    {
-        return view('adminprodi.dashboard');
-    }
-}
+//     public function adminprodi()
+//     {
+//         return view('adminprodi.dashboard');
+//     }
+// }
+?>
