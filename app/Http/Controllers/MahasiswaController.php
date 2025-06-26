@@ -18,4 +18,8 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswa.rekomendasi');
     }
+    public function viewProfile()
+    {
+        return view('mahasiswa.profile');
+    }
 }

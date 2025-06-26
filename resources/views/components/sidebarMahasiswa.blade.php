@@ -42,8 +42,8 @@
                 </div>
             </li>
             <li>
-                <a href="#"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('#') ? 'text-white font-semibold' : '' }}">
+                <a href="{{ route('mahasiswa.profile') }}"
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.profile') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-user" style="font-size:25px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Profil Saya</span></a>
             </li>

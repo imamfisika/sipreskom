@@ -146,7 +146,7 @@
                     <tr>
                         <th>
                             <div class="p-10 bg-white ">
-                                <div class="text-red-500 text-xl font-bold">Silakan pilih role Mahasiswa atau Dosen untuk menampilkan daftar pengguna.</div>
+                                <div class="text-red-500 text-xl font-semibold">Silakan pilih role Mahasiswa atau Dosen untuk menampilkan daftar pengguna.</div>
                             </div>
                         </th>
                     </tr>

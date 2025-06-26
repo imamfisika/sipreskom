@@ -35,6 +35,10 @@ Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
     Route::get('/mahasiswa/rekomendasi', [MahasiswaController::class, 'viewRekomendasi'])->name('mahasiswa.rekomendasi');
 });
 
+Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
+    Route::get('/mahasiswa/profile', [MahasiswaController::class, 'viewProfile'])->name('mahasiswa.profile');
+});
+
 Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
     Route::get('/adminprodi/kelola-prestasi-akademik', [AdminprodiController::class, 'viewPrestasiAkademik'])->name('adminprodi.prestasi-akademik.index');
 });
