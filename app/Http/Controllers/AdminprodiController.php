@@ -14,4 +14,9 @@ class AdminprodiController extends Controller
     {
         return view('adminprodi.prestasi-akademik.index');
     }
+    public function viewKelolaPengguna(Request $request)
+    {
+        $role = $request->query('role');
+        return view('adminprodi.kelola-pengguna.view', compact('role'));
+    }
 }

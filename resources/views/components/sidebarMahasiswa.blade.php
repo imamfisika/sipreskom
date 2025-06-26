@@ -24,7 +24,7 @@
                     <span class="flex-1 ml-4 whitespace-nowrap">Prestasi Akademik</span></a>
             </li>
             <li>
-                <a href="#"
+                <a href="{{ route('mahasiswa.rekomendasi') }}"
                     class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('#') ? 'text-white font-semibold' : '' }}">
                     <svg
                         class="shrink-0 w-5 h-5 text-gray-200 transition duration-75" aria-hidden="true"
@@ -54,7 +54,7 @@
                     <i class="fa fa-sign-out" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Logout</span>
                 </a>
-                <form id="logout-form" action="# " method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </li>

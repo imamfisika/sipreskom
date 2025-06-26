@@ -85,7 +85,7 @@
         @endif
     </div>
 
-    <main class="sm:ml-64 pl-20 pt-12 pr-12 overflow-auto">
+    <main class="sm:ml-64 pl-20 pt-12 pr-12 overflow-auto scroll-smooth bg-gray-50 h-screen">
         @yield('content')
     </main>
 

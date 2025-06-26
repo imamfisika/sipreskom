@@ -120,5 +120,5 @@
         <i class="fa fa-mortar-board" style="font-size:24px; color:white"></i>
     </div>
     <div class="text-lg font-semibold mb-5">Status Akademik</div>
-    <div class="w-max text-lg text-indigo-500 font-bold mb-6">Mahasiswa Berprestasi</div>
+    <div class="w-max text-lg text-indigo-500 font-bold mb-6">Berprestasi</div>
 </div>

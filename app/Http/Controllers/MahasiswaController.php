@@ -14,4 +14,8 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswa.prestasi-akademik.index');
     }
+    public function viewRekomendasi()
+    {
+        return view('mahasiswa.rekomendasi');
+    }
 }
