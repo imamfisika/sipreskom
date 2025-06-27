@@ -39,6 +39,25 @@ Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
     Route::get('/mahasiswa/profile', [MahasiswaController::class, 'viewProfile'])->name('mahasiswa.profile');
 });
 
+Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {
+    Route::get('/dosenpa/rekomendasi', [DosenpaController::class, 'viewRekomendasi'])->name('dosenpa.rekomendasi.view');
+});
+Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {
+    Route::get('/dosenpa/rekomendasi-tambah', [DosenpaController::class, 'tambahRekomendasi'])->name('dosenpa.rekomendasi.tambah');
+});
+Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {
+    Route::get('/dosenpa/prestasi-akademik', [DosenpaController::class, 'viewPrestasiAkademik'])->name('dosenpa.prestasi-akademik.index');
+});
+Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {
+    Route::get('/dosenpa/prestasi-akademik-mahasiswa', [DosenpaController::class, 'viewPrestasiAkademikMahasiswa'])->name('dosenpa.prestasi-akademik.mahasiswa');
+});
+Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {
+    Route::get('/dosenpa/laporan-akademik', [DosenpaController::class, 'viewLaporanAkademik'])->name('dosenpa.prestasi-akademik.laporan');
+});
+Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {
+    Route::get('/dosenpa/profile', [DosenpaController::class, 'viewProfile'])->name('dosenpa.profile');
+});
+
 Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
     Route::get('/adminprodi/kelola-prestasi-akademik', [AdminprodiController::class, 'viewPrestasiAkademik'])->name('adminprodi.prestasi-akademik.index');
 });

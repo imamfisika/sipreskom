@@ -1,7 +1,7 @@
 <aside id="separator-sidebar" class="h-screen fixed top-0 left-0 z-40 w-72">
     <div class="h-full px-3 py-4 overflow-y-auto bg-linear-to-bl from-teal-950 to-teal-700 border-r-1">
         <div class="mt-2 ml-5 pt-5 pb-8 font-black text-2xl text-white">
-            <a href="dashboard">
+            <a href="{{ route('dosenpa.dashboard') }}">
                 {{ config('app.name') }}
             </a>
         </div>
@@ -13,23 +13,22 @@
             </li>
             <li>
                 <a href="{{ route('dosenpa.dashboard') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('dashboard') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('dosenpa.dashboard') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-pie-chart" style="font-size:21px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a
-                {{-- href="{{ route('prestasi-akademik') }}" --}}
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('prestasi-akademik') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+                <a href="{{ route('dosenpa.prestasi-akademik.index') }}"
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('dosenpa.prestasi-akademik.index') || request()->routeIs('dosenpa.prestasi-akademik.mahasiswa') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-trophy" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Prestasi Akademik</span>
-                </a>
+            </a>
             </li>
             <li>
                 <a
-                {{-- href="{{ route('rekomendasi') }}" --}}
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('rekomendasi') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+                href="{{ route('dosenpa.rekomendasi.view') }}"
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('dosenpa.rekomendasi.view') || request()->routeIs('dosenpa.rekomendasi.tambah') ? 'text-white font-semibold' : '' }}">
                     <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75"
                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path
@@ -40,8 +39,8 @@
             </li>
             <li>
                 <a
-                {{-- href="{{ route('laporan-akademik') }}" --}}
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('laporan-akademik') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+               href="{{ route('dosenpa.prestasi-akademik.laporan') }}"
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('dosenpa.prestasi-akademik.laporan') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-book" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Laporan Akademik</span>
                 </a>
@@ -55,11 +54,11 @@
             </li>
             <li>
                 <a
-                {{-- href="{{ route('profil') }}" --}}
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('profil') ? 'text-white font-bold' : 'text-gray-900 group-hover:text-black' }}">
+                href="{{ route('dosenpa.profile') }}"
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('profil') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-user" style="font-size:25px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Profil Saya</span>
-                </a>
+                </href=>
             </li>
             <li>
                 <a

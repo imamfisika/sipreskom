@@ -87,8 +87,9 @@
 
     <main class="sm:ml-64 pl-20 pt-12 pr-12 overflow-auto scroll-smooth bg-gray-50 h-screen">
         @yield('content')
-    </main>
+        <br><br>
 
+    </main>
     {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

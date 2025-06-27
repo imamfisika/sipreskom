@@ -1,22 +1,138 @@
 @extends('layouts.app')
 
-@section('title', 'Rekomendasi')
+@section('title', 'Prestasi Akademik - Mahasiswa')
 
 @section('content')
 
-    @include('components.sidebar.mahasiswa')
+    @include('components.sidebar.dosenpa')
 
     <div class="mx-32">
-        <div class="text-3xl font-bold mb-12">
-            Rekomendasi </div>
-
-        <div class="flex items-center mb-8">
-            <div class="text-md font-semibold">Semester: </div>
-            <button
-                class="justify-between mx-4 text-black bg-white border border-gray-300 w-96 rounded-lg text-md px-5 py-3 inline-flex items-center"
-                type="button">Semua
-            </button>
+        <div class="text-3xl font-bold text-gray-500 mb-12 flex items-center">
+            <a href="{{ route('dosenpa.prestasi-akademik.index') }}" class="hover:text-gray-700">Prestasi Akademik</a> <svg
+                class="rtl:rotate-180 w-3 text-gray-400 mx-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="m1 9 4-4-4-4" />
+            </svg>
+            <div class="font-extrabold text-3xl text-black">John Doe / 123456789</div>
         </div>
+
+        <div class="place-items-center bg-white py-8 rounded-2xl border border-gray-300">
+            <div class="flex items-center justify-center">
+                <div class="w-32 overflow-hidden bg-gray-100 rounded-full">
+                    <img src="{{ asset('/public/images/profil.jpg') }}" class="object-cover w-full h-full aspect-square">
+                </div>
+                <div class="ml-6 leading-7 truncate overflow-hidden text-ellipsis">
+                    <div class="font-bold text-gray-900">John Doe</div>
+                    <div class="text-gray-500">123456789</div>
+                    <div class="text-gray-500">Ilmu Komputer 2020</div>
+                    <div class="text-gray-500">johndoe@example.com</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-2xl font-bold mt-8 mb-2">Riwayat Akademik</div>
+        <div class="col-span-2 row-span-2 mb-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 text-center ">
+                <div
+                    class="row-span-2 row-start-2 bg-white shadow-sm rounded-2xl place-content-center text-left p-8 border border-gray-300">
+                    <div class="w-14 h-14 bg-emerald-500 rounded-lg flex items-center justify-center mb-8">
+                        <i class="fa fa-file-text" style="font-size:24px; color:white"></i>
+                    </div>
+                    <div class="text-xl font-bold mb-5">SKS Lulus</div>
+                    <div class="flex justify-between items-center gap-4 mb-3">
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-emerald-500 h-4 rounded-full" style="width:75%"></div>
+                        </div>
+                    </div>
+                    <div class="text-sm font-semibold flex">
+                        <div>108 &nbsp</div>
+                        <div class="font-black text-emerald-500">/&nbsp 144</div>
+                    </div>
+                </div>
+                <div
+                    class="row-span-2 row-start-2 bg-white shadow-sm rounded-2xl place-content-center text-left p-8 border border-gray-300">
+                    <div class="w-14 h-14 bg-sky-500 rounded-lg flex items-center justify-center mb-8">
+                        <i class="fa fa-bar-chart" style="font-size:24px; color:white"></i>
+                    </div>
+                    <div class="text-xl font-bold mb-5">IPK</div>
+                    <div class="flex justify-between items-center gap-4 mb-3">
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-sky-500 h-4 rounded-full" style="width:87.5%"></div>
+                        </div>
+                    </div>
+                    <div class="text-sm font-semibold flex">
+                        <div>3.5 &nbsp</div>
+                        <div class="font-black text-sky-500">/&nbsp 4.00</div>
+                    </div>
+                </div>
+                <div
+                    class="row-span-2 row-start-2 bg-white shadow-sm rounded-2xl place-content-center text-left p-8 border border-gray-300">
+                    <div class="w-14 h-14 bg-indigo-500 rounded-lg flex items-center justify-center mb-8">
+                        <i class="fa fa-mortar-board" style="font-size:24px; color:white"></i>
+                    </div>
+                    <div class="text-xl font-bold mb-5">Status Akademik</div>
+                    <div class="text-lg text-indigo-500 font-bold mb-6">Berprestasi</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-8 border border-gray-300 rounded-2xl">
+            <div class="overflow-x-auto shadow-sm sm:rounded-2xl">
+                <tr>
+                    <th>
+                        <div class="p-10 bg-white ">
+                            <h1 class="text-xl font-bold text-left">Daftar Mata Kuliah</h1>
+                        </div>
+                    </th>
+                </tr>
+
+                <table class="w-full text-m text-left text-gray-700">
+                    <thead class="font-bold text-gray-200 border-b border-t bg-teal-900 border-gray-400">
+                        <tr>
+                            <th scope="col" class="pl-10">No.</th>
+                            <th scope="col" class="pl-2 pr-8">
+                                <div class="flex items-center">
+                                    Nama Mata Kuliah
+                                </div>
+                            </th>
+                            <th scope="col" class="pr-3">Kode MK</th>
+                            <th scope="col" class="pl-10 pr-3">SKS</th>
+                            <th scope="col" class="pl-10 py-6">Bobot</th>
+                            <th scope="col" class="pl-14 py-6 pr-5">Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b border-gray-300">
+                            <th scope="row" class="pl-10 font-medium text-gray-900 whitespace-nowrap">1.</th>
+                            <td class="pl-2 pr-8">Pemrograman Web</td>
+                            <td class="pr-3">IF123</td>
+                            <td class="pl-10 pr-3">3</td>
+                            <td class="pl-10 py-6">4</td>
+                            <td class="pl-14 py-6">A</td>
+                        </tr>
+                        <tr class="bg-white border-b border-gray-300">
+                            <th scope="row" class="pl-10 font-medium text-gray-900 whitespace-nowrap">2.</th>
+                            <td class="pl-2 pr-8">Basis Data</td>
+                            <td class="pr-3">IF124</td>
+                            <td class="pl-10 pr-3">3</td>
+                            <td class="pl-10 py-6">3.5</td>
+                            <td class="pl-14 py-6">B+</td>
+                        </tr>
+                        {{-- <tr>
+                            <td colspan="6" class="p-11 py-4 border-b border-gray-300 bg-gray-100">
+                                <div class="text-center">Pagination</div>
+                            </td>
+                        </tr> --}}
+                    </tbody>
+                </table>
+                <div class="bg-white pl-8 pt-8 font-medium text-lg">
+                    <div class="mb-2">Jumlah SKS Lulus = 108 </div>
+                    <div class="pb-10">Index Prestasi Kumulatif (IPK) = 3.5</div>
+                </div>
+            </div>
+        </div>
+
         <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 p-8">
             <div class="text-center font-bold text-xl text-black mb-10">
                 Prediksi Indeks Prestasi</div>
@@ -114,7 +230,16 @@
             </div>
         </div>
 
-        <div class="grid gap-6 my-8">
+        <div class="flex items-center pt-8 pb-2">
+            <div class="text-2xl font-bold mr-6">Rekomendasi</div>
+            <div class="text-right">
+                <a type="button" href="{{ route('dosenpa.rekomendasi.tambah') }}"
+                class="text-center transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 rounded-full w-1/2 px-5 py-2.5">Tambah
+                    Rekomendasi</a>
+            </div>
+        </div>
+
+        <div class="grid gap-6 mt-8">
             <div class="overflow-x-auto">
                 <div class="flex gap-6">
                     <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 pt-6 py-8 px-8 w-1/2">
@@ -124,7 +249,7 @@
                                     01 Jan 2023
                                 </div>
                                 <div class="font-bold text-xl text-black">
-                                    Dr. John Doe
+                                    Rekomendasi 1
                                 </div>
                             </div>
                             <div>
@@ -138,18 +263,18 @@
                         <div class="grid grid-cols-2 w-96 gap-4">
                             <div
                                 class="text-center mt-4 w-48 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate overflow-hidden">
-                                Algoritma dan Pemrograman
+                                Pemrograman Lanjut
                             </div>
                             <div
                                 class="text-center mt-4 w-48 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate overflow-hidden">
-                                Struktur Data
+                                Sistem Operasi
                             </div>
                         </div>
 
                         <div class="font-semibold text-md mt-8 mb-4">Saran:</div>
                         <div class="flex gap-3 content-center text-md font-medium text-gray-800 w-96 items-center">
                             <i class="fa fa-check-square" style="font-size:20px;color:green"></i>
-                            <div> Tingkatkan pemahaman pada materi dasar algoritma.</div>
+                            <div> Tingkatkan pemahaman pada mata kuliah inti.</div>
                         </div>
                     </div>
 
@@ -160,12 +285,12 @@
                                     15 Feb 2023
                                 </div>
                                 <div class="font-bold text-xl text-black">
-                                    Dr. Jane Smith
+                                    Rekomendasi 2
                                 </div>
                             </div>
                             <div>
-                                <span class="bg-green-100 text-green-800 text-sm font-semibold px-4 py-1.5 rounded-md">
-                                    Baru
+                                <span class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-4 py-1.5 rounded-md">
+                                    Terbaru
                                 </span>
                             </div>
                         </div>
@@ -174,23 +299,24 @@
                         <div class="grid grid-cols-2 w-96 gap-4">
                             <div
                                 class="text-center mt-4 w-48 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate overflow-hidden">
-                                Basis Data
+                                Jaringan Komputer
                             </div>
                             <div
                                 class="text-center mt-4 w-48 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate overflow-hidden">
-                                Jaringan Komputer
+                                Keamanan Informasi
                             </div>
                         </div>
 
                         <div class="font-semibold text-md mt-8 mb-4">Saran:</div>
                         <div class="flex gap-3 content-center text-md font-medium text-gray-800 w-96 items-center">
                             <i class="fa fa-check-square" style="font-size:20px;color:green"></i>
-                            <div> Perbanyak latihan soal terkait basis data.</div>
+                            <div> Fokus pada penguasaan konsep jaringan dan keamanan.</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
 @endsection
