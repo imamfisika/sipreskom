@@ -11,9 +11,10 @@
     <div class="grid grid-cols-5 grid-rows-3 gap-6 mb-8">
 
         <div class="col-span-3 rounded-2xl bg-teal-900 text-white shadow-sm py-6 pl-8">
-            <div class="text-xl font-semibold text-left mb-4">Selamat Datang,</div>
-            <div>
-                Yuk pantau dan selalu tingkatkan prestasi akademik Anda melalui SIPRESKOM.
+            <div class="text-xl font-semibold text-left mb-3">
+                Selamat Datang,</div>
+                <div class="text-sm">
+                    Yuk pantau dan selalu tingkatkan prestasi akademik Anda melalui SIPRESKOM.
             </div>
         </div>
 

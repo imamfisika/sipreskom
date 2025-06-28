@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Service;
 
 use App\Service\MahasiswaService;
 use App\Service\DosenpaService;
+use App\Models\Akademik;
+
 
 class AdminprodiService
 {
@@ -26,5 +29,14 @@ class AdminprodiService
         }
 
         return $data;
+    }
+    public function getAllPrestasi()
+    {
+        return Akademik::with('user')->get();
+    }
+
+    public function deletePrestasi($id)
+    {
+        Akademik::findOrFail($id)->delete();
     }
 }

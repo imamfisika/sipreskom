@@ -9,10 +9,10 @@
     <div class="text-3xl font-bold mb-12">Dashboard Admin</div>
     <div class="grid grid-cols-5 grid-rows-3 gap-6 mb-6">
         <div class="col-span-3 rounded-2xl bg-teal-900 text-white shadow-sm py-6 pl-8">
-            <div class="text-xl font-semibold text-left mb-4">
+            <div class="text-xl font-semibold text-left mb-3">
                 Selamat Datang, Admin Program Studi
             </div>
-            <div >
+            <div class="text-sm">
                 Kelola pengguna dan pantau perkembangan prestasi akademik mahasiswa melalui SIPRESKOM.
             </div>
         </div>
@@ -24,8 +24,8 @@
             <div class="pl-12 mb-6 pr-10">
                 @include('components.profile.adminprodi')
             </div>
-            <div class="px-12">
-                <div class="mb-6 leading-7 text-ellipsis">
+            <div class="pl-12 pr-10">
+                <div class="mb-6 text-sm leading-7 text-ellipsis">
                     Admin Program Studi Ilmu Komputer
                     Fakultas Matematika dan Ilmu Pengetahuan Alam
                     Universitas Negeri Jakarta
@@ -38,30 +38,30 @@
         <div class="bg-white shadow-sm rounded-2xl border border-gray-300">
             <div class="py-10 px-10 bg-white border-b border-gray-300 rounded-t-2xl">
                 <div class="flex items-center justify-between flex-wrap gap-4">
-                    <div class="text-xl font-bold text-left">Daftar Dosen Pembimbing Akademik</div>
+                    <div class="text-lg font-semibold text-left">Daftar Dosen Pembimbing Akademik</div>
                     <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'dosenpa']) }}"
-                        class="transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 font-semibold rounded-full text-sm px-4 py-2">
+                        class="transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 rounded-full text-sm px-4 py-2">
                         Lihat semua
                     </a>
                 </div>
             </div>
             <div class="overflow-hidden sm:rounded-b-2xl pb-6">
-                <table class="w-full text-left text-gray-700 table-fixed">
+                <table class="w-full text-sm text-left text-gray-700 table-fixed">
                     <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
                         <tr>
-                            <th class="w-12 px-4 py-4">No.</th>
+                            <th class="w-12 px-8 py-4">No.</th>
                             <th class="w-54 px-4 py-4">Nama Dosen</th>
                             <th class="w-54 px-4 py-4">NIP</th>
-                            <th class="w-48 px-4 py-4">Email</th> {{-- Lebar email dikecilkan --}}
+                            <th class="w-48 px-4 py-4">Email</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($dosenpa as $index => $dsn)
+                        @forelse ($dosenpa->take(5) as $index => $dsn)
                             <tr class="bg-white border-b border-gray-300">
-                                <td class="px-4 py-6 font-medium text-gray-900">{{ $index + 1 }}.</td>
-                                <td class="px-4 py-6 truncate">{{ $dsn->nama }}</td>
-                                <td class="px-4 py-6 truncate">{{ $dsn->nim }}</td>
-                                <td class="px-4 py-6 truncate overflow-hidden whitespace-nowrap">{{ $dsn->email }}</td>
+                                <td class="px-8 py-4 font-medium text-gray-900">{{ $index + 1 }}.</td>
+                                <td class="px-4 py-4 truncate">{{ $dsn->nama }}</td>
+                                <td class="px-4 py-4 truncate">{{ $dsn->nim }}</td>
+                                <td class="px-4 py-4 truncate overflow-hidden whitespace-nowrap">{{ $dsn->email }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -76,30 +76,30 @@
         <div class="bg-white shadow-sm rounded-2xl border border-gray-300">
             <div class="py-10 px-10 bg-white border-b border-gray-300 rounded-t-2xl">
                 <div class="flex items-center justify-between flex-wrap gap-4">
-                    <div class="text-xl font-bold text-left">Daftar Mahasiswa</div>
+                    <div class="text-lg font-semibold text-left">Daftar Mahasiswa</div>
                     <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'mahasiswa']) }}"
-                        class="transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 font-semibold rounded-full text-sm px-4 py-2">
+                        class="transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 rounded-full text-sm px-4 py-2">
                         Lihat semua
                     </a>
                 </div>
             </div>
             <div class="overflow-hidden sm:rounded-b-2xl pb-6">
-                <table class="w-full text-left text-gray-700 table-fixed">
+                <table class="w-full text-sm text-left text-gray-700 table-fixed">
                     <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
                         <tr>
-                            <th class="w-12 px-4 py-4">No.</th>
+                            <th class="w-12 px-8 py-4">No.</th>
                             <th class="w-54 px-4 py-4">Nama Mahasiswa</th>
                             <th class="w-54 px-4 py-4">NIM</th>
-                            <th class="w-48 px-4 py-4">Email</th> {{-- Disamakan --}}
+                            <th class="w-48 px-4 py-4">Email</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($mahasiswa as $index => $mhs)
                             <tr class="bg-white border-b border-gray-300">
-                                <td class="px-4 py-6 font-medium text-gray-900">{{ $index + 1 }}.</td>
-                                <td class="px-4 py-6 truncate">{{ $mhs->nama }}</td>
-                                <td class="px-4 py-6 truncate">{{ $mhs->nim }}</td>
-                                <td class="px-4 py-6 truncate overflow-hidden whitespace-nowrap">{{ $mhs->email }}</td>
+                                <td class="px-8 py-4 font-medium text-gray-900">{{ $index + 1 }}.</td>
+                                <td class="px-4 py-4 truncate">{{ $mhs->nama }}</td>
+                                <td class="px-4 py-4 truncate">{{ $mhs->nim }}</td>
+                                <td class="px-4 py-4 truncate overflow-hidden whitespace-nowrap">{{ $mhs->email }}</td>
                             </tr>
                         @empty
                             <tr>

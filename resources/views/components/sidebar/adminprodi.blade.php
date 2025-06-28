@@ -24,8 +24,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('adminprodi.prestasi-akademik.index') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.prestasi-akademik.index') ? 'text-white font-semibold' : '' }}">
+                <a href="{{ route('adminprodi.prestasi-akademik.view') }}"
+                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.prestasi-akademik.view') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-trophy" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Kelola Prestasi</span>
                 </a>

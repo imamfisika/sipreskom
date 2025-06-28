@@ -9,10 +9,10 @@
 
     <div class="grid grid-cols-5 grid-rows-3 gap-6 mb-8">
         <div class="col-span-3 rounded-2xl bg-teal-900 text-white shadow-sm py-6 pl-8">
-            <div class="text-xl font-semibold text-left mb-4">
+            <div class="text-xl font-semibold text-left mb-3">
                 Selamat Datang, Bapak/Ibu Dosen
             </div>
-            <div class="text-normal">
+            <div class="text-sm">
                 Pantau dan tingkatkan prestasi akademik Mahasiswa Ilmu Komputer melalui SIPRESKOM.
             </div>
         </div>

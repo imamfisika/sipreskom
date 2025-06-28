@@ -42,6 +42,11 @@ class User extends Authenticatable
         };
     }
 
+    public function akademiks()
+    {
+        return $this->hasMany(Akademik::class, 'id_user');
+    }
+
 
     // public function getFotoUrlAttribute(): string
     // {

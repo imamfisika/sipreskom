@@ -11,14 +11,14 @@
         <div class="text-3xl font-bold mb-12">Kelola Pengguna</div>
 
         <div class="flex flex-row gap-6 items-center mb-8">
-            <div class="text-xl font-semibold">Pilih role:</div>
+            <div class="text-lg font-semibold">Pilih role:</div>
             <div class="inline-flex shadow-xs" role="group">
                 <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'dosen']) }}"
-                    class="px-5 py-3  font-medium {{ request('role') === 'dosen' ? 'text-white bg-teal-700' : 'text-gray-900 bg-white' }} border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-teal-700 focus:z-10 focus:ring-2 focus:ring-teal-700 focus:text-teal-700">
+                    class="px-5 text-sm py-3 font-medium {{ request('role') === 'dosen' ? 'text-white bg-teal-700' : 'text-gray-700 bg-white' }} border border-gray-300 rounded-s-lg hover:bg-gray-200 hover:text-black focus:z-10 focus:ring-2 focus:ring-teal-700 focus:text-teal-700">
                     Dosen
                 </a>
                 <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'mahasiswa']) }}"
-                    class="px-5 py-3  font-medium {{ request('role') === 'mahasiswa' ? 'text-white bg-teal-700' : 'text-gray-900 bg-white' }} border border-gray-300 border-l-0 rounded-e-lg hover:bg-gray-100 hover:text-teal-700 focus:z-10 focus:ring-2 focus:ring-teal-700 focus:text-teal-700">
+                    class="px-5 text-sm py-3 font-medium {{ request('role') === 'mahasiswa' ? 'text-white bg-teal-700' : 'text-gray-700 bg-white' }} border border-gray-300 border-l-0 rounded-e-lg hover:bg-gray-200 hover:text-black focus:z-10 focus:ring-2 focus:ring-teal-700 focus:text-teal-700">
                     Mahasiswa
                 </a>
             </div>
@@ -36,43 +36,43 @@
         @if (isset($role) && isset($data[$role]))
             <div class="border border-gray-300 rounded-2xl">
                 <div class="overflow-x-auto shadow-sm sm:rounded-2xl">
-                    <div class="p-10 bg-white">
-                        <h1 class="text-xl font-semibold text-left">Daftar {{ ucfirst($role) }}</h1>
+                    <div class="py-6 px-10 bg-white">
+                        <h1 class="text-lg font-semibold text-center">Daftar {{ ucfirst($role) }}</h1>
                     </div>
-                    <table class="w-full text-left text-gray-700 table-fixed">
+                    <table class="w-full text-sm text-left text-gray-700 table-fixed">
                         <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
                             <tr>
-                                <th class="pl-10 pr-4 py-6 w-12">No.</th>
-                                <th class="px-10 py-6 w-56">Nama Lengkap</th>
-                                <th class="px-6 py-6 w-36">Nomor Induk</th>
-                                <th class="px-6 py-6 w-40">Email</th>
-                                <th class="px-4 py-6 w-16 text-center">Ubah</th>
-                                <th class="px-4 py-6 w-16 text-center">Hapus</th>
+                                <th class="pl-10 pr-4 py-4 w-12">No.</th>
+                                <th class="px-10 py-4 w-56">Nama</th>
+                                <th class="px-6 py-4 w-36">Nomor Induk</th>
+                                <th class="px-6 py-4 w-40">Email</th>
+                                <th class="py-4 w-16 text-center">Ubah</th>
+                                <th class="px-4 py-4 w-16 text-center">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data[$role] as $index => $user)
                                 <tr class="bg-white border-b border-gray-300">
-                                    <td class="pl-10 pr-4 py-4 font-medium text-gray-900">{{ $index + 1 }}</td>
-                                    <td class="px-10 py-6 font-medium text-gray-900 truncate">{{ $user['nama'] }}</td>
-                                    <td class="px-6 py-6 truncate">{{ $user['nim'] }}</td>
-                                    <td class="px-6 py-6 truncate overflow-hidden whitespace-nowrap">{{ $user['email'] }}
+                                    <td class="pl-10 pr-4 py-4">{{ $index + 1 }}.</td>
+                                    <td class="px-10 py-4 font-medium text-black truncate">{{ $user['nama'] }}</td>
+                                    <td class="px-6 py-4 truncate">{{ $user['nim'] }}</td>
+                                    <td class="px-6 py-4 truncate overflow-hidden whitespace-nowrap">{{ $user['email'] }}
                                     </td>
 
-                                    <td class="px-4 py-6 text-center">
+                                    <td class="px-4 py-4 text-center">
                                       <a href="{{ route('admin.users.edit', ['nim' => $user->nim]) }}"
-                                            class="inline-flex items-center justify-center bg-blue-500 text-white py-2 rounded w-full">
+                                            class="inline-flex items-center justify-center bg-blue-500 text-white py-2 rounded w-8">
                                             <i class="fa fa-pencil" style="font-size:18px"></i>
                                         </a>
                                     </td>
 
-                                    <td class="px-4 py-6 text-center">
+                                    <td class="px-4 py-4 text-center">
                                         <form method="POST" action="{{ route('admin.users.delete', $user['id']) }}"
-                                            onsubmit="return confirm('Yakin ingin menghapus?')" class="w-full inline-block">
+                                            onsubmit="return confirm('Anda yakin ingin menghapus pengguna?')" class="w-full inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="inline-flex items-center justify-center bg-red-500 text-white py-2 rounded w-full">
+                                                class="inline-flex items-center justify-center bg-red-500 text-white py-2 rounded w-8">
                                                 <i class="fa fa-eraser" style="font-size:18px"></i>
                                             </button>
                                         </form>
@@ -87,19 +87,19 @@
         @else
             <div class="border border-gray-300 rounded-2xl">
                 <div class="overflow-x-auto shadow-sm sm:rounded-2xl">
-                    <div class="p-10 bg-white">
-                        <div class="text-red-500 text-lg font-semibold">Silakan pilih role Mahasiswa atau Dosen untuk
+                    <div class="py-6 px-10 bg-white">
+                        <div class="text-red-500 text-lg text-center font-semibold">Silakan pilih role Mahasiswa atau Dosen untuk
                             menampilkan daftar pengguna.</div>
                     </div>
-                    <table class="w-full text-left text-gray-700 table-fixed">
+                    <table class="w-full text-left text-gray-700 table-fixed text-sm">
                         <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
                             <tr>
-                                <th class="pl-10 pr-4 py-6 w-12">No.</th>
-                                <th class="px-10 py-6 w-56">Nama Lengkap</th>
-                                <th class="px-6 py-6 w-36">Nomor Induk</th>
-                                <th class="px-6 py-6 w-40">Email</th>
-                                <th class="px-4 py-6 w-16 text-center">Ubah</th>
-                                <th class="px-4 py-6 w-16 text-center">Hapus</th>
+                                <th class="pl-10 pr-4 py-4 w-12">No.</th>
+                                <th class="px-10 py-4 w-56">Nama Lengkap</th>
+                                <th class="px-6 py-4 w-36">Nomor Induk</th>
+                                <th class="px-6 py-4 w-40">Email</th>
+                                <th class="px-4 py-4 w-16 text-center">Ubah</th>
+                                <th class="px-4 py-4 w-16 text-center">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>

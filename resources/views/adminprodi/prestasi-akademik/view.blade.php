@@ -1,0 +1,70 @@
+@extends('layouts.app')
+
+@section('title', 'Kelola Prestasi Akademik')
+
+@section('content')
+
+
+    @include('components.sidebar.adminprodi')
+
+    <div class="mx-32">
+        <div class="text-3xl font-bold mb-12">Kelola Prestasi Akademik</div>
+
+        @if (session('success'))
+            <div id="success-alert"
+                class="mb-6 px-6 py-4 rounded-lg bg-green-100 border border-green-400 text-green-700 flex justify-between items-center">
+                <span>{{ session('success') }}</span>
+                <button type="button" class="text-green-700 font-bold"
+                    onclick="document.getElementById('success-alert').style.display='none'">x</button>
+            </div>
+        @endif
+
+        <div class="border border-gray-300 rounded-2xl">
+            <div class="overflow-x-auto shadow-sm sm:rounded-2xl">
+                <div class="py-6 px-10 bg-white">
+                    <h1 class="text-lg font-semibold text-center">Daftar Prestasi Akademik</h1>
+                </div>
+                <table class="w-full text-sm text-left text-gray-700 table-fixed">
+                    <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
+                        <tr>
+                            <th class="pl-10 pr-4 py-4 w-12">No.</th>
+                            <th class="px-10 py-4 w-56">Nama</th>
+                            <th class="px-6 py-4 w-28">NIM</th>
+                            <th class="px-6 py-4 w-24">Semester</th>
+                            <th class="px-6 py-4 w-24">SKS</th>
+                            <th class="px-6 py-4 w-24">IP</th>
+                            <th class="px-4 py-4 w-24">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $index => $item)
+                            <tr class="bg-white border-b border-gray-300">
+                                <td class="pl-10 pr-4 py-4">{{ $index + 1 }}.</td>
+                                <td class="px-10 py-6 font-medium text-black">{{ $item->user->nama ?? '-' }}</td>
+                                <td class="px-6 py-4">{{ $item->user->nim ?? '-' }}</td>
+                                <td class="px-6 py-4">{{ $item->semester }}</td>
+                                <td class="px-6 py-4">{{ $item->jml_sks }}</td>
+                                <td class="px-6 py-4">{{ $item->IP }}</td>
+                                <td class="px-4 py-4">
+                                    <form method="POST"
+                                        action="{{ route('adminprodi.prestasi-akademik.delete', $item->id) }}"
+                                        onsubmit="return confirm('Anda yakin ingin menghapus data prestasi akademik?')"
+                                        class="w-full inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="inline-flex items-center justify-center bg-red-500 text-white py-2 rounded w-8">
+                                            <i class="fa fa-trash" style="font-size:18px"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+@endsection

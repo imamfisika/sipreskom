@@ -4,8 +4,8 @@
         <i class="fa fa-file-text" style="font-size:24px; color:white"></i>
     </div>
     <div class="flex justify-between items-center">
-        <div class="text-lg font-bold mr-3">Mata Kuliah</div>
-        <div class="text-2xl text-emerald-500 font-bold">52</div>
+        <div class="text-lg font-semibold mr-3">Mata Kuliah</div>
+        <div class="text-xl text-emerald-500 font-bold">52</div>
     </div>
 </div>
 <div
@@ -14,8 +14,8 @@
         <i class="fa fa-graduation-cap" style="font-size:24px; color:white"></i>
     </div>
     <div class="flex justify-between items-center">
-        <div class="text-lg font-bold mr-3">Pembimbing Akademik</div>
-        <div class="text-2xl text-sky-500 font-bold">2</div>
+        <div class="text-lg font-semibold w-12">Pembimbing Akademik</div>
+        <div class="text-xl text-sky-500 font-bold">2</div>
     </div>
 </div>
 <div
@@ -24,7 +24,7 @@
         <i class="fa fa-graduation-cap" style="font-size:24px; color:white"></i>
     </div>
     <div class="flex justify-between items-center">
-        <div class="text-lg font-bold">Mahasiswa</div>
-        <div class="text-2xl text-indigo-500 font-bold">48</div>
+        <div class="text-lg font-semibold mr-3">Mahasiswa</div>
+        <div class="text-xl text-indigo-500 font-bold">48</div>
     </div>
 </div>

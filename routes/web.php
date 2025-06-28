@@ -58,9 +58,9 @@ Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {
     Route::get('/dosenpa/profile', [DosenpaController::class, 'viewProfile'])->name('dosenpa.profile');
 });
 
-Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
-    Route::get('/adminprodi/kelola-prestasi-akademik', [AdminprodiController::class, 'viewPrestasiAkademik'])->name('adminprodi.prestasi-akademik.index');
-});
+// Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
+//     Route::get('/adminprodi/kelola-prestasi-akademik/{id}', [AdminprodiController::class, 'viewKelolaPrestasi'])->name('adminprodi.prestasi-akademik.view');
+// });
 
 Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
     Route::get('/adminprodi/kelola-pengguna', [AdminprodiController::class, 'viewKelolaPengguna'])->name('adminprodi.kelola-pengguna.view');
@@ -70,9 +70,13 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
-    Route::put('/admin/users/{nim}', [UserController::class, 'update'])->name('admin.users.update');
-    Route::get('/admin/users/nim/{nim}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
-    Route::delete('/admin/users/{id}/delete', [UserController::class, 'delete'])->name('admin.users.delete');
+    Route::put('/{nim}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::get('/{nim}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::delete('/{id}/delete', [UserController::class, 'delete'])->name('admin.users.delete');
+
+    Route::get('/kelola-prestasi-akademik', [AdminprodiController::class, 'viewKelolaPrestasi'])->name('adminprodi.prestasi-akademik.view');
+    Route::delete('/kelola-prestasi-akademik/{id}', [AdminprodiController::class, 'deletePrestasi'])
+        ->name('adminprodi.prestasi-akademik.delete');
 });
 
 

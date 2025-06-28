@@ -3,7 +3,7 @@
     <div class="w-14 h-14 bg-emerald-500 rounded-lg flex items-center justify-center mb-8">
         <i class="fa fa-graduation-cap" style="font-size:24px; color:white"></i>
     </div>
-    <div class="text-lg font-bold mb-5">Berprestasi</div>
+    <div class="text-lg font-semibold mb-5">Berprestasi</div>
     <div class="flex justify-between items-center gap-4 mb-3">
         <div class="w-full bg-gray-200 rounded-full h-4">
             <div class="bg-emerald-500 h-4 rounded-full" style="width:  50%">
@@ -19,7 +19,7 @@
     <div class="w-14 h-14 bg-sky-500 rounded-lg flex items-center justify-center mb-8">
         <i class="fa fa-graduation-cap" style="font-size:24px; color:white"></i>
     </div>
-    <div class="text-lg font-bold mb-5">Cukup Berprestasi</div>
+    <div class="text-lg font-semibold mb-5">Cukup Berprestasi</div>
     <div class="flex justify-between items-center gap-4 mb-3">
         <div class="w-full bg-gray-200 rounded-full h-4">
             <div class="bg-sky-500 h-4 rounded-full" style="width:  30%">
@@ -35,7 +35,7 @@
     <div class="w-14 h-14 bg-indigo-500 rounded-lg flex items-center justify-center mb-8">
         <i class="fa fa-graduation-cap" style="font-size:24px; color:white"></i>
     </div>
-    <div class="text-lg font-bold mb-5">Kurang Berprestasi</div>
+    <div class="text-lg font-semibold mb-5">Kurang Berprestasi</div>
     <div class="flex justify-between items-center gap-4 mb-3">
         <div class="w-full bg-gray-200 rounded-full h-4">
             <div class="bg-indigo-500 h-4 rounded-full" style="width: 20%"></div>
