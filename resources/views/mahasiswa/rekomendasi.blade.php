@@ -7,19 +7,19 @@
     @include('components.sidebar.mahasiswa')
 
     <div class="mx-32">
-        <div class="text-3xl font-bold mb-12">
-            Rekomendasi </div>
+        <div class="text-3xl font-bold mb-12">Rekomendasi</div>
 
         <div class="flex items-center mb-8">
-            <div class="text-md font-semibold">Semester: </div>
+            <div class="text-md font-semibold">Semester:</div>
             <button
                 class="justify-between mx-4 text-black bg-white border border-gray-300 w-96 rounded-lg text-md px-5 py-3 inline-flex items-center"
-                type="button">Semua
+                type="button">
+                Semua
             </button>
         </div>
+
         <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 p-8">
-            <div class="text-center font-bold text-xl text-black mb-10">
-                Prediksi Indeks Prestasi</div>
+            <div class="text-center font-bold text-xl text-black mb-10">Prediksi Indeks Prestasi</div>
             <div class="grid grid-cols-2 items-center justify-between">
                 <div class="bg-white p-8">
                     <div class="chart-container w-full max-w-5xl mx-auto">
@@ -94,12 +94,13 @@
                 </div>
                 <div class="row-span-3 px-10 h-full content-center">
                     <div class="mb-3">
-                        <strong> Prediksi IP Semester 5 :</strong> 3.9
+                        <strong>Prediksi IP Semester 5:</strong> 3.9
                     </div>
-                    <div class="mb-3"> <strong>Kategori Prestasi:</strong> Sangat Baik
+                    <div class="mb-3">
+                        <strong>Kategori Prestasi:</strong> Sangat Baik
                     </div>
                     <div class="alert alert-warning">
-                        <div class="font-bold text-black mb-3">Mata Kuliah Dibawah Nilai Aman :</div>
+                        <div class="font-bold text-black mb-3">Mata Kuliah Dibawah Nilai Aman:</div>
                         <ul>
                             <li class="mb-2 font-normal">
                                 <span style="color: red;">
@@ -120,12 +121,8 @@
                     <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 pt-6 py-8 px-8 w-1/2">
                         <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
                             <div>
-                                <div class="mb-2 text-gray-400 font-semibold">
-                                    01 Jan 2023
-                                </div>
-                                <div class="font-bold text-xl text-black">
-                                    Dr. John Doe
-                                </div>
+                                <div class="mb-2 text-gray-400 font-semibold">01 Jan 2023</div>
+                                <div class="font-bold text-xl text-black">Dr. John Doe</div>
                             </div>
                             <div>
                                 <span class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-4 py-1.5 rounded-md">
@@ -149,19 +146,15 @@
                         <div class="font-semibold text-md mt-8 mb-4">Saran:</div>
                         <div class="flex gap-3 content-center text-md font-medium text-gray-800 w-96 items-center">
                             <i class="fa fa-check-square" style="font-size:20px;color:green"></i>
-                            <div> Tingkatkan pemahaman pada materi dasar algoritma.</div>
+                            <div>Tingkatkan pemahaman pada materi dasar algoritma.</div>
                         </div>
                     </div>
 
                     <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 pt-6 py-8 px-8 w-1/2">
                         <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
                             <div>
-                                <div class="mb-2 text-gray-400 font-semibold">
-                                    15 Feb 2023
-                                </div>
-                                <div class="font-bold text-xl text-black">
-                                    Dr. Jane Smith
-                                </div>
+                                <div class="mb-2 text-gray-400 font-semibold">15 Feb 2023</div>
+                                <div class="font-bold text-xl text-black">Dr. Jane Smith</div>
                             </div>
                             <div>
                                 <span class="bg-green-100 text-green-800 text-sm font-semibold px-4 py-1.5 rounded-md">
@@ -185,7 +178,7 @@
                         <div class="font-semibold text-md mt-8 mb-4">Saran:</div>
                         <div class="flex gap-3 content-center text-md font-medium text-gray-800 w-96 items-center">
                             <i class="fa fa-check-square" style="font-size:20px;color:green"></i>
-                            <div> Perbanyak latihan soal terkait basis data.</div>
+                            <div>Perbanyak latihan soal terkait basis data.</div>
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     public function viewRegister()
     {
         return view('auth.register');
@@ -53,24 +59,27 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['message' => 'Akun tidak ditemukan.'], 404);
-        }
-
-        $user->delete();
-        return response()->json(['message' => 'Akun berhasil dihapus.']);
+        $this->userService->deleteUserById($id);
+        return redirect()->back()->with('success', 'Akun pengguna berhasil dihapus.');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $nim)
+{
+    $this->userService->updateByNim($request, $nim);
+
+    return redirect()->route('adminprodi.kelola-pengguna.view', [
+        'role' => $request->input('role')
+    ])->with('success', 'Data berhasil diperbarui');
+}
+
+    public function edit($nim)
     {
-        $request->merge(['id' => $id]);
-        $userService = new UserService();
-        return $userService->updateUser($request);
+        $editUser = $this->userService->findByNim($nim);
+        return view('adminprodi.kelola-pengguna.edit', compact('editUser'));
     }
+
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();

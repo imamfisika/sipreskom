@@ -68,6 +68,14 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
 
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
+
+Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
+    Route::put('/admin/users/{nim}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::get('/admin/users/nim/{nim}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::delete('/admin/users/{id}/delete', [UserController::class, 'delete'])->name('admin.users.delete');
+});
+
+
 // Route::get('/dashboard2', function() {
 //     return view('test');
 // });

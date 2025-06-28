@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Akademik;
+// use App\Models\Akademik;
+// use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -16,9 +16,9 @@ class User extends Authenticatable
         'nama',
         'nim',
         'email',
-        'foto',
         'password',
         'role',
+        'foto',
     ];
 
     protected $hidden = [
@@ -42,15 +42,16 @@ class User extends Authenticatable
         };
     }
 
-    public function getFotoUrlAttribute(): string
-    {
-        return $this->foto
-            ? asset('storage/' . $this->foto)
-            : asset('images/profil.jpg');
-    }
 
-    public function akademik()
-    {
-        return $this->hasOne(Akademik::class, 'nim', 'nim');
-    }
+    // public function getFotoUrlAttribute(): string
+    // {
+    //     return $this->foto
+    //         ? asset('storage/' . $this->foto)
+    //         : asset('images/profil.jpg');
+    // }
+
+    // public function akademik()
+    // {
+    //     return $this->hasOne(Akademik::class, 'nim', 'nim');
+    // }
 }

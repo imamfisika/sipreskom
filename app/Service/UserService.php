@@ -95,49 +95,42 @@ class UserService
         return $user;
     }
 
-    public function deleteUser($request)
+    public function findByNim($nim)
     {
-
-        $validated = $request->validate([
-            'id' => 'required|exists:Users,id',
-        ]);
-
-        $user = User::find($validated['id']);
-        if ($user) {
-            $user->delete();
-            return response()->json(['message' => 'User deleted successfully'], 200);
-        }
-
-        return response()->json(['message' => 'User not found'], 404);
+        return User::where('nim', $nim)->firstOrFail();
     }
 
-    public function updateUser($request)
+    public function updateByNim(Request $request, $nim)
+{
+    $user = User::where('nim', $nim)->firstOrFail();
+
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'nim'   => 'required|string|max:18|unique:users,nim,' . $user->id,
+    ]);
+    $user->update([
+        'nama' => $request->input('nama'),
+        'email' => $request->input('email'),
+        'nim' => $request->input('nim'),
+    ]);
+}
+
+    public function deleteUserById($id)
     {
-        $validated = $request->validate([
-            'id' => 'required|exists:users,id',
-            'nama' => 'required|string|max:255',
-            'nim' => 'required|max:10|unique:users,nim,' . $request->id,
-            'email' => 'required|email|unique:users,email,' . $request->id,
-            'foto' => 'nullable|image|max:2048',
-        ]);
+        User::findOrFail($id)->delete();
+    }
+    public function logout()
+    {
+        Auth::logout();
+        session()->flush();
+        return redirect()->route('login')->with('success', 'Logout berhasil karena tidak ada aktivitas dalam beberapa waktu.');
+    }
 
-        $user = User::find($validated['id']);
-
-        $user->nama = $validated['nama'];
-        $user->nim = $validated['nim'];
-        $user->email = $validated['email'];
-
-        if ($request->hasFile('foto')) {
-            if ($user->foto && Storage::disk('public')->exists($user->foto)) {
-                Storage::disk('public')->delete($user->foto);
-            }
-
-            $fotoPath = $request->file('foto')->store('fotos', 'public');
-            $user->foto = $fotoPath;
+    public function authorizeAdmin()
+    {
+        if (Auth::user()->role !== 'adminprodi') {
+            abort(403, 'Anda tidak memiliki izin untuk mengubah data pengguna.');
         }
-
-        $user->save();
-
-        return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
     }
 }

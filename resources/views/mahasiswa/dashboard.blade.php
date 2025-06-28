@@ -11,10 +11,8 @@
     <div class="grid grid-cols-5 grid-rows-3 gap-6 mb-8">
 
         <div class="col-span-3 rounded-2xl bg-teal-900 text-white shadow-sm py-6 pl-8">
-            <div class="text-xl font-semibold text-left mb-4">
-                Selamat Datang,
-            </div>
-            <div class="text-normal">
+            <div class="text-xl font-semibold text-left mb-4">Selamat Datang,</div>
+            <div>
                 Yuk pantau dan selalu tingkatkan prestasi akademik Anda melalui SIPRESKOM.
             </div>
         </div>
@@ -27,7 +25,6 @@
                 @include('components.profile.mahasiswa')
             </div>
             <div class="pl-12">
-
                 <div class="text-md font-bold mb-6">Dosen Pembimbing Akademik:</div>
                 <div class="flex gap-5 mb-8 items-center">
                     <div class="overflow-hidden bg-gray-100 rounded-full">
@@ -44,6 +41,7 @@
         </div>
 
     </div>
+
     <div class="grid grid-cols-5 grid-rows-1 gap-6 mb-8">
 
         <div class="col-span-3 bg-white shadow-sm rounded-2xl border border-gray-300">
@@ -95,8 +93,7 @@
             </div>
         </div>
 
-        <div
-            class="col-span-2 row-span-1 col-start-4 pt-8 bg-white shadow-sm rounded-2xl text-left px-10 border border-gray-300">
+        <div class="col-span-2 row-span-1 col-start-4 pt-8 bg-white shadow-sm rounded-2xl text-left px-10 border border-gray-300">
             <div class="text-center text-xl font-bold mb-6">Rekomendasi</div>
             <div class="mx-1 grid gap-3">
                 <div class="font-bold text-md mt-2">Tingkatkan Konsistensi</div>
@@ -116,7 +113,9 @@
                 </div>
             </div>
         </div>
+
     </div>
+
     <div class="h-auto rounded-2xl bg-white shadow-sm border border-gray-300">
         <div class="pt-8 pb-12 text-center text-xl font-bold">Grafik Akademik</div>
         <div class="grid grid-cols-2 gap-6 pb-8 mx-12 items-center">
@@ -132,6 +131,7 @@
                 ['semester' => 'Semester 3', 'ip' => 3.6],
                 ['semester' => 'Semester 4', 'ip' => 3.5],
             ]" />
+
             <div class="h-fit bg-gray-100 text-black border border-gray-400 rounded-lg p-8 text-left">
                 <div class="text-md leading-7">
                     Pada <strong>Semester 4</strong>, IP Anda adalah

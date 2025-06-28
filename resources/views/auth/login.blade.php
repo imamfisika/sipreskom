@@ -45,11 +45,6 @@
                        transition ease-in-out duration-150">
                 {{ __('Login') }}
             </button>
-
-            @error('login')
-                <div>{{ $message }}</div>
-            @enderror
-
             <p class="pt-5 text-sm text-center font-light text-gray-500">
                 Belum memiliki akun?
                 <a href="{{ route('register') }}" class="font-semibold text-teal-700 hover:underline">Register</a>
