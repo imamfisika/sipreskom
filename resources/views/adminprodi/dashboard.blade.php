@@ -58,8 +58,8 @@
                     <tbody>
                         @forelse ($dosenpa->take(5) as $index => $dsn)
                             <tr class="bg-white border-b border-gray-300">
-                                <td class="px-8 py-4 font-medium text-gray-900">{{ $index + 1 }}.</td>
-                                <td class="px-4 py-4 truncate">{{ $dsn->nama }}</td>
+                                <td class="px-8 py-4">{{ $index + 1 }}.</td>
+                                <td class="px-4 py-4 truncate font-medium text-black">{{ $dsn->nama }}</td>
                                 <td class="px-4 py-4 truncate">{{ $dsn->nim }}</td>
                                 <td class="px-4 py-4 truncate overflow-hidden whitespace-nowrap">{{ $dsn->email }}</td>
                             </tr>
@@ -96,8 +96,8 @@
                     <tbody>
                         @forelse ($mahasiswa as $index => $mhs)
                             <tr class="bg-white border-b border-gray-300">
-                                <td class="px-8 py-4 font-medium text-gray-900">{{ $index + 1 }}.</td>
-                                <td class="px-4 py-4 truncate">{{ $mhs->nama }}</td>
+                                <td class="px-8 py-4">{{ $index + 1 }}.</td>
+                                <td class="px-4 py-4 truncate font-medium text-black">{{ $mhs->nama }}</td>
                                 <td class="px-4 py-4 truncate">{{ $mhs->nim }}</td>
                                 <td class="px-4 py-4 truncate overflow-hidden whitespace-nowrap">{{ $mhs->email }}</td>
                             </tr>
