@@ -10,9 +10,9 @@
     @endphp
 
     <div class="max-w-5xl mx-auto mt-10 bg-white shadow-md rounded-lg p-10 border">
-        <div class="text-center text-2xl font-bold mb-16">Tambah Prestasi Akademik</div>
+        <div class="text-center text-xl font-bold mb-16">Tambah Prestasi Akademik</div>
 
-        <div class="px-16 flex flex-row gap-6 items-center mb-12">
+        <div class="px-16 flex flex-row gap-6 items-center mb-8">
             <div class="text-base font-semibold">Pilih Form:</div>
             <div class="inline-flex shadow-xs" role="group">
                 <a href="{{ route('adminprodi.prestasi-akademik.create', ['form' => 'akademik']) }}"
@@ -29,6 +29,9 @@
                 </a>
             </div>
         </div>
+        <hr class="w-fill h-px mx-16 my-8 bg-gray-400 border-0">
+
+
 
         @if (session('success'))
         <div id="success-alert"

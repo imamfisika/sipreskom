@@ -12,56 +12,51 @@
         </div>
 
         <div class="grid md:grid-cols-3 gap-6 text-center">
-            @include('components.statusAkademik')
+            @include('components.status.mahasiswa', ['ipksks' => $ipksks])
         </div>
 
         <div class="text-2xl w-fit font-semibold mt-10 mb-6">Riwayat Akademik</div>
+
         <div class="mt-8 border border-gray-300 rounded-2xl">
-            <div class="overflow-x-auto shadow-sm sm:rounded-2xl">
-                <div class="p-10 bg-white">
-                    <h1 class="text-xl font-semibold text-left">Daftar Mata Kuliah</h1>
+            <div class="overflow-x-auto sm:rounded-2xl">
+                <div class="p-10 bg-white border-b border-gray-300 rounded-t-2xl">
+                    <h1 class="text-lg font-bold text-left">Daftar Mata Kuliah</h1>
                 </div>
 
-                <table class="w-full text-m text-left text-gray-700">
-                    <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
-                        <tr>
-                            <th scope="col" class="pl-10">No.</th>
-                            <th scope="col" class="pl-2 pr-8">Nama Mata Kuliah</th>
-                            <th scope="col" class="pr-3">Kode MK</th>
-                            <th scope="col" class="pl-10 pr-3">SKS</th>
-                            <th scope="col" class="pl-10 py-6">Bobot</th>
-                            <th scope="col" class="pl-14 py-6 pr-5">Nilai</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-white border-b border-gray-300">
-                            <th scope="row" class="pl-12 font-medium text-gray-900 whitespace-nowrap">1.</th>
-                            <td class="pl-3 py-4 font-medium text-gray-900">Matematika</td>
-                            <td class="py-4">MK001</td>
-                            <td class="pl-12 py-6">3</td>
-                            <td class="pl-12 py-6">4.0</td>
-                            <td class="pl-16 py-6">A</td>
-                        </tr>
-                        <tr class="bg-white border-b border-gray-300">
-                            <th scope="row" class="pl-12 font-medium text-gray-900 whitespace-nowrap">2.</th>
-                            <td class="pl-3 py-4 font-medium text-gray-900">Fisika</td>
-                            <td class="py-4">MK002</td>
-                            <td class="pl-12 py-6">3</td>
-                            <td class="pl-12 py-6">3.7</td>
-                            <td class="pl-16 py-6">A-</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table class="w-full text-sm text-left bg-teal-900 border-collapse">
+                        <thead class="font-black text-gray-200 border-b border-t border-gray-400">
+                            <tr>
+                                <th scope="col" class="pl-10">No.</th>
+                                <th class="pl-8">Nama Mata Kuliah</th>
+                                <th class="px-4 py-4">Kode MK</th>
+                                <th class="pl-12 py-4 text-center">SKS</th>
+                                <th class="pl-12 py-4 text-center">Bobot</th>
+                                <th class="px-10 py-4 text-center">Nilai</th>
+                            </tr>
+                        </thead>
 
-                <div class="bg-white pl-8 pt-8 font-medium text-md">
-                    <div class="mb-2">Jumlah SKS Lulus = 6</div>
-                    <div class="pb-10">Index Prestasi Kumulatif (IPK) = 3.85</div>
+                        <tbody>
+                            @foreach ($data as $index => $item)
+                                <tr class="bg-white border-b border-gray-300">
+                                    <th scope="row" class="pl-10 font-medium text-gray-900 whitespace-nowrap">{{ $index + 1 }}.</th>
+                                    <td class="pl-8 font-medium text-gray-900">{{ $item->nama_matkul }}</td>
+                                    <td class="px-4 py-4">{{ $item->kode_matkul }}</td>
+                                    <td class="pl-12 py-4 text-center">{{ $item->jml_sks }}</td>
+                                    <td class="pl-12 py-4 text-center">{{ $item->bobot }}</td>
+                                    <td class="px-10 py-4 text-center">{{ $item->nilai }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                </table>
+                <div class="bg-white px-8 py-8 text-base font-semibold">
+                    <div class="mb-2">Jumlah SKS Lulus = {{ $ipksks['total_sks'] }}</div>
+                    <div>Index Prestasi Kumulatif (IPK) = {{ $ipksks['ipk'] }}</div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white p-10 my-8 rounded-2xl shadow-sm border border-gray-300">
-            <div class="text-2xl text-center font-semibold mb-12">Grafik Akademik</div>
+        <div class="bg-white p-12 my-8 rounded-2xl shadow-sm border border-gray-300">
+            <div class="pb-8 text-center text-lg font-bold">Grafik Akademik</div>
             <div class="mx-10 my-10">
                 <x-ipk-chart :user="$user" :ip-data="[
                     ['semester' => 'Semester 1', 'ip' => 3.5],
@@ -76,14 +71,12 @@
                 ]" />
             </div>
 
-            <div class="mx-12 pt-8 py-8 bg-gray-100 text-black border border-gray-400 rounded-lg text-left">
-                <div class="text-md mx-8 leading-7">
-                    <div>
+            <div class="mx-12 p-8 bg-gray-100 text-black border border-gray-400 rounded-lg text-left">
+                <div class="text-sm leading-6">
                         Pada <strong>Semester 4</strong>, IP Anda adalah <strong>3.6</strong>, yang berada
                         <strong>di atas rata-rata</strong> dibandingkan rata-rata IP seluruh mahasiswa yaitu
                         <strong>3.5</strong>. Tren IP mahasiswa saat ini <strong>menurun</strong> dibandingkan semester
                         sebelumnya.
-                    </div>
                 </div>
             </div>
         </div>

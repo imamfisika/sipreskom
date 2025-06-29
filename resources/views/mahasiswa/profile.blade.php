@@ -13,7 +13,18 @@
 
         <div class="bg-white shadow-sm rounded-2xl border border-gray-300 pb-12">
             <div class="border-b border-gray-300 py-10 grid place-items-center">
-                @include('components.profile.mahasiswa', ['user' => $user])
+                @include('components.profile.mahasiswa', ['user' => $user, 'hideDosenPa' => true])
+
+                <form action="{{ route(Auth::user()->role . '.profile.upload') }}" method="POST" enctype="multipart/form-data"
+                    class="">
+                    @csrf
+                    <div class="flex items-center gap-3">
+                        <input type="file" name="foto" accept="image/*"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+                        <button type="submit"
+                            class="bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 text-sm rounded-lg">Upload</button>
+                    </div>
+                </form>
             </div>
 
             <div class="mx-32 mt-12 py-12 px-16 border rounded-2xl">
@@ -22,43 +33,44 @@
                         Informasi Kemahasiswaan
                     </div>
                 </div>
-                <div class="grid gap-10 text-md font-semibold">
-                    <div class="flex gap-10 col-span-2">
+                <div class="grid gap-10 text-md">
+                    <div class="flex gap-8 col-span-2">
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-2">Nama Lengkap</div>
-                            <input type="text" value="John Doe" disabled
-                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal">
+                            <div class="text-gray-600 mb-4 font-semibold">Nama :</div>
+                            <input type="text" value="{{ $user->nama }}" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 truncate pr-8">
                         </div>
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-2">Nomor Induk Mahasiswa (NIM)</div>
-                            <input type="text" value="1234567890" disabled
-                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal">
-                        </div>
-                    </div>
-                    <div class="flex gap-10 col-span-2">
-                        <div class="w-1/2">
-                            <div class="text-gray-600 mb-2">Angkatan</div>
-                            <input type="text" value="2020" disabled
-                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal">
-                        </div>
-                        <div class="w-1/2">
-                            <div class="text-gray-600 mb-2">Email</div>
-                            <input type="text" value="johndoe@gmail.com" disabled
-                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal">
+                            <div class="text-gray-600 mb-4 font-semibold">NIM :</div>
+                            <input type="text" value="{{ $user->nim }}" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
                         </div>
                     </div>
-                    <div class="flex gap-10 col-span-2">
+                    <div class="flex gap-8 col-span-2">
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-2">IPK</div>
-                            <input type="text" value="3.75" disabled
-                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal">
+                            <div class="text-gray-600 mb-4 font-semibold">Angkatan :</div>
+                            <input type="text" value="{{ '20' . substr($user->nim, 5, 2) }}" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
                         </div>
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-2">SKS Lulus</div>
-                            <input type="text" value="120" disabled
-                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 font-normal">
+                            <div class="text-gray-600 mb-4 font-semibold">Email :</div>
+                            <input type="text" value="{{ $user->email }}" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5 truncate pr-8">
                         </div>
                     </div>
+                    <div class="flex gap-8 col-span-2">
+                        <div class="w-1/2">
+                            <div class="text-gray-600 mb-4 font-semibold">IPK :</div>
+                            <input type="text" value=" {{ $ipksks['ipk'] ?? '-' }}" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
+                        </div>
+                        <div class="w-1/2">
+                            <div class="text-gray-600 mb-4 font-semibold">Total SKS :</div>
+                            <input type="text" value=" {{ $ipksks['total_sks'] ?? '-' }}" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

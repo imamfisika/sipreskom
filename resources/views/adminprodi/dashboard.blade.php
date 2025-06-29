@@ -17,20 +17,12 @@
             </div>
         </div>
 
-        @include('components.statusAdminprodi')
+        @include('components.status.adminprodi')
 
         <div class="col-span-2 row-span-3 col-start-4 bg-white shadow-sm rounded-2xl pt-8 text-left border border-gray-300">
-            <div class="text-center mb-6 text-xl font-bold">Profil Saya</div>
-            <div class="pl-12 mb-6 pr-10">
-                @include('components.profile.adminprodi')
+            <div class="text-center mb-6 text-lg font-bold">Profil Saya
             </div>
-            <div class="pl-12 pr-10">
-                <div class="mb-6 text-sm leading-7 text-ellipsis">
-                    Admin Program Studi Ilmu Komputer
-                    Fakultas Matematika dan Ilmu Pengetahuan Alam
-                    Universitas Negeri Jakarta
-                </div>
-            </div>
+            @include('components.profile.adminprodi')
         </div>
     </div>
 
@@ -38,7 +30,7 @@
         <div class="bg-white shadow-sm rounded-2xl border border-gray-300">
             <div class="py-10 px-10 bg-white border-b border-gray-300 rounded-t-2xl">
                 <div class="flex items-center justify-between flex-wrap gap-4">
-                    <div class="text-lg font-semibold text-left">Daftar Dosen Pembimbing Akademik</div>
+                    <div class="text-lg font-bold text-left">Daftar Dosen Pembimbing Akademik</div>
                     <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'dosenpa']) }}"
                         class="transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 rounded-full text-sm px-4 py-2">
                         Lihat semua
@@ -65,7 +57,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center py-6 text-gray-500">Tidak ada data dosen pembimbing.</td>
+                                <td colspan="4" class="text-center py-6 text-gray-500">Tidak ada data dosen pembimbing.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -76,7 +69,7 @@
         <div class="bg-white shadow-sm rounded-2xl border border-gray-300">
             <div class="py-10 px-10 bg-white border-b border-gray-300 rounded-t-2xl">
                 <div class="flex items-center justify-between flex-wrap gap-4">
-                    <div class="text-lg font-semibold text-left">Daftar Mahasiswa</div>
+                    <div class="text-lg font-bold text-left">Daftar Mahasiswa</div>
                     <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'mahasiswa']) }}"
                         class="transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 rounded-full text-sm px-4 py-2">
                         Lihat semua

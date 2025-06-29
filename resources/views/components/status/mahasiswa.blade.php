@@ -79,19 +79,19 @@
     <div class="w-14 h-14 bg-emerald-500 rounded-lg flex items-center justify-center mb-8">
         <i class="fa fa-file-text" style="font-size:24px; color:white"></i>
     </div>
-    <div class="text-lg font-semibold mb-5">SKS Lulus</div>
+    <div class="text-lg font-semibold mb-5">Total SKS</div>
     <div class="flex justify-between items-center gap-4 mb-3">
         <div class="w-full bg-gray-200 rounded-full h-4">
-            <div class="bg-emerald-500 h-4 rounded-full" style="width:{{ min((120 / 144) * 100, 100) }}%">
+            <div class="bg-emerald-500 h-4 rounded-full" style="width:{{ min(($ipksks['total_sks'] / 144) * 100, 100) }}%">
             </div>
         </div>
     </div>
-    <div class="text-sm font-semibold flex">
+    <div class="text-sm flex">
         <div>
-            120
+            {{ $ipksks['total_sks'] ?? '-' }}
             &nbsp
         </div>
-        <div class="font-black text-emerald-500">/&nbsp 144</div>
+        <div class="font-bold text-emerald-500">/&nbsp 144</div>
     </div>
 </div>
 <div
@@ -102,16 +102,16 @@
     <div class="text-lg font-semibold mb-5">IPK</div>
     <div class="flex justify-between items-center gap-4 mb-3">
         <div class="w-full bg-gray-200 rounded-full h-4">
-            <div class="bg-sky-500 h-4 rounded-full" style="width: {{ (3.75 / 4.0) * 100 }}%">
+            <div class="bg-sky-500 h-4 rounded-full" style="width: {{ ($ipksks['ipk'] / 4.0) * 100 }}%">
             </div>
         </div>
     </div>
-    <div class="text-sm font-semibold flex">
+    <div class="text-sm flex">
         <div>
-            3.75
+            {{ $ipksks['ipk'] ?? '-' }}
             &nbsp
         </div>
-        <div class="font-black text-sky-500">/&nbsp 4.00</div>
+        <div class="font-bold text-sky-500">/&nbsp 4.00</div>
     </div>
 </div>
 <div

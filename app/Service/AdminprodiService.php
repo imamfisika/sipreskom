@@ -2,13 +2,13 @@
 
 namespace App\Service;
 
+use App\Helpers\AdminprodiHelper;
 use App\Service\MahasiswaService;
 use App\Service\DosenpaService;
 use App\Models\Akademik;
 use App\Models\Matkul;
 use App\Models\Nilai;
 use Illuminate\Http\Request;
-use App\Models\User;
 
 
 class AdminprodiService
@@ -53,19 +53,9 @@ class AdminprodiService
             'ip' => 'required|numeric',
         ]);
 
-        $user = User::where('nim', $request->nim)->first();
+        $user = AdminprodiHelper::getUserByNim($request->nim);
 
-        if (!$user) {
-            throw new \Exception("User dengan NIM tersebut tidak ditemukan.");
-        }
-
-        $existing = Akademik::where('id_user', $user->id)
-            ->where('semester', $request->semester)
-            ->first();
-
-        if ($existing) {
-            throw new \Exception("Data dengan NIM {$request->nim} pada semester {$request->semester} sudah ada.");
-        }
+        AdminprodiHelper::cekDuplikatAkademik($user->id, $request->semester);
 
         Akademik::create([
             'id_user' => $user->id,
@@ -77,11 +67,9 @@ class AdminprodiService
 
     public function storeMatkul(array $data)
     {
-        $existing = Matkul::where('kode_matkul', $data['kode_matkul'])->first();
-        if (!preg_match('/^[a-zA-Z\s\-]+$/', $data['nama_matkul'])) {
-            throw new \Exception('Nama matkul hanya boleh huruf, spasi, dan tanda minus (-).');
-        }
-        if ($existing) {
+        AdminprodiHelper::validasiNamaMatkul($data['nama_matkul']);
+
+        if (Matkul::where('kode_matkul', $data['kode_matkul'])->exists()) {
             throw new \Exception('Kode matkul sudah digunakan.');
         }
 
@@ -94,25 +82,15 @@ class AdminprodiService
             throw new \Exception("Bobot dan semester harus berupa angka.");
         }
 
-        if (!preg_match('/^[A-Ea-e][+-]?$/', $data['nilai'])) {
-            throw new \Exception("Format nilai tidak valid. Contoh yang valid: A, B+, C-");
-        }
-
-        $user = User::where('nim', $data['nim'])->first();
-        if (!$user) {
-            throw new \Exception("User dengan NIM {$data['nim']} tidak ditemukan.");
-        }
-
-        $matkul = Matkul::where('kode_matkul', $data['kode_matkul'])->first();
-        if (!$matkul) {
-            throw new \Exception("Mata kuliah dengan kode {$data['kode_matkul']} tidak ditemukan.");
-        }
+        $nilai = AdminprodiHelper::validasiNilaiFormat($data['nilai']);
+        $user = AdminprodiHelper::getUserByNim($data['nim']);
+        $matkul = AdminprodiHelper::getMatkulByKode($data['kode_matkul']);
 
         Nilai::create([
             'id_user' => $user->id,
             'id_matkul' => $matkul->id,
             'bobot' => $data['bobot'],
-            'nilai' => strtoupper($data['nilai']),
+            'nilai' => $nilai,
             'semester' => $data['semester'],
         ]);
     }

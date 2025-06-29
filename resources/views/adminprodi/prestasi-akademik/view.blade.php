@@ -27,10 +27,10 @@
             </div>
         @endif
 
-        <div class="border border-gray-300 rounded-2xl mb-10">
+        <div class="border border-gray-300 rounded-2xl mb-10 mt-12">
             <div class="overflow-x-auto shadow-sm sm:rounded-2xl">
                 <div class="py-6 px-10 bg-white">
-                    <h1 class="text-lg font-semibold text-center">Daftar Prestasi Akademik</h1>
+                    <h1 class="text-lg font-bold text-center">Daftar Prestasi Akademik</h1>
                 </div>
                 <table class="w-full text-sm text-left text-gray-700 table-fixed">
                     <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
@@ -76,7 +76,7 @@
         <div class="border border-gray-300 rounded-2xl">
             <div class="overflow-x-auto shadow-sm sm:rounded-2xl">
                 <div class="py-6 px-10 bg-white">
-                    <h1 class="text-lg font-semibold text-center">Daftar Nilai</h1>
+                    <h1 class="text-lg font-bold text-center">Daftar Nilai</h1>
                 </div>
                 <table class="w-full text-left text-gray-700 table-fixed text-sm">
                     <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">

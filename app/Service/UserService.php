@@ -133,4 +133,16 @@ class UserService
             abort(403, 'Anda tidak memiliki izin untuk mengubah data pengguna.');
         }
     }
+
+    public function updateProfilePhoto($id, $photo)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+            Storage::disk('public')->delete($user->foto);
+        }
+
+        $path = $photo->store('images', 'public');
+        $user->update(['foto' => $path]);
+    }
 }

@@ -66,13 +66,13 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $nim)
-{
-    $this->userService->updateByNim($request, $nim);
+    {
+        $this->userService->updateByNim($request, $nim);
 
-    return redirect()->route('adminprodi.kelola-pengguna.view', [
-        'role' => $request->input('role')
-    ])->with('success', 'Data berhasil diperbarui');
-}
+        return redirect()->route('adminprodi.kelola-pengguna.view', [
+            'role' => $request->input('role')
+        ])->with('success', 'Data berhasil diperbarui');
+    }
 
     public function edit($nim)
     {
