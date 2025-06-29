@@ -46,17 +46,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Akademik::class, 'id_user');
     }
+    public function nilais()
+    {
+        return $this->hasMany(Nilai::class, 'id_user');
+    }
 
 
-    // public function getFotoUrlAttribute(): string
-    // {
-    //     return $this->foto
-    //         ? asset('storage/' . $this->foto)
-    //         : asset('images/profil.jpg');
-    // }
-
-    // public function akademik()
-    // {
-    //     return $this->hasOne(Akademik::class, 'nim', 'nim');
-    // }
 }

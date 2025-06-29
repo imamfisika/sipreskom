@@ -13,19 +13,19 @@
             </li>
             <li>
                 <a href="{{ route('mahasiswa.dashboard') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.dashboard') ? 'text-white font-semibold' : '' }}">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.dashboard') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-pie-chart" style="font-size:21px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Dashboard</span></a>
             </li>
             <li>
                 <a href="{{ route('mahasiswa.prestasi-akademik.index') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.prestasi-akademik.index') ? 'text-white font-semibold' : '' }}">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.prestasi-akademik.index') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-trophy" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Prestasi Akademik</span></a>
             </li>
             <li>
                 <a href="{{ route('mahasiswa.rekomendasi') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.rekomendasi') ? 'text-white font-semibold' : '' }}">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.rekomendasi') ? 'text-white font-semibold' : '' }}">
                     <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path
@@ -42,14 +42,14 @@
             </li>
             <li>
                 <a href="{{ route('mahasiswa.profile') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.profile') ? 'text-white font-semibold' : '' }}">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('mahasiswa.profile') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-user" style="font-size:25px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Profil Saya</span></a>
             </li>
             <li>
                 <a href="#"
                     onclick="event.preventDefault(); if(confirm('Apakah Anda yakin ingin logout?')) { document.getElementById('logout-form').submit(); }"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer">
                     <i class="fa fa-sign-out" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Logout</span>
                 </a>

@@ -75,9 +75,10 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
     Route::delete('/{id}/delete', [UserController::class, 'delete'])->name('admin.users.delete');
 
     Route::get('/kelola-prestasi-akademik', [AdminprodiController::class, 'viewKelolaPrestasi'])->name('adminprodi.prestasi-akademik.view');
-    Route::delete('/kelola-prestasi-akademik/{id}', [AdminprodiController::class, 'deletePrestasi'])
-        ->name('adminprodi.prestasi-akademik.delete');
+    Route::delete('/prestasi-akademik/delete-prestasi/{id}', [AdminprodiController::class, 'deletePrestasi'])->name('adminprodi.prestasi-akademik.deletePrestasi');
+    Route::delete('/daftar-nilai/{id}', [AdminprodiController::class, 'deleteDaftarNilai'])->name('adminprodi.daftar-nilai.delete');
 });
+
 
 
 // Route::get('/dashboard2', function() {

@@ -24,8 +24,8 @@
             <div class="pl-12 mb-6 pr-10">
                 @include('components.profile.dosenpa')
             </div>
-            <div class="px-12">
-                <div class="mb-6 font-normal leading-7 text-ellipsis">
+            <div class="pl-12 pr-10">
+                <div class="mb-6 text-sm leading-7 text-ellipsis">
                     Dosen Pembimbing Akademik Mahasiswa Program Studi Ilmu Komputer
                     Fakultas Matematika dan Pengetahuan Alam
                     Universitas Negeri Jakarta

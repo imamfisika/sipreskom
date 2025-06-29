@@ -12,20 +12,20 @@
             </li>
             <li>
                 <a href="{{ route('adminprodi.dashboard') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.dashboard') ? 'text-white font-semibold' : '' }}">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.dashboard') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-pie-chart" style="font-size:21px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Dashboard</span></a>
             </li>
             <li>
                 <a href="{{ route('adminprodi.kelola-pengguna.view') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.kelola-pengguna.view') ? 'text-white font-semibold' : '' }}">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.kelola-pengguna.view') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-user" style="font-size:25px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Kelola Pengguna</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('adminprodi.prestasi-akademik.view') }}"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.prestasi-akademik.view') ? 'text-white font-semibold' : '' }}">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.prestasi-akademik.view') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-trophy" style="font-size:22px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Kelola Prestasi</span>
                 </a>
@@ -35,7 +35,7 @@
             <li>
                 <a href="#"
                     onclick="event.preventDefault(); if(confirm('Apakah Anda yakin ingin logout?')) { document.getElementById('logout-form').submit(); }"
-                    class="flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer">
+                    class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer">
                     <i class="fa fa-sign-out" style="font-size:25px"></i>
                     <span class="flex-1 ml-4 whitespace-nowrap">Logout</span>
                 </a>
