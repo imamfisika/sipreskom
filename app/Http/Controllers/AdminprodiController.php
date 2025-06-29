@@ -79,16 +79,27 @@ class AdminprodiController extends Controller
 
     public function storeMatkul(Request $request)
     {
-        $this->adminprodiService->storeMatkul($request->only(['kode_matkul', 'nama_matkul', 'jml_sks']));
-        return back()->with('success', 'Data matkul berhasil disimpan.');
+        try {
+            $this->adminprodiService->storeMatkul($request->only(['kode_matkul', 'nama_matkul', 'jml_sks']));
+            return back()->with('success', 'Data matkul berhasil disimpan.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => $e->getMessage()]);
+        }
     }
 
     public function storeNilai(Request $request)
     {
-        $this->adminprodiService->storeNilai($request->only([
-            'nim', 'kode_matkul', 'bobot', 'nilai', 'semester'
-        ]));
-
-        return back()->with('success', 'Data nilai berhasil disimpan.');
+        try {
+            $this->adminprodiService->storeNilai($request->only([
+                'nim',
+                'kode_matkul',
+                'bobot',
+                'nilai',
+                'semester'
+            ]));
+            return back()->with('success', 'Data nilai berhasil disimpan.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => $e->getMessage()]);
+        }
     }
 }

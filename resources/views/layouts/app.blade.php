@@ -69,22 +69,6 @@
 </head>
 
 <body>
-    {{-- Flash Message --}}
-    <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                {{ $errors->first() }}
-            </div>
-        @endif
-    </div>
-
     <main class="sm:ml-64 pl-20 pt-12 pr-12 overflow-auto scroll-smooth bg-gray-50 h-screen">
         @yield('content')
         <br><br>

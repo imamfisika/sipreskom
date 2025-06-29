@@ -77,40 +77,43 @@ class AdminprodiService
 
     public function storeMatkul(array $data)
     {
+        $existing = Matkul::where('kode_matkul', $data['kode_matkul'])->first();
+        if (!preg_match('/^[a-zA-Z\s\-]+$/', $data['nama_matkul'])) {
+            throw new \Exception('Nama matkul hanya boleh huruf, spasi, dan tanda minus (-).');
+        }
+        if ($existing) {
+            throw new \Exception('Kode matkul sudah digunakan.');
+        }
+
         Matkul::create($data);
     }
 
     public function storeNilai(array $data)
     {
-        $user = User::where('nim', $data['nim'])->first();
-        if (!$user) {
-            throw new \Exception("NIM tidak ditemukan.");
-        }
-
-        $matkul = Matkul::where('kode_matkul', $data['kode_matkul'])->first();
-        if (!$matkul) {
-            throw new \Exception("Kode matkul tidak ditemukan.");
-        }
-
         if (!is_numeric($data['bobot']) || !is_numeric($data['semester'])) {
             throw new \Exception("Bobot dan semester harus berupa angka.");
         }
 
-    //     $existing = Nilai::where('id_user', $user->id)
-    //     ->where('id_matkul', $matkul->id)
-    //     ->where('semester', $data['semester'])
-    //     ->first();
+        if (!preg_match('/^[A-Ea-e][+-]?$/', $data['nilai'])) {
+            throw new \Exception("Format nilai tidak valid. Contoh yang valid: A, B+, C-");
+        }
 
-    // if ($existing) {
-    //     throw new \Exception("Data nilai ini sudah ada.");
-    // }
+        $user = User::where('nim', $data['nim'])->first();
+        if (!$user) {
+            throw new \Exception("User dengan NIM {$data['nim']} tidak ditemukan.");
+        }
+
+        $matkul = Matkul::where('kode_matkul', $data['kode_matkul'])->first();
+        if (!$matkul) {
+            throw new \Exception("Mata kuliah dengan kode {$data['kode_matkul']} tidak ditemukan.");
+        }
 
         Nilai::create([
-            'id_user'   => $user->id,
+            'id_user' => $user->id,
             'id_matkul' => $matkul->id,
-            'bobot'     => $data['bobot'],
-            'nilai'     => $data['nilai'],
-            'semester'  => $data['semester'],
+            'bobot' => $data['bobot'],
+            'nilai' => strtoupper($data['nilai']),
+            'semester' => $data['semester'],
         ]);
     }
 }
