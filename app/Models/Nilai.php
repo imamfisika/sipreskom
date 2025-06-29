@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Nilai extends Model
 {
-    protected $table = 'nilais';
-
+    protected $fillable = [
+        'id_user',
+        'id_matkul',
+        'bobot',
+        'nilai',
+        'semester',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');

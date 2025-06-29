@@ -8,7 +8,15 @@
     @include('components.sidebar.adminprodi')
 
     <div class="mx-32">
-        <div class="text-3xl font-bold mb-12">Kelola Prestasi Akademik</div>
+        <div class="flex items-center mb-8">
+            <div class="text-3xl font-bold mr-8">
+                Kelola Prestasi </div>
+            <div class="text-right">
+                <a type="button"  href="{{ route('adminprodi.prestasi-akademik.create') }}"
+                    class="text-center transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 rounded-full w-1/2 px-5 py-2.5">Tambah
+                    Data</a>
+            </div>
+        </div>
 
         @if (session('success'))
             <div id="success-alert"

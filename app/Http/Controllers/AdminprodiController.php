@@ -61,4 +61,34 @@ class AdminprodiController extends Controller
         $this->prestasiAkademikService->delete($id);
         return redirect()->back()->with('success', 'Data nilai berhasil dihapus.');
     }
+
+    public function create()
+    {
+        return view('adminprodi.prestasi-akademik.tambah');
+    }
+
+    public function storeAkademik(Request $request)
+    {
+        try {
+            $this->adminprodiService->storeAkademik($request);
+            return back()->with('success', 'Data akademik berhasil disimpan.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => $e->getMessage()]);
+        }
+    }
+
+    public function storeMatkul(Request $request)
+    {
+        $this->adminprodiService->storeMatkul($request->only(['kode_matkul', 'nama_matkul', 'jml_sks']));
+        return back()->with('success', 'Data matkul berhasil disimpan.');
+    }
+
+    public function storeNilai(Request $request)
+    {
+        $this->adminprodiService->storeNilai($request->only([
+            'nim', 'kode_matkul', 'bobot', 'nilai', 'semester'
+        ]));
+
+        return back()->with('success', 'Data nilai berhasil disimpan.');
+    }
 }

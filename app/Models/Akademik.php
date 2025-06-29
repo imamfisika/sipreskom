@@ -9,8 +9,7 @@ class Akademik extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nim', 'semester', 'jml_sks', 'IP'];
-
+    protected $fillable = ['id_user', 'semester', 'jml_sks', 'IP'];
 
     public function user()
     {

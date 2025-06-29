@@ -77,6 +77,13 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
     Route::get('/kelola-prestasi-akademik', [AdminprodiController::class, 'viewKelolaPrestasi'])->name('adminprodi.prestasi-akademik.view');
     Route::delete('/prestasi-akademik/delete-prestasi/{id}', [AdminprodiController::class, 'deletePrestasi'])->name('adminprodi.prestasi-akademik.deletePrestasi');
     Route::delete('/daftar-nilai/{id}', [AdminprodiController::class, 'deleteDaftarNilai'])->name('adminprodi.daftar-nilai.delete');
+
+    Route::get('/prestasi-akademik/tambah', [AdminprodiController::class, 'create'])->name('adminprodi.prestasi-akademik.create');
+    Route::prefix('adminprodi')->group(function () {
+        Route::post('/akademik/store', [AdminprodiController::class, 'storeAkademik'])->name('adminprodi.akademik.store');
+        Route::post('/matkul/store', [AdminprodiController::class, 'storeMatkul'])->name('adminprodi.matkul.store');
+        Route::post('/nilai/store', [AdminprodiController::class, 'storeNilai'])->name('adminprodi.nilai.store');
+    });
 });
 
 
