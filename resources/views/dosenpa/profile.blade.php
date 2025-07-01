@@ -55,7 +55,7 @@
                         </div>
                         <div class="w-1/2">
                             <div class="text-gray-600 mb-4 font-semibold">Mahasiswa Bimbingan Akademik :</div>
-                            <input type="text" value="-" disabled
+                            <input type="text" value="{{ $jumlahMahasiswaBimbingan }}" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
                         </div>
                     </div>

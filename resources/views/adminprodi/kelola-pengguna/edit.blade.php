@@ -22,22 +22,22 @@
             @csrf
             @method('PUT')
 
-            <div class="mb-6">
+            <div class="mb-6 px-20">
                 <label for="nama" class="block font-semibold text-gray-600 mb-4">Nama :</label>
                 <input type="text" name="nama" value="{{ old('nama', $editUser->nama) }}"
-                    class="w-full border border-gray-300 bg-gray-50 rounded-lg px-4 py-2">
+                    class="w-full border border-gray-300 text-sm bg-gray-50 rounded-lg p-3">
             </div>
 
-            <div class="mb-6">
+            <div class="mb-6 px-20">
                 <label for="email" class="block font-semibold text-gray-600 mb-4">Email :</label>
                 <input type="email" name="email" id="email" value="{{ old('email', $editUser->email) }}"
-                    class="w-full border border-gray-300 bg-gray-50 rounded-lg px-4 py-2">
+                    class="w-full border border-gray-300 text-sm bg-gray-50 rounded-lg p-3">
             </div>
 
-            <div class="mb-12">
+            <div class="mb-12 px-20">
                 <label for="nim" class="block font-semibold text-gray-600 mb-4">Nomor Induk :</label>
                 <input type="text" name="nim" id="nim" value="{{ old('nim', $editUser->nim) }}"
-                    class="w-full border border-gray-300 bg-gray-50 rounded-lg px-4 py-2">
+                    class="w-full border border-gray-300 text-sm bg-gray-50 rounded-lg p-3">
             </div>
 
             <div class="text-center">

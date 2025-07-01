@@ -67,22 +67,16 @@
         <div
             class="col-span-2 row-span-1 col-start-4 py-8 bg-white shadow-sm rounded-2xl text-left px-10 border border-gray-300">
             <div class="text-center text-lg font-bold mb-6">Rekomendasi</div>
-            <div class="mx-1 grid gap-2">
-                <div class="font-semibold text-base mt-2">Bu ria</div>
-                <div class="flex gap-2 content-center text-sm text-gray-800 w-96 items-center">
-                    <i class="fa fa-angle-double-right" style="font-size:20px;color:green"></i>
-                    Pertahankan nilai A di mata kuliah berikutnya.
-                </div>
-                <div class="font-semibold text-base mt-2">Bu ria</div>
-                <div class="flex gap-2 content-center text-sm text-gray-800 w-96 items-center">
-                    <i class="fa fa-angle-double-right" style="font-size:20px;color:green"></i>
-                    Fokus pada mata kuliah dengan nilai B+ untuk meningkatkan IPK.
-                </div>
-                <div class="font-semibold text-base mt-2">Bu ria</div>
-                <div class="flex gap-2 content-center text-sm text-gray-800 w-96 items-center">
-                    <i class="fa fa-angle-double-right" style="font-size:20px;color:green"></i>
-                    Ikuti pelatihan jaringan komputer untuk memperdalam pemahaman.
-                </div>
+            <div class="mx-1 grid gap-2.5">
+                @forelse ($rekomendasis->sortByDesc('created_at')->take(3) as $rekomendasi)
+                    <div class="font-semibold text-base mt-2">{{ $rekomendasi->nama_dosen }}</div>
+                    <div class="flex gap-2 content-center text-sm text-gray-800 w-96 items-center">
+                        <i class="fa fa-angle-double-right" style="font-size:20px;color:green"></i>
+                        {{ $rekomendasi->keterangan }}
+                    </div>
+                @empty
+                    <div class="text-sm text-gray-500">Belum ada rekomendasi dari dosen PA.</div>
+                @endforelse
             </div>
         </div>
 

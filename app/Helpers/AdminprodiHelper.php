@@ -5,7 +5,6 @@ namespace App\Helpers;
 use App\Models\User;
 use App\Models\Matkul;
 use App\Models\Akademik;
-use Illuminate\Validation\ValidationException;
 
 class AdminprodiHelper
 {
@@ -46,6 +45,15 @@ class AdminprodiHelper
     {
         if (Akademik::where('id_user', $userId)->where('semester', $semester)->exists()) {
             throw new \Exception("Data akademik semester {$semester} sudah ada untuk user ini.");
+        }
+    }
+    public static function handleWithSuccess(callable $callback, string $successMessage)
+    {
+        try {
+            $callback();
+            return back()->with('success', $successMessage);
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => $e->getMessage()]);
         }
     }
 }

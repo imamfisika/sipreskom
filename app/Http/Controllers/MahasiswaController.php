@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Service\UserService;
 use App\Service\MahasiswaService;
+use App\Service\RekomendasiService;
+use App\Models\Rekomendasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,11 +14,13 @@ class MahasiswaController extends Controller
 {
     protected $mahasiswaService;
     protected $userService;
+    protected $rekomendasiService;
 
-    public function __construct(MahasiswaService $mahasiswaService, UserService $userService)
+    public function __construct(MahasiswaService $mahasiswaService, UserService $userService, RekomendasiService $rekomendasiService)
     {
         $this->mahasiswaService = $mahasiswaService;
         $this->userService = $userService;
+        $this->rekomendasiService = $rekomendasiService;
     }
 
     public function viewMahasiswa()
@@ -24,8 +28,9 @@ class MahasiswaController extends Controller
         $user = Auth::user();
         $riwayatAkademik = $this->mahasiswaService->getRiwayatAkademik($user->id);
         $ipksks = app(MahasiswaService::class)->getIpkSks($user->id);
+        $rekomendasis = $this->mahasiswaService->getRekomendasiMahasiswa();
 
-        return view('mahasiswa.dashboard', compact('user', 'riwayatAkademik', 'ipksks'));
+        return view('mahasiswa.dashboard', compact('user', 'riwayatAkademik', 'ipksks', 'rekomendasis'));
     }
     public function viewPrestasiAkademik()
     {
@@ -37,7 +42,9 @@ class MahasiswaController extends Controller
     }
     public function viewRekomendasi()
     {
-        return view('mahasiswa.rekomendasi');
+        $rekomendasis = $this->mahasiswaService->getGroupedRekomendasiMahasiswa();
+
+        return view('mahasiswa.rekomendasi', compact('rekomendasis'));
     }
     public function viewProfile()
     {
@@ -50,11 +57,7 @@ class MahasiswaController extends Controller
     }
     public function updatePhoto(Request $request)
     {
-        $request->validate([
-            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
-
-        $this->userService->updateProfilePhoto(Auth::id(), $request->file('foto'));
+        $this->mahasiswaService->updatePhoto($request);
 
         return back()->with('success', 'Foto profil berhasil diperbarui.');
     }

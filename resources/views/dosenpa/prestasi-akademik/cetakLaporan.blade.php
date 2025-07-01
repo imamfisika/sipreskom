@@ -3,54 +3,62 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Laporan Akademik - Ilmu Komputer</title>
+    <title>Laporan Akademik Mahasiswa Bimbingan - Dosen PA</title>
     <style>
-        body body {
+        body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0px 50px 40px 50px;
         }
 
-        h3,
-        h2, h4 {
+        h2, h3, h4 {
             text-align: center;
+            margin: 4px 0;
+        }
+
+        .info {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .info p {
+            margin: 4px 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-top: 24px;
+            font-size: 14px;
         }
 
-        table,
-        th,
-        td {
+        table, th, td {
             border: 1px solid black;
         }
 
-        th,
-        td {
+        th {
+            background-color: #eee;
+        }
+
+        th, td {
             padding: 8px;
             text-align: center;
         }
 
-        .info {
-            margin-top: 20px;
-        }
-
-        .info p {
-            margin: 5px 0;
-        }
+        .w-no { width: 40px; }
+        .w-nama { width: 220px; text-align: left; padding-left: 10px; }
+        .w-nim { width: 130px; }
+        .w-sks, .w-ipk { width: 90px; }
+        .w-status { width: 140px; }
 
         .footer {
-            margin-top: 30px;
+            margin-top: 15px;
+            font-size: 13px;
         }
 
         .ttd {
-            text-align: center;
             display: flex;
             justify-content: space-between;
-            margin-top: 50px;
+            font-size: 14px;
         }
 
         .ttd div {
@@ -64,80 +72,75 @@
     <h2>UNIVERSITAS NEGERI JAKARTA</h2>
     <h3>FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM</h3>
     <h3>PROGRAM STUDI ILMU KOMPUTER</h3>
-    <h4>Jl. R.Mangun Muka Raya No.11, RT.11/RW.14, Rawamangun, Kec. Pulo Gadung, Kota Jakarta Timur, Daerah
-        Khusus Ibukota Jakarta 13220</h4>
+    <h4>Jl. R.Mangun Muka Raya No.11, Rawamangun, Jakarta Timur, DKI Jakarta 13220</h4>
 
     <div class="info">
-        <p><strong>Program Studi:</strong> Ilmu Komputer</p>
-        <p><strong>Angkatan:</strong> 2021</p>
-        <p><strong>Jumlah Mahasiswa:</strong> 5</p>
+        <p><strong>Laporan Akademik Mahasiswa Bimbingan</strong></p>
+        <p><strong>Dosen PA:</strong> {{ $dosen->nama ?? 'Nama Dosen' }}</p>
+        <p><strong>Jumlah Mahasiswa:</strong> {{ count($mahasiswa) }}</p>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>Nama Mahasiswa</th>
-                <th>NIM</th>
-                <th>SKS Lulus</th>
-                <th>IPK</th>
+                <th class="w-no">No</th>
+                <th class="w-nama">Nama Mahasiswa</th>
+                <th class="w-nim">NIM</th>
+                <th class="w-sks">SKS</th>
+                <th class="w-ipk">IPK</th>
+                <th class="w-status">Status Akademik</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Ahmad Fauzi</td>
-                <td>210123456</td>
-                <td>120</td>
-                <td>3.75</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Siti Aminah</td>
-                <td>210123457</td>
-                <td>118</td>
-                <td>3.65</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Rizky Maulana</td>
-                <td>210123458</td>
-                <td>115</td>
-                <td>3.80</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Nurul Hidayah</td>
-                <td>210123459</td>
-                <td>110</td>
-                <td>3.50</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Fajar Pratama</td>
-                <td>210123460</td>
-                <td>112</td>
-                <td>3.60</td>
-            </tr>
+            @forelse ($mahasiswa as $index => $mhs)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td class="w-nama">{{ $mhs['nama'] }}</td>
+                    <td>{{ $mhs['nim'] }}</td>
+                    <td>{{ $mhs['total_sks'] }}</td>
+                    <td>{{ number_format($mhs['ipk'], 2) }}</td>
+                    <td>
+                        @if ($mhs['ipk'] > 3.5)
+                            Berprestasi
+                        @elseif ($mhs['ipk'] >= 3.01)
+                            Cukup Berprestasi
+                        @else
+                            Kurang Berprestasi
+                        @endif
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 12px;">
+                        Tidak ada data mahasiswa bimbingan.
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
+
     <div class="footer">
-        <p>Catatan: Bila terdapat perbedaan data yang tercetak dengan Database, maka Database dijadikan dasar</p>
+        <p><em>Catatan:</em> Bila terdapat perbedaan data yang tercetak dengan database, maka data sistem dijadikan acuan resmi.</p>
+    </div>
 
-        <div class="ttd" style="display: flex; justify-content: space-between; text-align: center;">
-          <div style="width: 45%;">
-            Wakil Dekan I/Wakil Direktur I<br><br><br><br>
-            <strong>Dr. Meiliasari, S.Pd, M.Sc</strong><br>
-            NIP. 197905042009122002
-          </div>
-          <div style="width: 45%;">
-            Koordinator Program Studi<br>
-            ILMU KOMPUTER<br><br><br><br>
-            <strong>Dr. Ria Arafiyah, M.Si</strong><br>
-            NIP. 197511212005012004
-          </div>
-        </div>
-
+    <div class="ttd">
+        <table style="width: 100%; margin-top: 50px; font-size: 14px; border-collapse: collapse; border: 1px solid white;">
+            <tr style="border: 1px solid white;">
+                <td style="width: 50%; text-align: center; vertical-align: top; border: 1px solid white;">
+                    Dosen Pembimbing Akademik<br>
+                    Ilmu Komputer<br><br><br><br><br><br>
+                    <strong>{{ $dosen->nama ?? 'Nama Dosen' }}</strong><br>
+                    NIP. {{ $dosen->nim ?? '...' }}
+                </td>
+                <td style="width: 50%; text-align: center; vertical-align: top; border: 1px solid white;">
+                    Koordinator Program Studi<br>
+                    Ilmu Komputer<br><br><br><br><br><br>
+                    <strong>Dr. Ria Arafiyah, M.Si</strong><br>
+                    NIP. 197511212005012004
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 
 </html>

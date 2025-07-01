@@ -9,10 +9,10 @@
     <div class="mx-32">
         <div class="text-3xl font-bold mb-12">Rekomendasi</div>
 
-        <div class="flex items-center mb-8">
+        <div class="flex gap-4 items-center mb-8">
             <div class="text-md font-semibold">Semester:</div>
             <button
-                class="justify-between mx-4 text-black bg-white border border-gray-300 w-96 rounded-lg text-md px-5 py-3 inline-flex items-center"
+                class="justify-between mx-4 text-black bg-white border border-gray-300 w-72 rounded-lg text-sm px-4 py-3 inline-flex items-center"
                 type="button">
                 Semua
             </button>
@@ -117,70 +117,46 @@
 
         <div class="grid gap-6 my-8">
             <div class="overflow-x-auto">
-                <div class="flex gap-6">
-                    <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 pt-6 py-8 px-8 w-1/2">
-                        <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
-                            <div>
-                                <div class="mb-2 text-gray-400 font-semibold">01 Jan 2023</div>
-                                <div class="font-bold text-xl text-black">Dr. John Doe</div>
+                <div class="flex gap-6 flex-nowrap">
+                    @forelse($rekomendasis as $timestamp => $group)
+                        <div class="bg-white border border-gray-300 shadow-sm rounded-2xl p-8 min-w-[40%]">
+                            <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
+                                <div>
+                                    <div class="mb-1 text-gray-500 text-sm">
+                                        {{ \Carbon\Carbon::parse($timestamp)->format('d M Y') }}
+                                    </div>
+                                    <div class="font-bold text-lg"> {{ $group->first()->nama_dosen }}
+                                    </div>
+                                </div>
+                                <div>
+                                    @if ($loop->first)
+                                        <div
+                                            class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1.5 rounded-md item">
+                                            Terbaru
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                            <div>
-                                <span class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-4 py-1.5 rounded-md">
-                                    Terbaru
+
+                            <div class="mt-6 font-semibold text-sm">Rekomendasi Mata Kuliah:</div>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                @foreach($group as $rekom)
+                                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm border border-indigo-500">
+                                    {{ $rekom->matkul->nama_matkul ?? '-' }}
                                 </span>
+                            @endforeach
                             </div>
-                        </div>
 
-                        <div class="font-semibold text-md mt-8">Rekomendasi mata kuliah:</div>
-                        <div class="grid grid-cols-2 w-96 gap-4">
-                            <div
-                                class="text-center mt-4 w-48 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate overflow-hidden">
-                                Algoritma dan Pemrograman
-                            </div>
-                            <div
-                                class="text-center mt-4 w-48 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate overflow-hidden">
-                                Struktur Data
+                            <div class="mt-10 font-semibold mb-2 text-sm">Saran:</div>
+                            <div class="flex items-center gap-2 text-sm text-gray-800">
+                                <i class="fa fa-check-square text-green-600"></i>
+                                <div>{{ $group->first()->keterangan }}</div>
                             </div>
                         </div>
-
-                        <div class="font-semibold text-md mt-8 mb-4">Saran:</div>
-                        <div class="flex gap-3 content-center text-md font-medium text-gray-800 w-96 items-center">
-                            <i class="fa fa-check-square" style="font-size:20px;color:green"></i>
-                            <div>Tingkatkan pemahaman pada materi dasar algoritma.</div>
+                    @empty
+                        <div class="text-gray-500 text-md text-center">Belum ada rekomendasi dari Dosen Pembimbing Akademik.
                         </div>
-                    </div>
-
-                    <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 pt-6 py-8 px-8 w-1/2">
-                        <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
-                            <div>
-                                <div class="mb-2 text-gray-400 font-semibold">15 Feb 2023</div>
-                                <div class="font-bold text-xl text-black">Dr. Jane Smith</div>
-                            </div>
-                            <div>
-                                <span class="bg-green-100 text-green-800 text-sm font-semibold px-4 py-1.5 rounded-md">
-                                    Baru
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="font-semibold text-md mt-8">Rekomendasi mata kuliah:</div>
-                        <div class="grid grid-cols-2 w-96 gap-4">
-                            <div
-                                class="text-center mt-4 w-48 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate overflow-hidden">
-                                Basis Data
-                            </div>
-                            <div
-                                class="text-center mt-4 w-48 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate overflow-hidden">
-                                Jaringan Komputer
-                            </div>
-                        </div>
-
-                        <div class="font-semibold text-md mt-8 mb-4">Saran:</div>
-                        <div class="flex gap-3 content-center text-md font-medium text-gray-800 w-96 items-center">
-                            <i class="fa fa-check-square" style="font-size:20px;color:green"></i>
-                            <div>Perbanyak latihan soal terkait basis data.</div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>

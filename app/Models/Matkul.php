@@ -15,4 +15,8 @@ class Matkul extends Model
     {
         return $this->hasMany(Nilai::class, 'id_matkul');
     }
+    public function rekomendasis()
+{
+    return $this->belongsToMany(Rekomendasi::class, 'rekomendasi_matkul', 'matkul_id', 'rekomendasi_id');
+}
 }

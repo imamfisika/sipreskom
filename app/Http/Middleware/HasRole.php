@@ -23,7 +23,7 @@ class HasRole
             } else {
                 return redirect('/')->with('message', 'You do not have permission to access this page.');
             }
-        } {
+        } else {
             return redirect('/login')->with('message', 'You must be logged in to access this page.');
         }
     }

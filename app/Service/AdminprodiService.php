@@ -7,6 +7,7 @@ use App\Service\MahasiswaService;
 use App\Service\DosenpaService;
 use App\Models\Akademik;
 use App\Models\Matkul;
+use App\Models\User;
 use App\Models\Nilai;
 use Illuminate\Http\Request;
 
@@ -44,24 +45,23 @@ class AdminprodiService
         Akademik::findOrFail($id)->delete();
     }
 
-    public function storeAkademik(Request $request)
+    public function storeAkademik(array $data)
     {
-        $request->validate([
+        validator($data, [
             'nim' => 'required|string',
             'semester' => 'required|integer',
             'jml_sks' => 'required|integer',
             'ip' => 'required|numeric',
-        ]);
+        ])->validate();
 
-        $user = AdminprodiHelper::getUserByNim($request->nim);
-
-        AdminprodiHelper::cekDuplikatAkademik($user->id, $request->semester);
+        $user = AdminprodiHelper::getUserByNim($data['nim']);
+        AdminprodiHelper::cekDuplikatAkademik($user->id, $data['semester']);
 
         Akademik::create([
             'id_user' => $user->id,
-            'semester' => $request->semester,
-            'jml_sks' => $request->jml_sks,
-            'IP' => $request->ip,
+            'semester' => $data['semester'],
+            'jml_sks' => $data['jml_sks'],
+            'IP' => $data['ip'],
         ]);
     }
 
@@ -93,5 +93,19 @@ class AdminprodiService
             'nilai' => $nilai,
             'semester' => $data['semester'],
         ]);
+    }
+    public function getStatusAdminprodi(): array
+    {
+        $jumlahMatkul = Matkul::count();
+        $jumlahMahasiswa = User::where('role', 'mahasiswa')->count();
+        $jumlahDosenpa = User::where('role', 'dosenpa')
+            ->where('nim', '!=', '197511212005012004')
+            ->count();
+
+        return [
+            'matkul' => $jumlahMatkul,
+            'mahasiswa' => $jumlahMahasiswa,
+            'dosenpa' => $jumlahDosenpa,
+        ];
     }
 }

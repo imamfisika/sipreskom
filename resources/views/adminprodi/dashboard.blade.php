@@ -31,7 +31,7 @@
             <div class="py-10 px-10 bg-white border-b border-gray-300 rounded-t-2xl">
                 <div class="flex items-center justify-between flex-wrap gap-4">
                     <div class="text-lg font-bold text-left">Daftar Dosen Pembimbing Akademik</div>
-                    <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'dosenpa']) }}"
+                    <a href="{{ route('adminprodi.kelola-pengguna.view', ['role' => 'dosen']) }}"
                         class="transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 rounded-full text-sm px-4 py-2">
                         Lihat semua
                     </a>

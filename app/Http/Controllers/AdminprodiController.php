@@ -9,9 +9,6 @@ use App\Service\AdminprodiService;
 use App\Service\AkademikService;
 use App\Service\PrestasiAkademikService;
 
-
-
-
 class AdminprodiController extends Controller
 {
     protected $adminprodiService;
@@ -20,9 +17,13 @@ class AdminprodiController extends Controller
     protected $akademikService;
     protected $prestasiAkademikService;
 
-
-    public function __construct(AdminprodiService $adminprodiService, MahasiswaService $mahasiswaService, DosenpaService $dosenpaService, AkademikService $akademikService, PrestasiAkademikService $prestasiAkademikService)
-    {
+    public function __construct(
+        AdminprodiService $adminprodiService,
+        MahasiswaService $mahasiswaService,
+        DosenpaService $dosenpaService,
+        AkademikService $akademikService,
+        PrestasiAkademikService $prestasiAkademikService
+    ) {
         $this->adminprodiService = $adminprodiService;
         $this->mahasiswaService = $mahasiswaService;
         $this->dosenpaService = $dosenpaService;
@@ -34,9 +35,11 @@ class AdminprodiController extends Controller
     {
         $mahasiswa = $this->mahasiswaService->getAll();
         $dosenpa = $this->dosenpaService->getAll();
+        $status = $this->adminprodiService->getStatusAdminprodi();
 
-        return view('adminprodi.dashboard', compact('mahasiswa', 'dosenpa'));
+        return view('adminprodi.dashboard', compact('mahasiswa', 'dosenpa', 'status'));
     }
+
     public function viewKelolaPengguna(Request $request)
     {
         $role = $request->input('role');
@@ -44,6 +47,7 @@ class AdminprodiController extends Controller
 
         return view('adminprodi.kelola-pengguna.view', compact('data', 'role'));
     }
+
     public function viewKelolaPrestasi()
     {
         $akademiks = $this->adminprodiService->getAllPrestasi();
@@ -51,11 +55,13 @@ class AdminprodiController extends Controller
 
         return view('adminprodi.prestasi-akademik.view', compact('akademiks', 'nilais'));
     }
+
     public function deletePrestasi($id)
     {
         $this->adminprodiService->deletePrestasi($id);
         return back()->with('success', 'Data berhasil dihapus');
     }
+
     public function deleteDaftarNilai($id)
     {
         $this->prestasiAkademikService->delete($id);
@@ -70,7 +76,7 @@ class AdminprodiController extends Controller
     public function storeAkademik(Request $request)
     {
         try {
-            $this->adminprodiService->storeAkademik($request);
+            $this->adminprodiService->storeAkademik($request->only(['nim', 'semester', 'jml_sks', 'ip']));
             return back()->with('success', 'Data akademik berhasil disimpan.');
         } catch (\Exception $e) {
             return back()->withErrors(['message' => $e->getMessage()]);

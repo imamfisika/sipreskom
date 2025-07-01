@@ -110,7 +110,7 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($riwayatAkademik as $index => $item)
+                        @foreach ($riwayat as $index => $item)
                             <tr class="bg-white border-b border-gray-300">
                                 <th scope="row" class="pl-10 font-medium text-gray-900 whitespace-nowrap">
                                     {{ $index + 1 }}.</th>
@@ -228,8 +228,8 @@
             </div>
         </div>
 
-        <div class="flex items-center pt-8 pb-2">
-            <div class="text-2xl font-bold mr-6">Rekomendasi</div>
+        <div class="flex items-center pt-10 pb-2">
+            <div class="text-2xl font-semibold mr-6">Rekomendasi</div>
             <div class="text-right">
                 <a href="{{ route('dosenpa.rekomendasi.tambah') }}"
                     class="text-center transition ease-in-out duration-150 hover:bg-teal-800 text-white bg-teal-700 rounded-full px-5 py-2.5">
@@ -238,66 +238,50 @@
             </div>
         </div>
 
-        <div class="grid gap-6 mt-8">
+        <div class="grid gap-6 pt-6">
             <div class="overflow-x-auto">
-                <div class="flex gap-6">
-                    <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 pt-6 py-8 px-8 w-1/2">
-                        <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
-                            <div>
-                                <div class="mb-2 text-gray-400 font-semibold">01 Jan 2023</div>
-                                <div class="font-bold text-xl text-black">Rekomendasi 1</div>
+                <div class="flex gap-6 flex-nowrap">
+                    @forelse($rekomendasis as $rekomendasi)
+                        <div class="bg-white border border-gray-300 shadow-sm rounded-2xl p-8 min-w-[40%]">
+                            <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
+                                <div>
+                                    <div class="mb-1 text-gray-500 text-sm">
+                                        {{ \Carbon\Carbon::parse($rekomendasi->created_at)->format('d M Y H:i') }}
+                                    </div>
+                                    <div class="font-bold text-lg">{{ $rekomendasi->nama_dosen }}</div>
+                                </div>
+                                <div>
+                                    @if ($loop->first)
+                                        <div
+                                            class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1.5 rounded-md">
+                                            Terbaru
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                            <div>
-                                <span
-                                    class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-4 py-1.5 rounded-md">Terbaru</span>
-                            </div>
-                        </div>
-                        <div class="font-semibold text-md mt-8">Rekomendasi mata kuliah:</div>
-                        <div class="grid grid-cols-2 w-96 gap-4">
-                            <div
-                                class="text-center mt-4 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate">
-                                Pemrograman Lanjut
-                            </div>
-                            <div
-                                class="text-center mt-4 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate">
-                                Sistem Operasi
-                            </div>
-                        </div>
-                        <div class="font-semibold text-md mt-8 mb-4">Saran:</div>
-                        <div class="flex gap-3 items-center text-md font-medium text-gray-800">
-                            <i class="fa fa-check-square text-green-500 text-lg"></i>
-                            <div>Tingkatkan pemahaman pada mata kuliah inti.</div>
-                        </div>
-                    </div>
 
-                    <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 pt-6 py-8 px-8 w-1/2">
-                        <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
-                            <div>
-                                <div class="mb-2 text-gray-400 font-semibold">15 Feb 2023</div>
-                                <div class="font-bold text-xl text-black">Rekomendasi 2</div>
+                            <div class="mt-6 font-semibold text-sm">Rekomendasi Mata Kuliah:</div>
+                            <div class="flex flex-wrap gap-4 mt-4">
+                                @forelse ($rekomendasi->group as $matkul)
+                                    <div
+                                        class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-1 rounded-full border border-indigo-500">
+                                        {{ $matkul->matkul_rekomendasi }}
+                                    </div>
+                                @empty
+                                    <div class="text-gray-400">Mata kuliah tidak ditemukan</div>
+                                @endforelse
                             </div>
-                            <div>
-                                <span
-                                    class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-4 py-1.5 rounded-md">Terbaru</span>
-                            </div>
-                        </div>
-                        <div class="font-semibold text-md mt-8">Rekomendasi mata kuliah:</div>
-                        <div class="grid grid-cols-2 w-96 gap-4">
-                            <div
-                                class="text-center mt-4 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate">
-                                Jaringan Komputer
-                            </div>
-                            <div
-                                class="text-center mt-4 bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-0.5 rounded-full border border-indigo-500 truncate">
-                                Keamanan Informasi
+
+                            <div class="mt-10 font-semibold mb-2 text-sm">Saran:</div>
+                            <div class="flex items-center gap-2 text-sm text-gray-800">
+                                <i class="fa fa-check-square text-green-600"></i>
+                                <div>{{ $rekomendasi->keterangan }}</div>
                             </div>
                         </div>
-                        <div class="font-semibold text-md mt-8 mb-4">Saran:</div>
-                        <div class="flex gap-3 items-center text-md font-medium text-gray-800">
-                            <i class="fa fa-check-square text-green-500 text-lg"></i>
-                            <div>Fokus pada penguasaan konsep jaringan dan keamanan.</div>
-                        </div>
-                    </div>
+                    @empty
+                        <div class="text-gray-500 text-md text-center">Belum ada rekomendasi dari Dosen Pembimbing
+                            Akademik.</div>
+                    @endforelse
                 </div>
             </div>
         </div>

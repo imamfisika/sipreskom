@@ -59,19 +59,19 @@
                 <div class="grid grid-cols-2 gap-8 px-16">
                     <div>
                         <label for="nim" class="block font-semibold text-gray-600 mb-4">NIM :</label>
-                        <input type="text" name="nim" class="w-full border rounded p-2" required>
+                        <input type="text" name="nim" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="semester" class="block font-semibold text-gray-600 mb-4">Semester :</label>
-                        <input type="number" name="semester" class="w-full border rounded p-2" required>
+                        <input type="number" name="semester" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="jml_sks" class="block font-semibold text-gray-600 mb-4">Jumlah SKS :</label>
-                        <input type="number" name="jml_sks" class="w-full border rounded p-2" required>
+                        <input type="number" name="jml_sks" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="ip" class="block font-semibold text-gray-600 mb-4">Indeks Prestasi (IP) :</label>
-                        <input type="text" name="ip" class="w-full border rounded p-2" required>
+                        <input type="text" name="ip" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                 </div>
                 <div class="mt-20 px-16 text-center">
@@ -92,15 +92,15 @@
                 <div class="grid grid-cols-2 gap-8 px-16">
                     <div>
                         <label for="kode_matkul" class="block font-semibold text-gray-600 mb-4">Kode Matkul :</label>
-                        <input type="text" name="kode_matkul" class="w-full border rounded p-2" required>
+                        <input type="text" name="kode_matkul" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="nama_matkul" class="block font-semibold text-gray-600 mb-4">Nama Matkul :</label>
-                        <input type="string" name="nama_matkul" pattern="^[a-zA-Z\s\-]+$"  class="w-full border rounded p-2" required>
+                        <input type="string" name="nama_matkul" pattern="^[a-zA-Z\s\-]+$"  class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="jml_sks" class="block font-semibold text-gray-600 mb-4">Jumlah SKS :</label>
-                        <input type="number" name="jml_sks" class="w-full border rounded p-2" required>
+                        <input type="number" name="jml_sks" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                 </div>
                 <div class="mt-20 px-16 text-center">
@@ -119,23 +119,23 @@
                 <div class="grid grid-cols-2 gap-8 px-16">
                     <div>
                         <label for="nim" class="block font-semibold text-gray-600 mb-4">NIM :</label>
-                        <input type="text" name="nim" class="w-full border rounded p-2" required>
+                        <input type="text" name="nim" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="kode_matkul" class="block font-semibold text-gray-600 mb-4">Kode Matkul :</label>
-                        <input type="text" name="kode_matkul" class="w-full border rounded p-2" required>
+                        <input type="text" name="kode_matkul" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="bobot" class="block font-semibold text-gray-600 mb-4">Bobot :</label>
-                        <input type="text" name="bobot" class="w-full border rounded p-2" required>
+                        <input type="text" name="bobot" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="nilai" class="block font-semibold text-gray-600 mb-4">Nilai :</label>
-                        <input type="text" name="nilai" class="w-full border rounded p-2" required>
+                        <input type="text" name="nilai" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                     <div>
                         <label for="semester" class="block font-semibold text-gray-600 mb-4">Semester :</label>
-                        <input type="number" name="semester" class="w-full border rounded p-2" required>
+                        <input type="number" name="semester" class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 " required>
                     </div>
                 </div>
                 <div class="mt-20 px-16 text-center mb-10">

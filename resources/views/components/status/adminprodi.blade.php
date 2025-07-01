@@ -5,7 +5,7 @@
     </div>
     <div class="flex justify-between items-center">
         <div class="text-lg font-semibold mr-3">Mata Kuliah</div>
-        <div class="text-xl text-emerald-500 font-bold">52</div>
+        <div class="text-xl text-emerald-500 font-bold">{{ $status['matkul'] }}</div>
     </div>
 </div>
 <div
@@ -15,7 +15,7 @@
     </div>
     <div class="flex justify-between items-center">
         <div class="text-lg font-semibold w-12">Pembimbing Akademik</div>
-        <div class="text-xl text-sky-500 font-bold">2</div>
+        <div class="text-xl text-sky-500 font-bold">{{ $status['dosenpa'] }}</div>
     </div>
 </div>
 <div
@@ -25,6 +25,6 @@
     </div>
     <div class="flex justify-between items-center">
         <div class="text-lg font-semibold mr-3">Mahasiswa</div>
-        <div class="text-xl text-indigo-500 font-bold">48</div>
+        <div class="text-xl text-indigo-500 font-bold">{{ $status['mahasiswa'] }}</div>
     </div>
 </div>

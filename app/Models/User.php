@@ -50,6 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Nilai::class, 'id_user');
     }
-
+    public function rekomendasis()
+    {
+        return $this->hasMany(Rekomendasi::class, 'id_user');
+    }
 
 }

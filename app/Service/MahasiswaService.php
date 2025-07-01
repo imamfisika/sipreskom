@@ -3,7 +3,10 @@
 namespace App\Service;
 
 use App\Models\User;
+use App\Models\Rekomendasi;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class MahasiswaService
 {
@@ -58,5 +61,44 @@ class MahasiswaService
             'total_sks' => $totalSks,
             'ipk' => $ipk,
         ];
+    }
+    public function getRekomendasiMahasiswa()
+    {
+        $mahasiswa = Auth::user();
+
+        return Rekomendasi::where('id_user', $mahasiswa->id)
+            ->select('nama_dosen', 'keterangan')
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+    public function getGroupedRekomendasiMahasiswa()
+    {
+        $mahasiswa = Auth::user();
+
+        return Rekomendasi::with('matkul')
+            ->where('id_user', $mahasiswa->id)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->created_at->format('Y-m-d H:i:s');
+            });
+    }
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $user = User::find(Auth::id());
+        if (!$user) {
+            throw new \Exception('User not found.');
+        }
+
+        $foto = $request->file('foto');
+        $filename = 'profil_' . $user->id . '.' . $foto->getClientOriginalExtension();
+        $foto->storeAs('public/images', $filename);
+
+        $user->foto = $filename;
+        $user->save();
     }
 }
