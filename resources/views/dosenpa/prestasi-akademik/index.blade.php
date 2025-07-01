@@ -11,9 +11,8 @@
         <div class="text-3xl font-bold mb-6">Prestasi Akademik</div>
 
         <div class="grid md:grid-cols-3 gap-6 text-center">
-            @include('components.status.dosenpa')
+            @include('components.status.dosenpa', ['statusData' => $statusData])
         </div>
-
         <div class="flex items-center justify-between mt-12">
             <div class="flex gap-4 items-center">
                 <div class="text-md font-semibold">Angkatan:</div>
@@ -38,11 +37,11 @@
                             onclick="document.getElementById('error-alert').style.display='none'">x</button>
                     </div>
                 @endif
-                    <input type="text" name="nim" placeholder="Ketik Nomor Induk Mahasiswa"
-                        class="flex-wrap text-sm justify-between mx-auto mr-4 text-black bg-white border border-gray-300 w-80 rounded-lg px-4 py-3 inline-flex items-center">
-                    <button type="submit" class="px-4 py-2 hover:bg-teal-900 bg-teal-700 text-white rounded-lg">
-                        Cari
-                    </button>
+                <input type="text" name="nim" placeholder="Ketik Nomor Induk Mahasiswa"
+                    class="flex-wrap text-sm justify-between mx-auto mr-4 text-black bg-white border border-gray-300 w-80 rounded-lg px-4 py-3 inline-flex items-center">
+                <button type="submit" class="px-4 py-2 hover:bg-teal-900 bg-teal-700 text-white rounded-lg">
+                    Cari
+                </button>
             </form>
 
         </div>

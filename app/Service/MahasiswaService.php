@@ -4,6 +4,9 @@ namespace App\Service;
 
 use App\Models\User;
 use App\Models\Rekomendasi;
+use App\Models\Akademik;
+use App\Helpers\IpkPredictorHelper;
+use App\Helpers\RekomendasiHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -67,21 +70,22 @@ class MahasiswaService
         $mahasiswa = Auth::user();
 
         return Rekomendasi::where('id_user', $mahasiswa->id)
-            ->select('nama_dosen', 'keterangan')
+            ->select('nama_dosen', 'keterangan', 'created_at')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->get()
+            ->unique('keterangan')
+            ->take(3);
     }
     public function getGroupedRekomendasiMahasiswa()
     {
         $mahasiswa = Auth::user();
 
-        return Rekomendasi::with('matkul')
+        $raw = Rekomendasi::with('matkul')
             ->where('id_user', $mahasiswa->id)
             ->orderBy('created_at', 'desc')
-            ->get()
-            ->groupBy(function ($item) {
-                return $item->created_at->format('Y-m-d H:i:s');
-            });
+            ->get();
+
+        return RekomendasiHelper::groupRekomendasi($raw);
     }
     public function updatePhoto(Request $request)
     {
@@ -101,4 +105,76 @@ class MahasiswaService
         $user->foto = $filename;
         $user->save();
     }
+
+    public function getIpPerSemester($userId)
+    {
+        return \App\Models\Akademik::where('id_user', $userId)
+            ->orderBy('semester')
+            ->get(['semester', 'IP'])
+            ->map(function ($item) {
+                return [
+                    'semester' => 'Semester ' . $item->semester,
+                    'ip' => $item->IP
+                ];
+            });
+    }
+
+    public function getRataRataIpAngkatanBySemester()
+    {
+        return \App\Models\Akademik::select('semester', DB::raw('AVG(IP) as rata_ip'))
+            ->groupBy('semester')
+            ->orderBy('semester')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'semester' => 'Semester ' . $item->semester,
+                    'ip' => round($item->rata_ip, 2),
+                ];
+            });
+    }
+
+    public function getGrafikIpMahasiswa($userId)
+    {
+        $akademiks = \App\Models\Akademik::where('id_user', $userId)
+            ->orderBy('semester')
+            ->get();
+
+        $ipData = $akademiks->map(function ($item) {
+            return [
+                'semester' => 'Semester ' . $item->semester,
+                'ip' => $item->IP,
+            ];
+        });
+
+        $avgData = \App\Models\Akademik::select('semester', DB::raw('AVG(IP) as ip'))
+            ->groupBy('semester')
+            ->orderBy('semester')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'semester' => 'Semester ' . $item->semester,
+                    'ip' => round($item->ip, 2),
+                ];
+            });
+
+        $deskripsi = $this->generateDeskripsiIp($ipData, $avgData);
+
+        return compact('ipData', 'avgData', 'deskripsi');
+    }
+    private function generateDeskripsiIp($ipData, $avgData)
+{
+    $last = collect($ipData)->last();
+    $prev = collect($ipData)->count() >= 2 ? collect($ipData)->slice(-2, 1)->first() : null;
+
+    $avgLast = collect($avgData)->last();
+
+    if (!$last || !$avgLast) {
+        return 'Data IP belum cukup untuk menampilkan analisis.';
+    }
+
+    $bandingAvg = $last['ip'] >= $avgLast['ip'] ? 'di atas rata-rata' : 'di bawah rata-rata';
+    $tren = ($prev && $last['ip'] < $prev['ip']) ? 'menurun' : 'meningkat';
+
+    return "Pada <strong>{$last['semester']}</strong>, IP Anda adalah <strong>{$last['ip']}</strong>, yang berada <strong>{$bandingAvg}</strong> dibandingkan rata-rata IP seluruh mahasiswa yaitu <strong>{$avgLast['ip']}</strong>. Tren IP Anda saat ini <strong>{$tren}</strong> dibandingkan semester sebelumnya.";
+}
 }

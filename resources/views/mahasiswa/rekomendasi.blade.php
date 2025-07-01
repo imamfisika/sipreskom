@@ -12,10 +12,15 @@
         <div class="flex gap-4 items-center mb-8">
             <div class="text-md font-semibold">Semester:</div>
             <button
-                class="justify-between mx-4 text-black bg-white border border-gray-300 w-72 rounded-lg text-sm px-4 py-3 inline-flex items-center"
-                type="button">
-                Semua
-            </button>
+            class="text-sm justify-between text-black bg-white border border-gray-300 w-72 rounded-lg px-4 py-3 inline-flex items-center"
+            type="button">
+            Semua
+            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+            </svg>
+        </button>
         </div>
 
         <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 p-8">
@@ -125,7 +130,7 @@
                                     <div class="mb-1 text-gray-500 text-sm">
                                         {{ \Carbon\Carbon::parse($timestamp)->format('d M Y') }}
                                     </div>
-                                    <div class="font-bold text-lg"> {{ $group->first()->nama_dosen }}
+                                    <div class="font-bold text-lg"> {{ $group->nama_dosen }}
                                     </div>
                                 </div>
                                 <div>
@@ -140,9 +145,9 @@
 
                             <div class="mt-6 font-semibold text-sm">Rekomendasi Mata Kuliah:</div>
                             <div class="flex flex-wrap gap-2 mt-4">
-                                @foreach($group as $rekom)
+                                @foreach ($group->group as $rekom)
                                 <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm border border-indigo-500">
-                                    {{ $rekom->matkul->nama_matkul ?? '-' }}
+                                    {{ $rekom->matkul_rekomendasi }}
                                 </span>
                             @endforeach
                             </div>
@@ -150,7 +155,7 @@
                             <div class="mt-10 font-semibold mb-2 text-sm">Saran:</div>
                             <div class="flex items-center gap-2 text-sm text-gray-800">
                                 <i class="fa fa-check-square text-green-600"></i>
-                                <div>{{ $group->first()->keterangan }}</div>
+                                <div>{{ $group->keterangan }}</div>
                             </div>
                         </div>
                     @empty

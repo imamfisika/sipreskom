@@ -8,6 +8,8 @@ use App\Service\DosenpaService;
 use App\Service\AdminprodiService;
 use App\Service\AkademikService;
 use App\Service\PrestasiAkademikService;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\NilaiImport;
 
 class AdminprodiController extends Controller
 {
@@ -106,6 +108,19 @@ class AdminprodiController extends Controller
             return back()->with('success', 'Data nilai berhasil disimpan.');
         } catch (\Exception $e) {
             return back()->withErrors(['message' => $e->getMessage()]);
+        }
+    }
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv',
+        ]);
+
+        try {
+            app(AdminprodiService::class)->importNilaiFromExcel($request->file('excel_file'));
+            return back()->with('success', 'Data nilai berhasil diimpor.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => 'Gagal impor: ' . $e->getMessage()]);
         }
     }
 }

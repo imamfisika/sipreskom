@@ -9,8 +9,8 @@ use App\Models\Akademik;
 use App\Models\Matkul;
 use App\Models\User;
 use App\Models\Nilai;
-use Illuminate\Http\Request;
-
+use App\Imports\NilaiImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminprodiService
 {
@@ -94,6 +94,10 @@ class AdminprodiService
             'semester' => $data['semester'],
         ]);
     }
+    public function importNilaiFromExcel($file)
+{
+    Excel::import(new NilaiImport($this), $file);
+}
     public function getStatusAdminprodi(): array
     {
         $jumlahMatkul = Matkul::count();

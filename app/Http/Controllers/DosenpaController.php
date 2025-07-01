@@ -25,7 +25,8 @@ class DosenpaController extends Controller
     public function viewDosenpa()
     {
         $mahasiswa = $this->dosenpaService->getMahasiswaBimbingan();
-        return view('dosenpa.dashboard', compact('mahasiswa'));
+        $statusData = $this->dosenpaService->getStatusPrestasiMahasiswa();
+        return view('dosenpa.dashboard', compact('mahasiswa', 'statusData'));
     }
 
     public function viewRekomendasi()
@@ -61,8 +62,9 @@ class DosenpaController extends Controller
     public function viewPrestasiAkademik()
     {
         $mahasiswa = $this->dosenpaService->getMahasiswaBimbingan();
+        $statusData = $this->dosenpaService->getStatusPrestasiMahasiswa();
 
-        return view('dosenpa.prestasi-akademik.index', compact('mahasiswa'));
+        return view('dosenpa.prestasi-akademik.index', compact('mahasiswa', 'statusData'));
     }
 
     public function viewPrestasiAkademikMahasiswa($nim)
@@ -108,4 +110,5 @@ class DosenpaController extends Controller
 
         return back()->with('success', 'Foto profil berhasil diperbarui.');
     }
+
 }

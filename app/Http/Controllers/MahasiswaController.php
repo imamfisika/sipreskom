@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Service\UserService;
 use App\Service\MahasiswaService;
 use App\Service\RekomendasiService;
-use App\Models\Rekomendasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,11 +25,21 @@ class MahasiswaController extends Controller
     public function viewMahasiswa()
     {
         $user = Auth::user();
-        $riwayatAkademik = $this->mahasiswaService->getRiwayatAkademik($user->id);
-        $ipksks = app(MahasiswaService::class)->getIpkSks($user->id);
+        $riwayatAkademik = $this->mahasiswaService->getRiwayatAkademik(userId: $user->id)->sortByDesc('created_at')->take(4);
+        $ipksks = $this->mahasiswaService->getIpkSks($user->id);
         $rekomendasis = $this->mahasiswaService->getRekomendasiMahasiswa();
 
-        return view('mahasiswa.dashboard', compact('user', 'riwayatAkademik', 'ipksks', 'rekomendasis'));
+        $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
+
+        return view('mahasiswa.dashboard', [
+            'user' => $user,
+            'riwayatAkademik' => $riwayatAkademik,
+            'ipksks' => $ipksks,
+            'rekomendasis' => $rekomendasis,
+            'ipData' => $grafik['ipData'],
+            'ipAvgData' => $grafik['avgData'],
+            'deskripsi' => $grafik['deskripsi'],
+        ]);
     }
     public function viewPrestasiAkademik()
     {
@@ -38,8 +47,18 @@ class MahasiswaController extends Controller
         $data = $this->mahasiswaService->getRiwayatAkademik($user->id);
         $ipksks = $this->mahasiswaService->getIpkSks($user->id);
 
-        return view('mahasiswa.prestasi-akademik.index', compact('data', 'ipksks'));
+        $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
+
+
+        return view('mahasiswa.prestasi-akademik.index', [
+            'data' => $data,
+            'ipksks' => $ipksks,
+            'ipData' => $grafik['ipData'],
+            'ipAvgData' => $grafik['avgData'],
+            'deskripsi' => $grafik['deskripsi'],
+        ]);
     }
+
     public function viewRekomendasi()
     {
         $rekomendasis = $this->mahasiswaService->getGroupedRekomendasiMahasiswa();

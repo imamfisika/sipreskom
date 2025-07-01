@@ -68,7 +68,7 @@
             class="col-span-2 row-span-1 col-start-4 py-8 bg-white shadow-sm rounded-2xl text-left px-10 border border-gray-300">
             <div class="text-center text-lg font-bold mb-6">Rekomendasi</div>
             <div class="mx-1 grid gap-2.5">
-                @forelse ($rekomendasis->sortByDesc('created_at')->take(3) as $rekomendasi)
+                @forelse ($rekomendasis as $rekomendasi)
                     <div class="font-semibold text-base mt-2">{{ $rekomendasi->nama_dosen }}</div>
                     <div class="flex gap-2 content-center text-sm text-gray-800 w-96 items-center">
                         <i class="fa fa-angle-double-right" style="font-size:20px;color:green"></i>
@@ -82,34 +82,13 @@
 
     </div>
 
-    <div class="h-auto rounded-2xl bg-white shadow-sm border border-gray-300">
-        <div class="pt-8 pb-12 text-center text-lg font-bold">Grafik Akademik</div>
-        <div class="grid grid-cols-2 gap-6 pb-8 mx-12 items-center">
-
-            <x-ipk-chart :user="$user" :ip-data="[
-                ['semester' => 'Semester 1', 'ip' => 3.5],
-                ['semester' => 'Semester 2', 'ip' => 3.7],
-                ['semester' => 'Semester 3', 'ip' => 3.8],
-                ['semester' => 'Semester 4', 'ip' => 3.6],
-            ]" :ip-avg-data="[
-                ['semester' => 'Semester 1', 'ip' => 3.4],
-                ['semester' => 'Semester 2', 'ip' => 3.5],
-                ['semester' => 'Semester 3', 'ip' => 3.6],
-                ['semester' => 'Semester 4', 'ip' => 3.5],
-            ]" />
-
-            <div class="h-fit bg-gray-100 text-black border border-gray-400 rounded-lg p-8 text-left">
-                <div class="text-sm leading-6">
-                    Pada <strong>Semester 4</strong>, IP Anda adalah
-                    <strong>3.6</strong>, yang berada
-                    <strong>di atas rata-rata</strong> dibandingkan rata-rata IP seluruh mahasiswa yaitu
-                    <strong>3.5</strong>.
-                    Tren IP mahasiswa saat ini <strong>menurun</strong> dibandingkan semester
-                    sebelumnya.
-                </div>
-            </div>
-
-        </div>
+    <div class="pt-8 rounded-2xl bg-white shadow-sm border border-gray-300">
+        <div class="pb-12 text-center text-lg font-bold">Grafik Akademik</div>
+        @include('components.grafik.mahasiswa', [
+            'user' => $user,
+            'ipData' => $ipData,
+            'ipAvgData' => $ipAvgData,
+        ])
     </div>
 
 @endsection

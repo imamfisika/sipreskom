@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        @include('components.status.dosenpa')
+        @include('components.status.dosenpa', ['statusData' => $statusData])
 
         <div class="col-span-2 row-span-3 col-start-4 bg-white shadow-sm rounded-2xl pt-8 text-left border border-gray-300">
             <div class="text-center mb-6 text-lg font-bold">Profil Saya</div>

@@ -62,5 +62,6 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
         Route::post('/akademik/store', [AdminprodiController::class, 'storeAkademik'])->name('adminprodi.akademik.store');
         Route::post('/matkul/store', [AdminprodiController::class, 'storeMatkul'])->name('adminprodi.matkul.store');
         Route::post('/nilai/store', [AdminprodiController::class, 'storeNilai'])->name('adminprodi.nilai.store');
+        Route::post('/nilai/import', [AdminprodiController::class, 'importExcel'])->name('adminprodi.nilai.import');
     });
 });

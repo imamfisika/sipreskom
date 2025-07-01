@@ -2,14 +2,16 @@
 
 namespace App\Service;
 
+use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Rekomendasi;
+use App\Helpers\AkademikHelper;
+use App\Helpers\RekomendasiHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Helpers\AkademikHelper;
-use Illuminate\Http\Request;
-use App\Models\Rekomendasi;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class DosenpaService
 {
@@ -176,35 +178,49 @@ class DosenpaService
         $user->update(['foto' => $filename]);
     }
     public function getGroupedRekomendasiMahasiswaByNim(string $nim)
-{
-    $user = $this->getMahasiswaByNim($nim);
+    {
+        $user = $this->getMahasiswaByNim($nim);
 
-    $raw = Rekomendasi::with('matkul')
-        ->where('id_user', $user->id)
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $raw = Rekomendasi::with('matkul')
+            ->where('id_user', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-    if ($raw->isEmpty()) {
-        return collect();
+        return RekomendasiHelper::groupRekomendasi($raw);
     }
 
-    $grouped = $raw->groupBy(function ($item) {
-        return $item->created_at . '|' . $item->keterangan . '|' . $item->nama_dosen;
-    });
+    public function getStatusPrestasiMahasiswa()
+    {
+        $mahasiswa = User::where('role', 'mahasiswa')->get();
+        $total = $mahasiswa->count();
 
-    return $grouped->map(function ($items, $key) {
-        [$created_at, $keterangan, $nama_dosen] = explode('|', $key);
-
-        return (object)[
-            'created_at' => $created_at,
-            'keterangan' => $keterangan,
-            'nama_dosen' => $nama_dosen,
-            'group' => $items->map(function ($item) {
-                return (object)[
-                    'matkul_rekomendasi' => $item->matkul->nama_matkul ?? '-',
-                ];
-            }),
+        $kategori = [
+            'berprestasi' => 0,
+            'cukup' => 0,
+            'kurang' => 0,
         ];
-    })->values();
-}
+
+        foreach ($mahasiswa as $mhs) {
+            $akademik = \App\Models\Akademik::where('id_user', $mhs->id)->get();
+
+            if ($akademik->count() === 0) continue;
+
+            $ipk = $akademik->avg('IP');
+
+            if ($ipk > 3.5) {
+                $kategori['berprestasi']++;
+            } elseif ($ipk > 3.0) {
+                $kategori['cukup']++;
+            } else {
+                $kategori['kurang']++;
+            }
+        }
+
+        return [
+            'total' => $total,
+            'berprestasi' => $kategori['berprestasi'],
+            'cukup' => $kategori['cukup'],
+            'kurang' => $kategori['kurang'],
+        ];
+    }
 }
