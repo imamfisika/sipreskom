@@ -23,7 +23,7 @@
             @endif
             <div>
                 <label for="nim" class="block my-3 text-sm font-medium text-gray-900">
-                    Nomor Induk Mahasiswa
+                    Nomor Induk Mahasiswa/Pegawai
                 </label>
                 <input type="text" name="nim" id="nim" required value="{{ old('nim') }}"
                     class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg

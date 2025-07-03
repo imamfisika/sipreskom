@@ -10,7 +10,7 @@
             Laporan Akademik
         </div>
 
-        <div class="flex items-center justify-between mt-12 mb-10">
+        <div class="flex items-center justify-between mt-12 mb-8">
             <div class="flex gap-4 items-center">
                 <div class="text-md font-semibold">Angkatan:</div>
                 <button
@@ -45,7 +45,7 @@
                             <th class="w-16 px-6 py-4">No.</th>
                             <th class="w-72 px-6 py-4">Nama Mahasiswa</th>
                             <th class="px-6 py-4">NIM</th>
-                            <th class="px-6 py-4 text-center">SKS Lulus</th>
+                            <th class="px-6 py-4 text-center">Total SKS</th>
                             <th class="px-6 py-4 text-center">IPK</th>
                             <th class="w-48 px-6 py-4">Status Akademik</th>
                         </tr>

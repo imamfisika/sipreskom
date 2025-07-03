@@ -78,30 +78,9 @@
             </div>
         </div>
 
-        <div class="bg-white p-12 my-8 rounded-2xl shadow-sm border border-gray-300">
-            <div class="pb-8 text-center text-lg font-bold">Grafik Akademik</div>
-            <div class="mx-10 my-10">
-                <x-chart-dsn :ip-avg-data="[
-                    ['semester' => 'Semester 1', 'ip' => 3.5],
-                    ['semester' => 'Semester 2', 'ip' => 3.6],
-                    ['semester' => 'Semester 3', 'ip' => 3.7],
-                ]" :ip-max-data="[
-                    ['semester' => 'Semester 1', 'ip' => 4.0],
-                    ['semester' => 'Semester 2', 'ip' => 4.0],
-                    ['semester' => 'Semester 3', 'ip' => 4.0],
-                ]" :ip-min-data="[
-                    ['semester' => 'Semester 1', 'ip' => 3.0],
-                    ['semester' => 'Semester 2', 'ip' => 3.1],
-                    ['semester' => 'Semester 3', 'ip' => 3.2],
-                ]" />
-            </div>
-            <div class="mx-12 p-8 bg-gray-100 text-black border border-gray-400 rounded-lg text-left">
-                <div class="text-sm leading-6">
-                    Pada <strong>Semester 3</strong>, IP rata-rata mahasiswa adalah <strong>3.7</strong>. Nilai IP
-                    tertinggi mencapai <strong>4.0</strong>, sedangkan IP terendah adalah <strong>3.2</strong>. Tren
-                    rata-rata IP mahasiswa <strong>meningkat</strong> dibandingkan semester sebelumnya.
-                </div>
-            </div>
+        <div class="bg-white pt-8 my-8 rounded-2xl shadow-sm border border-gray-300">
+            <div class="pb-4 text-center text-lg font-bold">Grafik Akademik Angkatan</div>
+            @include('components.grafik.dosenpa', ['grafik' => $grafik])
         </div>
     </div>
 @endsection

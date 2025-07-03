@@ -1,6 +1,6 @@
 <aside id="separator-sidebar" class="h-screen fixed top-0 left-0 z-40 w-72">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-linear-to-bl from-teal-950 to-teal-700 border-r-1">
-        <div class="mt-2 ml-5 pt-5 pb-8 font-black text-2xl text-white">
+    <div class="h-full overflow-hidden px-3 py-4 bg-teal-900 border-r-1">
+        <div class="mt-2 ml-5 pt-5 pb-8 font-bold text-2xl text-white">
             <a href="{{ route('adminprodi.dashboard') }}">
                 {{ config('app.name') }}
             </a>

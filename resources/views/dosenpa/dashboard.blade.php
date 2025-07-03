@@ -63,7 +63,7 @@
         </div>
 
         <div class="col-span-2 row-span-1 col-start-4 pt-8 bg-white shadow-sm rounded-2xl text-left border border-gray-300">
-            <div class="pb-2 text-center text-lg font-bold">Grafik Akademik</div>
+            <div class="pb-2 text-center text-lg font-bold">Grafik Akademik Angkatan</div>
             @include('components.grafik.dosenpa', ['grafik' => $grafik])
         </div>
     </div>

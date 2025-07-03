@@ -189,9 +189,28 @@ class DosenpaService
 
     public function getStatusPrestasiMahasiswa()
     {
-        $mahasiswa = User::where('role', 'mahasiswa')->get();
-        $total = $mahasiswa->count();
+        $dosenNim = Auth::user()->nim;
 
+        if ($dosenNim === '197511212005012004') {
+            $mahasiswa = User::where('role', 'mahasiswa')->get();
+        } elseif ($dosenNim === '196605171994031003') {
+            $mahasiswa = User::where('role', 'mahasiswa')
+                ->whereRaw('MOD(CAST(nim AS UNSIGNED), 2) = 1')
+                ->get();
+        } elseif ($dosenNim === '198811022022031002') {
+            $mahasiswa = User::where('role', 'mahasiswa')
+                ->whereRaw('MOD(CAST(nim AS UNSIGNED), 2) = 0')
+                ->get();
+        } else {
+            return [
+                'total' => 0,
+                'berprestasi' => 0,
+                'cukup' => 0,
+                'kurang' => 0,
+            ];
+        }
+
+        $total = $mahasiswa->count();
         $kategori = [
             'berprestasi' => 0,
             'cukup' => 0,
@@ -201,7 +220,7 @@ class DosenpaService
         foreach ($mahasiswa as $mhs) {
             $akademik = \App\Models\Akademik::where('id_user', $mhs->id)->get();
 
-            if ($akademik->count() === 0) continue;
+            if ($akademik->isEmpty()) continue;
 
             $ipk = $akademik->avg('IP');
 
@@ -215,12 +234,13 @@ class DosenpaService
         }
 
         return [
-            'total' => $total,
+            'total' => $total ?: 1,
             'berprestasi' => $kategori['berprestasi'],
             'cukup' => $kategori['cukup'],
             'kurang' => $kategori['kurang'],
         ];
     }
+
     public function getGrafikStatistikIpMahasiswa()
     {
         $result = Akademik::select(
