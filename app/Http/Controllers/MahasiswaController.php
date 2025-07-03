@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Service\UserService;
 use App\Service\MahasiswaService;
 use App\Service\RekomendasiService;
+use App\Service\PrestasiAkademikService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,8 +29,9 @@ class MahasiswaController extends Controller
         $riwayatAkademik = $this->mahasiswaService->getRiwayatAkademik(userId: $user->id)->sortByDesc('created_at')->take(4);
         $ipksks = $this->mahasiswaService->getIpkSks($user->id);
         $rekomendasis = $this->mahasiswaService->getRekomendasiMahasiswa();
-
         $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
+        $dosenPa = $this->mahasiswaService->getDosenPaByNim($user->nim);
+
 
         return view('mahasiswa.dashboard', [
             'user' => $user,
@@ -39,6 +41,7 @@ class MahasiswaController extends Controller
             'ipData' => $grafik['ipData'],
             'ipAvgData' => $grafik['avgData'],
             'deskripsi' => $grafik['deskripsi'],
+            'dosenPa' => $dosenPa,
         ]);
     }
     public function viewPrestasiAkademik()
@@ -61,9 +64,20 @@ class MahasiswaController extends Controller
 
     public function viewRekomendasi()
     {
+        $user = Auth::user();
         $rekomendasis = $this->mahasiswaService->getGroupedRekomendasiMahasiswa();
+        $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
+        $matkulUlang = app(PrestasiAkademikService::class)->getMatkulWajibUlang($user->id);
 
-        return view('mahasiswa.rekomendasi', compact('rekomendasis'));
+
+        return view('mahasiswa.rekomendasi', [
+            'user' => $user,
+            'rekomendasis' => $rekomendasis,
+            'ipData' => $grafik['ipData'],
+            'ipAvgData' => $grafik['avgData'],
+            'deskripsi' => $grafik['deskripsi'],
+            'matkulUlang' => $matkulUlang,
+        ]);
     }
     public function viewProfile()
     {

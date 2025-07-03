@@ -22,7 +22,7 @@
 
         <div class="col-span-2 row-span-3 col-start-4 bg-white shadow-sm rounded-2xl pt-8 text-left border border-gray-300">
             <div class="text-center mb-6 text-lg font-bold">Profil Saya</div>
-                @include('components.profile.dosenpa')
+            @include('components.profile.dosenpa')
         </div>
     </div>
 
@@ -62,36 +62,9 @@
             </div>
         </div>
 
-        <div class="col-span-2 row-span-1 col-start-4 pt-8 bg-white shadow-sm rounded-2xl text-left pl-12 pr-10 border border-gray-300">
-        <div class="pb-2 text-center text-lg font-bold">Grafik Akademik</div>
-            <div class="my-8">
-                <x-chart-dsn
-                    :ip-avg-data="[
-                        ['semester' => 'Semester 1', 'ip' => 3.5],
-                        ['semester' => 'Semester 2', 'ip' => 3.6],
-                        ['semester' => 'Semester 3', 'ip' => 3.7],
-                    ]"
-                    :ip-max-data="[
-                        ['semester' => 'Semester 1', 'ip' => 4.0],
-                        ['semester' => 'Semester 2', 'ip' => 3.9],
-                        ['semester' => 'Semester 3', 'ip' => 3.8],
-                    ]"
-                    :ip-min-data="[
-                        ['semester' => 'Semester 1', 'ip' => 3.0],
-                        ['semester' => 'Semester 2', 'ip' => 3.2],
-                        ['semester' => 'Semester 3', 'ip' => 3.4],
-                    ]"
-                />
-            </div>
-            <div class="mx-4 my-8 py-6 bg-gray-100 text-black border border-gray-400 rounded-lg text-left content-center">
-                <div class="text-sm leading-6 rounded-lg px-4">
-                    Pada <strong>Semester 3</strong>, IP rata-rata mahasiswa adalah
-                    <strong>3.7</strong>. Nilai IP tertinggi mencapai
-                    <strong>3.8</strong>, sedangkan IP terendah adalah
-                    <strong>3.4</strong>. Tren rata-rata IP mahasiswa
-                    <strong>meningkat</strong> dibandingkan semester sebelumnya.
-                </div>
-            </div>
+        <div class="col-span-2 row-span-1 col-start-4 pt-8 bg-white shadow-sm rounded-2xl text-left border border-gray-300">
+            <div class="pb-2 text-center text-lg font-bold">Grafik Akademik</div>
+            @include('components.grafik.dosenpa', ['grafik' => $grafik])
         </div>
     </div>
 @endsection

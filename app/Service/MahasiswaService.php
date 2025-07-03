@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Models\User;
 use App\Models\Rekomendasi;
 use App\Models\Akademik;
-use App\Helpers\IpkPredictorHelper;
 use App\Helpers\RekomendasiHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +40,28 @@ class MahasiswaService
     {
         return $this->findById($id)->delete();
     }
+
+    public function getDosenPaByNim($nim)
+    {
+        $isGenap = ((int) $nim % 2) === 0;
+
+        if ($isGenap) {
+            return [
+                'nama' => 'Ari Hendarno, S.Pd., M.Kom.	',
+                'nip' => '198811022022031002',
+                'email' => 'pakari@dsn.unj.ac.id',
+                'foto' => 'ari.png',
+            ];
+        } else {
+            return [
+                'nama' => 'Drs. Mulyono, M.Kom.	',
+                'nip' => '196605171994031003',
+                'email' => 'pakmul@dsn.unj.ac.id',
+                'foto' => 'pakmul.jpg',
+            ];
+        }
+    }
+
     public function getRiwayatAkademik($userId)
     {
         return DB::table('nilais')
@@ -141,7 +162,7 @@ class MahasiswaService
 
         $ipData = $akademiks->map(function ($item) {
             return [
-                'semester' => 'Semester ' . $item->semester,
+                'semester' => 'smt ' . $item->semester,
                 'ip' => $item->IP,
             ];
         });
@@ -162,19 +183,19 @@ class MahasiswaService
         return compact('ipData', 'avgData', 'deskripsi');
     }
     private function generateDeskripsiIp($ipData, $avgData)
-{
-    $last = collect($ipData)->last();
-    $prev = collect($ipData)->count() >= 2 ? collect($ipData)->slice(-2, 1)->first() : null;
+    {
+        $last = collect($ipData)->last();
+        $prev = collect($ipData)->count() >= 2 ? collect($ipData)->slice(-2, 1)->first() : null;
 
-    $avgLast = collect($avgData)->last();
+        $avgLast = collect($avgData)->last();
 
-    if (!$last || !$avgLast) {
-        return 'Data IP belum cukup untuk menampilkan analisis.';
+        if (!$last || !$avgLast) {
+            return 'Data IP belum cukup untuk menampilkan analisis.';
+        }
+
+        $bandingAvg = $last['ip'] >= $avgLast['ip'] ? 'di atas rata-rata' : 'di bawah rata-rata';
+        $tren = ($prev && $last['ip'] < $prev['ip']) ? 'menurun' : 'meningkat';
+
+        return "Pada <strong>{$last['semester']}</strong>, IP Anda adalah <strong>{$last['ip']}</strong>, yang berada <strong>{$bandingAvg}</strong> dibandingkan rata-rata IP seluruh mahasiswa yaitu <strong>{$avgLast['ip']}</strong>. Tren IP Anda saat ini <strong>{$tren}</strong> dibandingkan semester sebelumnya.";
     }
-
-    $bandingAvg = $last['ip'] >= $avgLast['ip'] ? 'di atas rata-rata' : 'di bawah rata-rata';
-    $tren = ($prev && $last['ip'] < $prev['ip']) ? 'menurun' : 'meningkat';
-
-    return "Pada <strong>{$last['semester']}</strong>, IP Anda adalah <strong>{$last['ip']}</strong>, yang berada <strong>{$bandingAvg}</strong> dibandingkan rata-rata IP seluruh mahasiswa yaitu <strong>{$avgLast['ip']}</strong>. Tren IP Anda saat ini <strong>{$tren}</strong> dibandingkan semester sebelumnya.";
-}
 }

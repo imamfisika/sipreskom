@@ -9,116 +9,57 @@
     <div class="mx-32">
         <div class="text-3xl font-bold mb-12">Rekomendasi</div>
 
-        <div class="flex gap-4 items-center mb-8">
+        <div class="flex items-center gap-3 mb-8">
             <div class="text-md font-semibold">Semester:</div>
             <button
-            class="text-sm justify-between text-black bg-white border border-gray-300 w-72 rounded-lg px-4 py-3 inline-flex items-center"
-            type="button">
-            Semua
-            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m1 1 4 4 4-4" />
-            </svg>
-        </button>
+                class="text-sm justify-between text-black bg-white border border-gray-300 w-72 rounded-lg text-md px-4 py-3 inline-flex items-center"
+                type="button">
+                Semua
+                <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
         </div>
 
-        <div class="text-left bg-white shadow-sm rounded-2xl border border-gray-300 p-8">
-            <div class="text-center font-bold text-xl text-black mb-10">Prediksi Indeks Prestasi</div>
-            <div class="grid grid-cols-2 items-center justify-between">
-                <div class="bg-white p-8">
-                    <div class="chart-container w-full max-w-5xl mx-auto">
-                        <canvas id="ipChart" class="h-[400px] w-full"></canvas>
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', () => {
-                                const labels = ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'];
-                                const ipHistory = [3.2, 3.4, 3.6, 3.8];
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-300">
+            <div class="pb-12 text-center text-lg font-bold">Prediksi Indeks Prestasi</div>
 
-                                const datasets = [{
-                                    label: 'IP Anda',
-                                    data: ipHistory,
-                                    borderColor: 'rgba(54, 162, 235, 1)',
-                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                    borderWidth: 4,
-                                    fill: false,
-                                    tension: 0.1
-                                }];
+            @include('components.grafik.mahasiswa', ['user' => $user, 'hideDeskripsi' => true])
 
-                                labels.push('Semester 5');
-                                const prediksi = [...ipHistory, 3.9];
-
-                                datasets.push({
-                                    label: 'Prediksi IP',
-                                    data: prediksi,
-                                    borderColor: 'red',
-                                    backgroundColor: 'red',
-                                    borderWidth: 4,
-                                    fill: false,
-                                    borderDash: [5, 5],
-                                    tension: 0.1
-                                });
-
-                                const ctx = document.getElementById('ipChart').getContext('2d');
-                                new Chart(ctx, {
-                                    type: 'line',
-                                    data: {
-                                        labels: labels,
-                                        datasets: datasets
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        maintainAspectRatio: false,
-                                        plugins: {
-                                            legend: {
-                                                position: 'top',
-                                            },
-                                            tooltip: {
-                                                callbacks: {
-                                                    label: function(context) {
-                                                        return 'IP: ' + context.parsed.y.toFixed(2);
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        scales: {
-                                            y: {
-                                                min: 0,
-                                                max: 4,
-                                                title: {
-                                                    display: true,
-                                                    text: 'IP'
-                                                }
-                                            }
-                                        }
-                                    }
-                                });
-                            });
-                        </script>
+            <div class="flex justify-center items-center">
+                <div class="flex gap-6">
+                    <div class="flex flex-col justify-between h-full w-2/5">
+                        <div class="text-sm mb-5 border border-gray-300 bg-gray-100 p-4 rounded-xl h-full">
+                            <div class="font-semibold mb-2">Prediksi IP Semester 5 :</div> 3.68
+                        </div>
+                        <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl h-full">
+                            <div class="font-semibold mb-2">Kategori Prestasi:</div> Berprestasi
+                        </div>
                     </div>
-                </div>
-                <div class="row-span-3 px-10 h-full content-center">
-                    <div class="mb-3">
-                        <strong>Prediksi IP Semester 5:</strong> 3.9
-                    </div>
-                    <div class="mb-3">
-                        <strong>Kategori Prestasi:</strong> Sangat Baik
-                    </div>
-                    <div class="alert alert-warning">
-                        <div class="font-bold text-black mb-3">Mata Kuliah Dibawah Nilai Aman:</div>
-                        <ul>
-                            <li class="mb-2 font-normal">
-                                <span style="color: red;">
-                                    Matematika Lanjut (MATH202):
-                                    <strong>C</strong> —
-                                    <em>Wajib Diulang</em>
-                                </span>
-                            </li>
-                        </ul>
+                    <div class="flex-1">
+                        @if (!empty($matkulUlang))
+                            <div class="border border-gray-300 bg-gray-100 p-4 rounded-xl h-full flex flex-col">
+                                <div class="font-semibold text-sm mb-2">Mata Kuliah Mengulang:</div>
+                                <ul class="list-disc pl-6 text-sm text-gray-800">
+                                    @foreach ($matkulUlang as $matkul)
+                                        <li class="mb-2">
+                                            <span class="text-red-600">
+                                                {{ $matkul['nama_matkul'] }} ({{ $matkul['kode_matkul'] }}):
+                                                <strong>{{ $matkul['nilai'] }}</strong>
+                                            </span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <div class="grid gap-6 my-8">
             <div class="overflow-x-auto">
@@ -146,10 +87,11 @@
                             <div class="mt-6 font-semibold text-sm">Rekomendasi Mata Kuliah:</div>
                             <div class="flex flex-wrap gap-2 mt-4">
                                 @foreach ($group->group as $rekom)
-                                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm border border-indigo-500">
-                                    {{ $rekom->matkul_rekomendasi }}
-                                </span>
-                            @endforeach
+                                    <span
+                                        class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm border border-indigo-500">
+                                        {{ $rekom->matkul_rekomendasi }}
+                                    </span>
+                                @endforeach
                             </div>
 
                             <div class="mt-10 font-semibold mb-2 text-sm">Saran:</div>

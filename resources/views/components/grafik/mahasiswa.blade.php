@@ -1,10 +1,9 @@
-
 <div class="px-16 pb-12 items-center flex flex-col md:flex-row md:items-center justify-between">
 
     <div class="chart-container  max-w-xl mx-auto h-96 w-3/5">
         <canvas id="mhsChart-{{ $user->nim }}"></canvas>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const ctx = document.getElementById('mhsChart-{{ $user->nim }}').getContext('2d');
 
                 const ipData = @json($ipData);
@@ -18,8 +17,7 @@
                     type: 'line',
                     data: {
                         labels: labels,
-                        datasets: [
-                            {
+                        datasets: [{
                                 label: 'IP Anda',
                                 data: mahasiswaIP,
                                 borderColor: 'rgba(54, 162, 235, 1)',
@@ -55,8 +53,9 @@
         </script>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <div class="bg-gray-100 text-black border border-gray-400 rounded-lg p-6 ml-6 text-left text-sm leading-7 w-2/5">
-        {!! $deskripsi !!}
-    </div>
+    @if (!isset($hideDeskripsi))
+        <div class="bg-gray-100 text-black border border-gray-400 rounded-lg p-6 ml-6 text-left text-sm leading-7 w-2/5">
+            {!! $deskripsi !!}
+        </div>
+    @endif
 </div>

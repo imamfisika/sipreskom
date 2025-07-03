@@ -10,8 +10,8 @@ use App\Models\Matkul;
 use App\Models\User;
 use App\Models\Nilai;
 use App\Imports\NilaiImport;
+use App\Imports\AkademikImport;
 use Maatwebsite\Excel\Facades\Excel;
-
 class AdminprodiService
 {
     protected $mahasiswaService;
@@ -37,12 +37,27 @@ class AdminprodiService
     }
     public function getAllPrestasi()
     {
-        return Akademik::with('user')->get();
+        return Akademik::with('user')->paginate(7, ['*'], 'akademik_page');
+    }
+
+    public function getAllMatkuls()
+    {
+        return Matkul::orderBy('kode_matkul')->paginate(7, ['*'], 'matkul_page');
     }
 
     public function deletePrestasi($id)
     {
         Akademik::findOrFail($id)->delete();
+    }
+    public function deleteMatkul($id)
+    {
+        $matkul = Matkul::findOrFail($id);
+
+        if ($matkul->nilais()->exists()) {
+            throw new \Exception('Mata kuliah tidak dapat dihapus karena sudah memiliki nilai.');
+        }
+
+        $matkul->delete();
     }
 
     public function storeAkademik(array $data)
@@ -67,13 +82,18 @@ class AdminprodiService
 
     public function storeMatkul(array $data)
     {
-        AdminprodiHelper::validasiNamaMatkul($data['nama_matkul']);
+        $nama = trim(preg_replace('/[\r\n\t]+/', '', $data['nama_matkul']));
+        AdminprodiHelper::validasiNamaMatkul($nama);
 
         if (Matkul::where('kode_matkul', $data['kode_matkul'])->exists()) {
             throw new \Exception('Kode matkul sudah digunakan.');
         }
 
-        Matkul::create($data);
+        Matkul::create([
+            'kode_matkul' => $data['kode_matkul'],
+            'nama_matkul' => $nama,
+            'jml_sks' => $data['jml_sks'],
+        ]);
     }
 
     public function storeNilai(array $data)
@@ -95,9 +115,9 @@ class AdminprodiService
         ]);
     }
     public function importNilaiFromExcel($file)
-{
-    Excel::import(new NilaiImport($this), $file);
-}
+    {
+        Excel::import(new NilaiImport($this), $file);
+    }
     public function getStatusAdminprodi(): array
     {
         $jumlahMatkul = Matkul::count();
@@ -111,5 +131,9 @@ class AdminprodiService
             'mahasiswa' => $jumlahMahasiswa,
             'dosenpa' => $jumlahDosenpa,
         ];
+    }
+    public function importAkademikExcel($file)
+    {
+        Excel::import(new AkademikImport, $file);
     }
 }

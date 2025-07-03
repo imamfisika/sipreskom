@@ -7,6 +7,8 @@ use App\Service\UserService;
 use App\Service\RekomendasiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Service\PrestasiAkademikService;
+use App\Service\MahasiswaService;
 
 
 class DosenpaController extends Controller
@@ -14,19 +16,25 @@ class DosenpaController extends Controller
     protected $userService;
     protected $dosenpaService;
     protected $rekomendasiService;
+    protected $mahasiswaService;
+    protected $prestasiAkademikService;
 
-    public function __construct(UserService $userService, DosenpaService $dosenpaService, RekomendasiService $rekomendasiService)
+    public function __construct(UserService $userService, DosenpaService $dosenpaService, RekomendasiService $rekomendasiService, MahasiswaService $mahasiswaService, PrestasiAkademikService $prestasiAkademikService)
     {
         $this->userService = $userService;
         $this->dosenpaService = $dosenpaService;
         $this->rekomendasiService = $rekomendasiService;
+        $this->mahasiswaService = $mahasiswaService;
+        $this->prestasiAkademikService = $prestasiAkademikService;
     }
 
     public function viewDosenpa()
     {
         $mahasiswa = $this->dosenpaService->getMahasiswaBimbingan();
         $statusData = $this->dosenpaService->getStatusPrestasiMahasiswa();
-        return view('dosenpa.dashboard', compact('mahasiswa', 'statusData'));
+        $grafik = $this->dosenpaService->getGrafikStatistikIpMahasiswa();
+
+        return view('dosenpa.dashboard', compact('mahasiswa', 'statusData', 'grafik'));
     }
 
     public function viewRekomendasi()
@@ -75,9 +83,21 @@ class DosenpaController extends Controller
             return redirect()->route('dosenpa.prestasi-akademik.index')
                 ->with('error', "Mahasiswa dengan NIM '$nim' tidak ditemukan.");
         }
+
+        $user = $data['mahasiswa'];
         $rekomendasis = $this->dosenpaService->getGroupedRekomendasiMahasiswaByNim($nim);
 
-        return view('dosenpa.prestasi-akademik.mahasiswa', array_merge($data, compact('rekomendasis')));
+        $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
+        $matkulUlang = app(PrestasiAkademikService::class)->getMatkulWajibUlang($user->id);
+
+        return view('dosenpa.prestasi-akademik.mahasiswa', array_merge($data, [
+            'rekomendasis' => $rekomendasis,
+            'ipData' => $grafik['ipData'],
+            'ipAvgData' => $grafik['avgData'],
+            'deskripsi' => $grafik['deskripsi'],
+            'matkulUlang' => $matkulUlang,
+            'user' => $user,
+        ]));
     }
 
     public function viewLaporanAkademik()

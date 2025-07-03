@@ -5,6 +5,7 @@ namespace App\Service;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Rekomendasi;
+use App\Models\Akademik;
 use App\Helpers\AkademikHelper;
 use App\Helpers\RekomendasiHelper;
 use Illuminate\Support\Facades\Auth;
@@ -95,15 +96,19 @@ class DosenpaService
     {
         return DB::table('matkuls')
             ->select('id', 'nama_matkul')
+            ->orderBy('nama_matkul', 'asc')
             ->get();
     }
 
-    public function getDefaultMatkulBelumDiambil($mahasiswaCollection)
+    public function getFormRekomendasiData()
     {
-        return DB::table('matkuls')
-            ->select('id', 'nama_matkul')
-            ->get();
+        $nama_dosen = Auth::user()->nama;
+        $mahasiswa = $this->getMahasiswaBimbingan();
+        $matkuls = $this->getMatkulBelumDiambilByNim($mahasiswa);
+
+        return compact('nama_dosen', 'mahasiswa', 'matkuls');
     }
+
     public function validateRekomendasiRequest(Request $request)
     {
         $request->validate([
@@ -144,14 +149,6 @@ class DosenpaService
             ];
         })->values();
     }
-    public function getFormRekomendasiData()
-    {
-        $nama_dosen = Auth::user()->nama;
-        $mahasiswa = $this->getMahasiswaBimbingan();
-        $matkuls = $this->getDefaultMatkulBelumDiambil($mahasiswa);
-
-        return compact('nama_dosen', 'mahasiswa', 'matkuls');
-    }
 
     public function generateLaporanAkademik($dosen, $mahasiswa)
     {
@@ -177,6 +174,7 @@ class DosenpaService
 
         $user->update(['foto' => $filename]);
     }
+
     public function getGroupedRekomendasiMahasiswaByNim(string $nim)
     {
         $user = $this->getMahasiswaByNim($nim);
@@ -222,5 +220,28 @@ class DosenpaService
             'cukup' => $kategori['cukup'],
             'kurang' => $kategori['kurang'],
         ];
+    }
+    public function getGrafikStatistikIpMahasiswa()
+    {
+        $result = Akademik::select(
+            'semester',
+            DB::raw('MAX(IP) as ip_max'),
+            DB::raw('MIN(IP) as ip_min'),
+            DB::raw('AVG(IP) as ip_avg')
+        )
+            ->groupBy('semester')
+            ->orderBy('semester')
+            ->get();
+
+        $grafik = $result->map(function ($item) {
+            return [
+                'semester' => 'smt ' . $item->semester,
+                'ip_max' => round($item->ip_max, 2),
+                'ip_min' => round($item->ip_min, 2),
+                'ip_avg' => round($item->ip_avg, 2),
+            ];
+        });
+
+        return $grafik;
     }
 }

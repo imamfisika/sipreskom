@@ -18,7 +18,9 @@ class AdminprodiHelper
 
     public static function validasiNamaMatkul($nama)
     {
-        if (!preg_match('/^[a-zA-Z\s\-]+$/', $nama)) {
+        $nama = trim(preg_replace('/[\r\n\t]+/', '', $nama));
+
+        if (!preg_match('/^[a-zA-Z\s\-]+$/u', $nama)) {
             throw new \Exception('Nama matkul hanya boleh huruf, spasi, dan tanda minus (-).');
         }
     }

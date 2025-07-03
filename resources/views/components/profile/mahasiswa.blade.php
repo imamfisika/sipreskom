@@ -31,13 +31,12 @@
         <div class="text-md font-semibold mb-6">Dosen Pembimbing Akademik:</div>
         <div class="flex gap-5 mb-8 items-center">
             <div class="overflow-hidden bg-gray-100 rounded-full">
-                <img class="w-20" src="{{ url('storage/images/' . ($user->nim % 2 == 0 ? 'ari.png' : 'pakmul.jpg')) }}"
-                    alt="">
+                <img class="w-20" src="{{ url('storage/images/' . $dosenPa['foto']) }}" alt="">
             </div>
             <div>
-                <div class="mb-1 font-semibold text-gray-900">fulan</div>
-                <div class="mb-1 text-sm text-gray-600">NIP. 12345678910</div>
-                <div class="mb-1 text-sm text-gray-600">fulan@gmail.com</div>
+                <div class="mb-1 font-semibold text-gray-900">{{ $dosenPa['nama'] }}</div>
+                <div class="mb-1 text-sm text-gray-600">NIP. {{ $dosenPa['nip'] }}</div>
+                <div class="mb-1 text-sm text-gray-600">{{ $dosenPa['email'] }}</div>
             </div>
         </div>
     </div>

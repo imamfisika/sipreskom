@@ -61,7 +61,7 @@
 
                                     <td class="px-4 py-4 text-center">
                                       <a href="{{ route('admin.users.edit', ['nim' => $user->nim]) }}"
-                                            class="inline-flex items-center justify-center bg-blue-500 text-white py-2 rounded w-8">
+                                            class="inline-flex items-center justify-center bg-indigo-600 text-white py-2 rounded w-8">
                                             <i class="fa fa-pencil" style="font-size:18px"></i>
                                         </a>
                                     </td>

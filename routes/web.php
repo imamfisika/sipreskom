@@ -54,6 +54,7 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
 
     Route::get('/adminprodi/kelola-prestasi-akademik', [AdminprodiController::class, 'viewKelolaPrestasi'])->name('adminprodi.prestasi-akademik.view');
     Route::delete('/adminprodi/prestasi-akademik/delete-prestasi/{id}', [AdminprodiController::class, 'deletePrestasi'])->name('adminprodi.prestasi-akademik.deletePrestasi');
+    Route::delete('/adminprodi/prestasi-akademik/delete-matkul/{id}', [AdminprodiController::class, 'deleteMatkul'])->name('adminprodi.prestasi-akademik.deleteMatkul');
     Route::delete('/adminprodi/daftar-nilai/{id}', [AdminprodiController::class, 'deleteDaftarNilai'])->name('adminprodi.daftar-nilai.delete');
 
     Route::get('/adminprodi/prestasi-akademik/tambah', [AdminprodiController::class, 'create'])->name('adminprodi.prestasi-akademik.create');
@@ -63,5 +64,7 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
         Route::post('/matkul/store', [AdminprodiController::class, 'storeMatkul'])->name('adminprodi.matkul.store');
         Route::post('/nilai/store', [AdminprodiController::class, 'storeNilai'])->name('adminprodi.nilai.store');
         Route::post('/nilai/import', [AdminprodiController::class, 'importExcel'])->name('adminprodi.nilai.import');
+        Route::post('/matkul/import', [AdminprodiController::class, 'importMatkulExcel'])->name('adminprodi.matkul.importExcel');
+        Route::post('/akademik/import', [AdminprodiController::class, 'importAkademikExcel'])->name('adminprodi.akademik.importExcel');
     });
 });

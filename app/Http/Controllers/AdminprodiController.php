@@ -9,7 +9,7 @@ use App\Service\AdminprodiService;
 use App\Service\AkademikService;
 use App\Service\PrestasiAkademikService;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\NilaiImport;
+use App\Models\Matkul;
 
 class AdminprodiController extends Controller
 {
@@ -54,9 +54,11 @@ class AdminprodiController extends Controller
     {
         $akademiks = $this->adminprodiService->getAllPrestasi();
         $nilais = $this->prestasiAkademikService->getAllNilaiWithRelasi();
+        $matkuls = $this->adminprodiService->getAllMatkuls();
 
-        return view('adminprodi.prestasi-akademik.view', compact('akademiks', 'nilais'));
+        return view('adminprodi.prestasi-akademik.view', compact('akademiks', 'nilais', 'matkuls'));
     }
+
 
     public function deletePrestasi($id)
     {
@@ -68,6 +70,16 @@ class AdminprodiController extends Controller
     {
         $this->prestasiAkademikService->delete($id);
         return redirect()->back()->with('success', 'Data nilai berhasil dihapus.');
+    }
+
+    public function deleteMatkul($id)
+    {
+        try {
+            $this->adminprodiService->deleteMatkul($id);
+            return redirect()->back()->with('success', 'Mata kuliah berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function create()
@@ -110,6 +122,19 @@ class AdminprodiController extends Controller
             return back()->withErrors(['message' => $e->getMessage()]);
         }
     }
+    public function importAkademikExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        try {
+            $this->adminprodiService->importAkademikExcel($request->file('file'));
+            return back()->with('success', 'Import data akademik berhasil!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => 'Import gagal: ' . $e->getMessage()]);
+        }
+    }
     public function importExcel(Request $request)
     {
         $request->validate([
@@ -121,6 +146,19 @@ class AdminprodiController extends Controller
             return back()->with('success', 'Data nilai berhasil diimpor.');
         } catch (\Exception $e) {
             return back()->withErrors(['message' => 'Gagal impor: ' . $e->getMessage()]);
+        }
+    }
+    public function importMatkulExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls'
+        ]);
+
+        try {
+            Excel::import(new \App\Imports\MatkulImport, $request->file('file'));
+            return back()->with('success', 'Data mata kuliah berhasil diimport.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => $e->getMessage()]);
         }
     }
 }
