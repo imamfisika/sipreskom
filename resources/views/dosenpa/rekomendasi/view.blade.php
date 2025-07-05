@@ -30,7 +30,7 @@
                             <th class="px-6 border-b w-40">Mahasiswa</th>
                             <th class="px-6 border-b w-40">Dosen</th>
                             <th class="px-6 border-b w-[50%]">Rekomendasi Matkul</th>
-                            <th class="px-4 pr-4 border-b w-[30%]">Saran</th>
+                            <th class="px-4 pr-4 border-b w-[40%]">Saran</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +40,7 @@
                                 <td class="px-6 font-semibold">{{ $rekomendasi->mahasiswa->nama }}</td>
                                 <td class="px-6">{{ $rekomendasi->nama_dosen }}</td>
                                 <td class="px-6">
-                                    <div class="flex flex-wrap gap-1.5">
+                                    <div class="flex flex-wrap gap-1.5 py-4">
                                         @foreach($rekomendasi->matkuls as $matkul)
                                             <span
                                                 class="max-w-56 truncate bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full border border-indigo-500">
@@ -50,9 +50,11 @@
                                     </div>
                                 </td>
                                 <td class="px-4 text-gray-800">
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa fa-check-square text-green-600"></i>
-                                        <span>{{ $rekomendasi->keterangan }}</span>
+                                    <div class="flex items-start gap-2 py-4 max-w-xs">
+                                        <i class="fa fa-check-square text-green-600 mt-1"></i>
+                                        <span class="line-clamp-4 text-sm leading-relaxed">
+                                            {{ $rekomendasi->keterangan }}
+                                        </span>
                                     </div>
                                 </td>
                             </tr>

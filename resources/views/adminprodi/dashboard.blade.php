@@ -37,7 +37,7 @@
                     </a>
                 </div>
             </div>
-            <div class="overflow-hidden sm:rounded-b-2xl pb-6">
+            <div class="overflow-hidden sm:rounded-b-2xl">
                 <table class="w-full text-sm text-left text-gray-700 table-fixed">
                     <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
                         <tr>
@@ -76,7 +76,7 @@
                     </a>
                 </div>
             </div>
-            <div class="overflow-hidden sm:rounded-b-2xl pb-6">
+            <div class="overflow-hidden sm:rounded-b-2xl">
                 <table class="w-full text-sm text-left text-gray-700 table-fixed">
                     <thead class="text-gray-200 border-b border-t bg-teal-900 border-gray-400">
                         <tr>

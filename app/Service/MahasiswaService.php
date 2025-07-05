@@ -9,6 +9,9 @@ use App\Helpers\RekomendasiHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
+
 
 class MahasiswaService
 {
@@ -68,12 +71,11 @@ class MahasiswaService
             ->join('matkuls', 'nilais.id_matkul', '=', 'matkuls.id')
             ->where('nilais.id_user', $userId)
             ->select('matkuls.nama_matkul', 'matkuls.kode_matkul', 'matkuls.jml_sks', 'nilais.bobot', 'nilais.nilai')
-            ->orderBy('matkuls.nama_matkul')
-            ->get();
+            ->paginate(10);
     }
     public function getIpkSks($userId)
     {
-        $akademiks = \App\Models\Akademik::where('id_user', $userId)->get();
+        $akademiks = Akademik::where('id_user', $userId)->get();
 
         $totalSks = $akademiks->sum('jml_sks');
         $totalIp = $akademiks->sum('IP');
@@ -129,7 +131,7 @@ class MahasiswaService
 
     public function getIpPerSemester($userId)
     {
-        return \App\Models\Akademik::where('id_user', $userId)
+        return Akademik::where('id_user', $userId)
             ->orderBy('semester')
             ->get(['semester', 'IP'])
             ->map(function ($item) {
@@ -142,7 +144,7 @@ class MahasiswaService
 
     public function getRataRataIpAngkatanBySemester()
     {
-        return \App\Models\Akademik::select('semester', DB::raw('AVG(IP) as rata_ip'))
+        return Akademik::select('semester', DB::raw('AVG(IP) as rata_ip'))
             ->groupBy('semester')
             ->orderBy('semester')
             ->get()
@@ -156,7 +158,7 @@ class MahasiswaService
 
     public function getGrafikIpMahasiswa($userId)
     {
-        $akademiks = \App\Models\Akademik::where('id_user', $userId)
+        $akademiks = Akademik::where('id_user', $userId)
             ->orderBy('semester')
             ->get();
 
@@ -167,7 +169,7 @@ class MahasiswaService
             ];
         });
 
-        $avgData = \App\Models\Akademik::select('semester', DB::raw('AVG(IP) as ip'))
+        $avgData = Akademik::select('semester', DB::raw('AVG(IP) as ip'))
             ->groupBy('semester')
             ->orderBy('semester')
             ->get()
@@ -197,5 +199,54 @@ class MahasiswaService
         $tren = ($prev && $last['ip'] < $prev['ip']) ? 'menurun' : 'meningkat';
 
         return "Pada <strong>{$last['semester']}</strong>, IP Anda adalah <strong>{$last['ip']}</strong>, yang berada <strong>{$bandingAvg}</strong> dibandingkan rata-rata IP seluruh mahasiswa yaitu <strong>{$avgLast['ip']}</strong>. Tren IP Anda saat ini <strong>{$tren}</strong> dibandingkan semester sebelumnya.";
+    }
+
+    public function getIPSemester($userId)
+    {
+        return Akademik::where('id_user', $userId)
+            ->whereIn('semester', [1, 2, 3, 4])
+            ->orderBy('semester')
+            ->pluck('ip', 'semester')
+            ->toArray();
+    }
+
+    public function getPrediksiIP($semester, array $ips)
+    {
+        $endpoint = "http://localhost:8080/predict/{$semester}";
+        $response = Http::post($endpoint, $ips);
+        return $response->successful() ? $response->json() : null;
+    }
+
+    public function getPrediksiKategoriBySemester($semester, array $ips)
+    {
+        $endpoint = "http://localhost:8080/predict/{$semester}/kategori";
+        $response = Http::post($endpoint, $ips);
+        return $response->successful() ? $response->json() : null;
+    }
+
+
+    public function getPrediksiIpStatus($userId)
+    {
+        $ips = $this->getIPSemester($userId);
+        if (empty($ips)) return null;
+
+        $semesterTerakhir = max(array_keys($ips));
+        if ($semesterTerakhir >= 5) return null;
+
+        $nextSemester = $semesterTerakhir + 1;
+
+        $fitur = [];
+        for ($i = 1; $i <= $semesterTerakhir; $i++) {
+            $fitur["semester$i"] = $ips[$i] ?? 0.0;
+        }
+
+        $prediksiIP = $this->getPrediksiIP($nextSemester, $fitur);
+        $prediksiKategori = $this->getPrediksiKategoriBySemester($nextSemester, $fitur);
+
+        return [
+            'semester_prediksi' => $nextSemester,
+            'ip' => $prediksiIP["prediksi_ip_semester{$nextSemester}"] ?? '-',
+            'kategori' => $prediksiKategori["kategori_ip_semester{$nextSemester}"] ?? '-',
+        ];
     }
 }

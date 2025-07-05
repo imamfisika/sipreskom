@@ -9,7 +9,6 @@ use App\Service\AdminprodiService;
 use App\Service\AkademikService;
 use App\Service\PrestasiAkademikService;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\Matkul;
 
 class AdminprodiController extends Controller
 {
@@ -35,8 +34,8 @@ class AdminprodiController extends Controller
 
     public function viewAdminprodi()
     {
-        $mahasiswa = $this->mahasiswaService->getAll();
-        $dosenpa = $this->dosenpaService->getAll();
+        $mahasiswa = $this->mahasiswaService->getAll()->take(5);
+        $dosenpa = $this->dosenpaService->getAll()->take(5);
         $status = $this->adminprodiService->getStatusAdminprodi();
 
         return view('adminprodi.dashboard', compact('mahasiswa', 'dosenpa', 'status'));
@@ -46,6 +45,8 @@ class AdminprodiController extends Controller
     {
         $role = $request->input('role');
         $data = $this->adminprodiService->getDataByRole($role);
+        session()->forget('new_user_nim');
+
 
         return view('adminprodi.kelola-pengguna.view', compact('data', 'role'));
     }
@@ -55,6 +56,7 @@ class AdminprodiController extends Controller
         $akademiks = $this->adminprodiService->getAllPrestasi();
         $nilais = $this->prestasiAkademikService->getAllNilaiWithRelasi();
         $matkuls = $this->adminprodiService->getAllMatkuls();
+
 
         return view('adminprodi.prestasi-akademik.view', compact('akademiks', 'nilais', 'matkuls'));
     }

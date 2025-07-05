@@ -3,6 +3,7 @@
 @section('title', 'Tambah Data Akademik')
 
 @section('content')
+
     @include('components.sidebar.adminprodi')
 
     @php

@@ -14,6 +14,10 @@ Route::get('/register', [UserController::class, 'viewRegister'])->name('register
 Route::post('/register', [UserController::class, 'register'])->name('register.store');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/ganti-password', [UserController::class, 'formGantiPassword'])->name('password.form');
+    Route::post('/ganti-password', [UserController::class, 'updatePassword'])->name('password.update');
+});
 
 Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
     Route::get('/mahasiswa/dashboard', [MahasiswaController::class, 'viewMahasiswa'])->name('mahasiswa.dashboard');
@@ -23,6 +27,8 @@ Route::middleware(['auth', 'has_role:mahasiswa'])->group(function () {
 
     Route::get('/mahasiswa/profile', [MahasiswaController::class, 'viewProfile'])->name('mahasiswa.profile');
     Route::post('/mahasiswa/profile/upload-foto', [MahasiswaController::class, 'updatePhoto'])->name('mahasiswa.profile.upload');
+
+    Route::get('/mahasiswa/prediksi-ip', [MahasiswaController::class, 'prediksiIP'])->name('mahasiswa.prediksi');
 });
 
 Route::middleware(['auth', 'has_role:dosenpa'])->group(function () {

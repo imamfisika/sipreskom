@@ -20,7 +20,9 @@
                 <a href="{{ route('adminprodi.kelola-pengguna.view') }}"
                     class="text-sm flex items-center p-4 ml-1 text-white rounded-lg hover:bg-teal-600 group cursor-pointer {{ request()->routeIs('adminprodi.kelola-pengguna.view') ? 'text-white font-semibold' : '' }}">
                     <i class="fa fa-user" style="font-size:25px"></i>
-                    <span class="flex-1 ml-4 whitespace-nowrap">Kelola Pengguna</span>
+                    <span class="flex-1 ml-4 whitespace-nowrap">Kelola Pengguna
+                    </span>
+
                 </a>
             </li>
             <li>

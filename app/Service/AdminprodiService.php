@@ -49,6 +49,7 @@ class AdminprodiService
     {
         Akademik::findOrFail($id)->delete();
     }
+
     public function deleteMatkul($id)
     {
         $matkul = Matkul::findOrFail($id);

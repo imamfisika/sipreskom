@@ -218,7 +218,7 @@ class DosenpaService
         ];
 
         foreach ($mahasiswa as $mhs) {
-            $akademik = \App\Models\Akademik::where('id_user', $mhs->id)->get();
+            $akademik = Akademik::where('id_user', $mhs->id)->get();
 
             if ($akademik->isEmpty()) continue;
 

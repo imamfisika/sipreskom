@@ -1,5 +1,4 @@
 <div class="px-16 pb-12 items-center flex flex-col md:flex-row md:items-center justify-between">
-
     <div class="chart-container  max-w-xl mx-auto h-96 w-3/5">
         <canvas id="mhsChart-{{ $user->nim }}"></canvas>
         <script>

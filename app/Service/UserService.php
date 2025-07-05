@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -101,20 +102,20 @@ class UserService
     }
 
     public function updateByNim(Request $request, $nim)
-{
-    $user = User::where('nim', $nim)->firstOrFail();
+    {
+        $user = User::where('nim', $nim)->firstOrFail();
 
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'nim'   => 'required|string|max:18|unique:users,nim,' . $user->id,
-    ]);
-    $user->update([
-        'nama' => $request->input('nama'),
-        'email' => $request->input('email'),
-        'nim' => $request->input('nim'),
-    ]);
-}
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'nim'   => 'required|string|max:18|unique:users,nim,' . $user->id,
+        ]);
+        $user->update([
+            'nama' => $request->input('nama'),
+            'email' => $request->input('email'),
+            'nim' => $request->input('nim'),
+        ]);
+    }
 
     public function deleteUserById($id)
     {
@@ -144,5 +145,12 @@ class UserService
 
         $path = $photo->store('images', 'public');
         $user->update(['foto' => $path]);
+    }
+
+    public function updatePassword($userId, $newPassword)
+    {
+        $user = User::findOrFail($userId);
+        $user->password = Hash::make($newPassword);
+        $user->save();
     }
 }

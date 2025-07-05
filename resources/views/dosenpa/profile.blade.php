@@ -61,6 +61,57 @@
                     </div>
                 </div>
             </div>
+            <form action="{{ route('password.update') }}" method="POST">
+                @csrf
+                <div class="mx-32 mt-12 py-12 px-16 border rounded-2xl">
+                    <div class="flex justify-between mb-10 items-center">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="text-lg font-bold">
+                                Ganti Password
+                            </div>
+                            @if (session('success'))
+                                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <label for="current_password" class="text-gray-600 mb-4 font-semibold block">Current Password
+                                :</label>
+                            <input type="password" name="current_password" id="current_password" required
+                                class="bg-gray-50 border border-gray-300 text-gray-700 rounded-lg block w-full p-2.5">
+                            @error('current_password')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="new_password" class="text-gray-600 mb-4 font-semibold block">New Password :</label>
+                            <input type="password" name="new_password" id="new_password" required
+                                class="bg-gray-50 border border-gray-300 text-gray-700 rounded-lg block w-full p-2.5">
+                            @error('new_password')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="new_password_confirmation" class="text-gray-600 mb-4 font-semibold block">Confirm
+                                New Password :</label>
+                            <input type="password" name="new_password_confirmation" id="new_password_confirmation" required
+                                class="bg-gray-50 border border-gray-300 text-gray-700 rounded-lg block w-full p-2.5">
+                            @error('new_password_confirmation')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit"
+                            class="bg-teal-700 hover:bg-teal-800 text-white px-4 py-3 text-sm rounded-lg">
+                            <i class="fa fa-check mr-2" style="font-size:16px;color:white"></i>Simpan </button>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
 @endsection

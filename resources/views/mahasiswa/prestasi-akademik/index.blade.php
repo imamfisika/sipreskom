@@ -49,7 +49,10 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="bg-white px-8 py-8 text-base font-semibold">
+                <div class="my-6 px-8">
+                    {{ $data->links() }}
+                </div>
+                <div class="bg-white px-8 py-8 text-base border-t border-gray-300 font-semibold">
                     <div class="mb-2">Jumlah SKS Lulus = {{ $ipksks['total_sks'] }}</div>
                     <div>Index Prestasi Kumulatif (IPK) = {{ $ipksks['ipk'] }}</div>
                 </div>
@@ -58,8 +61,11 @@
 
         <div class="bg-white pt-8 mt-8 rounded-2xl shadow-sm border border-gray-300">
             <div class="pb-12 text-center text-lg font-bold">Grafik Akademik</div>
-            @include('components.grafik.mahasiswa', ['user' => $user, 'ipData' => $ipData, 'ipAvgData' => $ipAvgData])
-
+            @include('components.grafik.mahasiswa', [
+                'user' => $user,
+                'ipData' => $ipData,
+                'ipAvgData' => $ipAvgData,
+            ])
         </div>
     </div>
 

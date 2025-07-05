@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 use App\Service\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdatePasswordRequest;
 
 class UserController extends Controller
 {
@@ -88,4 +90,12 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
     }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $this->userService->updatePassword(Auth::id(), $request->new_password);
+
+        return back()->with('success', 'Password berhasil diperbarui.');
+    }
+
 }

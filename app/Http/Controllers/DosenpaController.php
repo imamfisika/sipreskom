@@ -89,7 +89,7 @@ class DosenpaController extends Controller
         $user = $data['mahasiswa'];
         $rekomendasis = $this->dosenpaService->getGroupedRekomendasiMahasiswaByNim($nim);
 
-        $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
+        $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id) ?? ['ipData' => [], 'avgData' => [], 'deskripsi' => ''];
         $matkulUlang = app(PrestasiAkademikService::class)->getMatkulWajibUlang($user->id);
 
         return view('dosenpa.prestasi-akademik.mahasiswa', array_merge($data, [

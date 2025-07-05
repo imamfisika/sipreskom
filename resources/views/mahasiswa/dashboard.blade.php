@@ -65,20 +65,22 @@
         </div>
 
         <div
-            class="col-span-2 row-span-1 col-start-4 py-8 bg-white shadow-sm rounded-2xl text-left px-10 border border-gray-300">
-            <div class="text-center text-lg font-bold mb-6">Rekomendasi</div>
-            <div class="mx-1 grid gap-2.5">
-                @forelse ($rekomendasis as $rekomendasi)
-                    <div class="font-semibold text-base mt-2">{{ $rekomendasi->nama_dosen }}</div>
-                    <div class="flex gap-2 content-center text-sm text-gray-800 w-96 items-center">
-                        <i class="fa fa-angle-double-right" style="font-size:20px;color:green"></i>
-                        {{ $rekomendasi->keterangan }}
-                    </div>
-                @empty
-                    <div class="text-sm text-gray-500">Belum ada rekomendasi dari dosen PA.</div>
-                @endforelse
+    class="col-span-2 row-span-1 col-start-4 py-8 bg-white shadow-sm rounded-2xl text-left px-10 border border-gray-300 h-96">
+    <div class="text-center text-lg font-bold mb-6">Rekomendasi</div>
+    <div class="mx-1 grid gap-2.5">
+        @forelse ($rekomendasis as $rekomendasi)
+            <div class="font-semibold text-base mt-2">{{ $rekomendasi->nama_dosen }}</div>
+            <div class="flex gap-2 items-start text-sm text-gray-800 max-w-[24rem]">
+                <i class="fa fa-angle-double-right mt-1 text-green-600" style="font-size:18px;"></i>
+                <div class="line-clamp-2">
+                    {{ $rekomendasi->keterangan }}
+                </div>
             </div>
-        </div>
+        @empty
+            <div class="text-sm text-gray-500">Belum ada rekomendasi dari dosen PA.</div>
+        @endforelse
+    </div>
+</div>
 
     </div>
 

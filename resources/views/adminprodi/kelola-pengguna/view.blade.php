@@ -54,7 +54,7 @@
                             @foreach ($data[$role] as $index => $user)
                                 <tr class="bg-white border-b border-gray-300">
                                     <td class="pl-10 pr-4 py-4">{{ $index + 1 }}.</td>
-                                    <td class="px-10 py-4 font-medium text-black truncate">{{ $user['nama'] }}</td>
+                                    <td class="px-10 py-4 font-medium text-black truncate">{{ $user['nama'] }} </td>
                                     <td class="px-6 py-4 truncate">{{ $user['nim'] }}</td>
                                     <td class="px-6 py-4 truncate overflow-hidden whitespace-nowrap">{{ $user['email'] }}
                                     </td>

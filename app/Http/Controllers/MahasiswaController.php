@@ -49,7 +49,6 @@ class MahasiswaController extends Controller
         $user = Auth::user();
         $data = $this->mahasiswaService->getRiwayatAkademik($user->id);
         $ipksks = $this->mahasiswaService->getIpkSks($user->id);
-
         $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
 
 
@@ -69,6 +68,8 @@ class MahasiswaController extends Controller
         $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
         $matkulUlang = app(PrestasiAkademikService::class)->getMatkulWajibUlang($user->id);
 
+        $prediksi = $this->mahasiswaService->getPrediksiIpStatus($user->id);
+
 
         return view('mahasiswa.rekomendasi', [
             'user' => $user,
@@ -77,6 +78,7 @@ class MahasiswaController extends Controller
             'ipAvgData' => $grafik['avgData'],
             'deskripsi' => $grafik['deskripsi'],
             'matkulUlang' => $matkulUlang,
+            'prediksi' => $prediksi,
         ]);
     }
     public function viewProfile()

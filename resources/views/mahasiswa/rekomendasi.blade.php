@@ -24,36 +24,62 @@
         </div>
 
         <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-300">
-            <div class="pb-12 text-center text-lg font-bold">Prediksi Indeks Prestasi</div>
+            <div class="pb-12 text-center text-lg font-bold">Prediksi Indeks & Status Prestasi</div>
 
             @include('components.grafik.mahasiswa', ['user' => $user, 'hideDeskripsi' => true])
 
             <div class="flex justify-center items-center">
                 <div class="flex gap-6">
-                    <div class="flex flex-col justify-between h-full w-2/5">
-                        <div class="text-sm mb-5 border border-gray-300 bg-gray-100 p-4 rounded-xl h-full">
-                            <div class="font-semibold mb-2">Prediksi IP Semester 5 :</div> 3.68
+
+                    @if ($prediksi)
+                        <div class="flex flex-col justify-between h-full w-4/11 space-y-4">
+
+                            <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl">
+                                <div class="font-semibold mb-2">
+                                    Prediksi IP Semester {{ $prediksi['semester_prediksi'] }}
+                                </div>
+                                <div class="text-teal-700 font-bold text-md">
+                                    {{ $prediksi['ip'] ?? '-' }}
+                                </div>
+                            </div>
+
+                            @if (!empty($prediksi['kategori']))
+                                <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl">
+                                    <div class="font-semibold mb-2">
+                                        Kategori Prestasi:
+                                    </div>
+                                    <div class="text-teal-700 font-bold text-md">
+                                        {{ $prediksi['kategori'] }}
+                                    </div>
+                                </div>
+                            @endif
+
                         </div>
-                        <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl h-full">
-                            <div class="font-semibold mb-2">Kategori Prestasi:</div> Berprestasi
-                        </div>
-                    </div>
+                    @endif
+
                     <div class="flex-1">
+
                         @if (!empty($matkulUlang))
                             <div class="border border-gray-300 bg-gray-100 p-4 rounded-xl h-full flex flex-col">
                                 <div class="font-semibold text-sm mb-2">Mata Kuliah Mengulang:</div>
                                 <ul class="list-disc pl-6 text-sm text-gray-800">
                                     @foreach ($matkulUlang as $matkul)
-                                        <li class="mb-2">
+                                        <li class="mb-2 font-normal">
                                             <span class="text-red-600">
                                                 {{ $matkul['nama_matkul'] }} ({{ $matkul['kode_matkul'] }}):
-                                                <strong>{{ $matkul['nilai'] }}</strong>
+                                                {{ $matkul['nilai'] }}
                                             </span>
                                         </li>
                                     @endforeach
                                 </ul>
                             </div>
+                        @else
+                            <div class="border border-gray-300 bg-gray-100 p-4 rounded-xl h-full flex flex-col">
+                                <div class="font-semibold text-sm mb-2">Mata Kuliah Mengulang:</div>
+                                <div class="text-sm text-gray-800">Tidak ada mata kuliah yang harus diulang.</div>
+                            </div>
                         @endif
+
                     </div>
                 </div>
             </div>
@@ -69,7 +95,8 @@
                             <div class="border-b border-gray-300 pt-2 pb-6 flex justify-between">
                                 <div>
                                     <div class="mb-1 text-gray-500 text-sm">
-                                        {{ \Carbon\Carbon::parse($timestamp)->format('d M Y') }}
+                                        {{ \Carbon\Carbon::parse($group->created_at)->format('d M Y H:i') }}
+
                                     </div>
                                     <div class="font-bold text-lg"> {{ $group->nama_dosen }}
                                     </div>
