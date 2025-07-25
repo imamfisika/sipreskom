@@ -84,18 +84,17 @@ class RekomendasiService
         return Matkul::all();
     }
     public function simpanRekomendasis($request)
-{
-    $user = AdminprodiHelper::getUserByNim($request->nim); // pastikan helper ini tersedia
-
-    foreach ($request->id_matkul as $id_matkul) {
-        if ($id_matkul) {
-            Rekomendasi::create([
-                'id_user' => $user->id,
-                'id_matkul' => $id_matkul,
-                'keterangan' => $request->keterangan,
-                'nama_dosen' => Auth::user()->nama,
-            ]);
+    {
+        $user = AdminprodiHelper::getUserByNim($request->nim);
+        foreach ($request->id_matkul as $id_matkul) {
+            if ($id_matkul) {
+                Rekomendasi::create([
+                    'id_user' => $user->id,
+                    'id_matkul' => $id_matkul,
+                    'keterangan' => $request->keterangan,
+                    'nama_dosen' => Auth::user()->nama,
+                ]);
+            }
         }
     }
-}
 }

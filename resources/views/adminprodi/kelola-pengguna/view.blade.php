@@ -51,7 +51,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data[$role] as $index => $user)
+                            @foreach ($data[$role]->sortByDesc('id')->values() as $index => $user)
                                 <tr class="bg-white border-b border-gray-300">
                                     <td class="pl-10 pr-4 py-4">{{ $index + 1 }}.</td>
                                     <td class="px-10 py-4 font-medium text-black truncate">{{ $user['nama'] }} </td>
@@ -77,7 +77,6 @@
                                             </button>
                                         </form>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>

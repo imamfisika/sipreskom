@@ -135,17 +135,18 @@ class UserService
         }
     }
 
-    public function updateProfilePhoto($id, $photo)
-    {
-        $user = User::findOrFail($id);
+    // public function updateProfilePhoto($id, $photo)
+    // {
+    //     $user = User::findOrFail($id);
 
-        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
-            Storage::disk('public')->delete($user->foto);
-        }
+    //     if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+    //         Storage::disk('public')->delete($user->foto);
+    //     }
 
-        $path = $photo->store('images', 'public');
-        $user->update(['foto' => $path]);
-    }
+    //     $path = $photo->store('images', 'public');
+    //     $user->update(['foto' => $path]);
+    // }
+
 
     public function updatePassword($userId, $newPassword)
     {

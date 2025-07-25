@@ -47,18 +47,34 @@ class DosenpaService
         $dosen = Auth::user();
         $query = AkademikHelper::filterMahasiswaBimbinganQuery($dosen->nim);
 
-        $mahasiswa = $query instanceof \Illuminate\Support\Collection ? $query : $query->get();
+        $paginated = $query->paginate(10);
 
-        return $mahasiswa->map(function ($mhs) {
+        $transformed = $paginated->getCollection()->map(function ($mhs) {
             $ipksks = AkademikHelper::hitungIpkDanSks($mhs);
+            $ipk = $ipksks['ipk'];
+    
+            $kategoriRank = 0;
+            if ($ipk > 3.5) {
+                $kategoriRank = 2; 
+            } elseif ($ipk >= 3.01) {
+                $kategoriRank = 1;
+            } else {
+                $kategoriRank = 0; 
+            }
+    
             return [
                 'id' => $mhs->id,
                 'nama' => $mhs->nama,
                 'nim' => $mhs->nim,
                 'total_sks' => $ipksks['total_sks'],
-                'ipk' => $ipksks['ipk'],
+                'ipk' => $ipk,
+                'rank' => $kategoriRank,
             ];
-        });
+        })->sortBy('rank')->values();
+        
+        $paginated->setCollection($transformed);
+    
+        return $paginated;
     }
 
     public function getMahasiswaByNim($nim)
@@ -74,8 +90,8 @@ class DosenpaService
             ->join('matkuls', 'nilais.id_matkul', '=', 'matkuls.id')
             ->where('nilais.id_user', $user->id)
             ->select('matkuls.nama_matkul', 'matkuls.kode_matkul', 'matkuls.jml_sks', 'nilais.bobot', 'nilais.nilai')
-            ->get();
-    }
+            ->paginate(10);
+        }
 
     public function getAkademikSummaryByNim($nim)
     {
@@ -175,6 +191,18 @@ class DosenpaService
         $user->update(['foto' => $filename]);
     }
 
+    public function updateProfilePhoto($id, $photo)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+            Storage::disk('public')->delete($user->foto);
+        }
+
+        $path = $photo->store('images', 'public');
+        $user->update(['foto' => $path]);
+    }
+
     public function getGroupedRekomendasiMahasiswaByNim(string $nim)
     {
         $user = $this->getMahasiswaByNim($nim);
@@ -191,9 +219,27 @@ class DosenpaService
     {
         $dosenNim = Auth::user()->nim;
 
-        if ($dosenNim === '197511212005012004') {
-            $mahasiswa = User::where('role', 'mahasiswa')->get();
-        } elseif ($dosenNim === '196605171994031003') {
+        // if ($dosenNim === '197511212005012004') {
+        
+        //     $mahasiswa = User::where('role', 'mahasiswa')->get();
+        // } elseif ($dosenNim === '196605171994031003') {
+        //     $mahasiswa = User::where('role', 'mahasiswa')
+        //         ->whereRaw('MOD(CAST(nim AS UNSIGNED), 2) = 1')
+        //         ->get();
+        // } elseif ($dosenNim === '198811022022031002') {
+        //     $mahasiswa = User::where('role', 'mahasiswa')
+        //         ->whereRaw('MOD(CAST(nim AS UNSIGNED), 2) = 0')
+        //         ->get();
+        // } else {
+        //     return [
+        //         'total' => 0,
+        //         'berprestasi' => 0,
+        //         'cukup' => 0,
+        //         'kurang' => 0,
+        //     ];
+        // }
+
+        if ($dosenNim === '196605171994031003') {
             $mahasiswa = User::where('role', 'mahasiswa')
                 ->whereRaw('MOD(CAST(nim AS UNSIGNED), 2) = 1')
                 ->get();
@@ -202,12 +248,7 @@ class DosenpaService
                 ->whereRaw('MOD(CAST(nim AS UNSIGNED), 2) = 0')
                 ->get();
         } else {
-            return [
-                'total' => 0,
-                'berprestasi' => 0,
-                'cukup' => 0,
-                'kurang' => 0,
-            ];
+            $mahasiswa = User::where('role', 'mahasiswa')->get();
         }
 
         $total = $mahasiswa->count();

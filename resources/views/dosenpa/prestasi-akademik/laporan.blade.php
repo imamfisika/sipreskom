@@ -5,6 +5,8 @@
 @section('content')
     @include('components.sidebar.dosenpa')
 
+
+
     <div class="mx-32">
         <div class="text-3xl font-bold mb-12">
             Laporan Akademik
@@ -70,7 +72,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-6 text-gray-500">
+                                <td colspan="6" class="text-center py-8 text-gray-500">
                                     Tidak ada data mahasiswa bimbingan.
                                 </td>
                             </tr>

@@ -24,7 +24,7 @@
         </div>
 
         <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-300">
-            <div class="pb-12 text-center text-lg font-bold">Prediksi Indeks & Status Prestasi</div>
+            <div class="pb-12 text-center text-lg font-bold">Grafik Akademik</div>
 
             @include('components.grafik.mahasiswa', ['user' => $user, 'hideDeskripsi' => true])
 
@@ -40,19 +40,27 @@
                                 </div>
                                 <div class="text-teal-700 font-bold text-md">
                                     {{ $prediksi['ip'] ?? '-' }}
-                                </div>
+                                </div> 
                             </div>
 
                             @if (!empty($prediksi['kategori']))
-                                <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl">
-                                    <div class="font-semibold mb-2">
-                                        Kategori Prestasi:
-                                    </div>
-                                    <div class="text-teal-700 font-bold text-md">
-                                        {{ $prediksi['kategori'] }}
-                                    </div>
+                            @php
+                                $warna = match($prediksi['kategori']) {
+                                    'Berprestasi' => 'text-green-600',
+                                    'Cukup Berprestasi' => 'text-yellow-600',
+                                    'Kurang Berprestasi' => 'text-red-600',
+                                    default => 'text-gray-600'
+                                };
+                            @endphp
+                            <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl shadow">
+                                <div class="font-semibold mb-2 text-gray-700">
+                                    Kategori Prestasi:
                                 </div>
-                            @endif
+                                <div class="{{ $warna }} font-bold text-sm">
+                                    {{ $prediksi['kategori'] }}
+                                </div>
+                            </div>
+                        @endif
 
                         </div>
                     @endif
@@ -61,7 +69,7 @@
 
                         @if (!empty($matkulUlang))
                             <div class="border border-gray-300 bg-gray-100 p-4 rounded-xl h-full flex flex-col">
-                                <div class="font-semibold text-sm mb-2">Mata Kuliah Mengulang:</div>
+                                <div class="font-semibold text-sm mb-2">Mata Kuliah yang Tidak Lulus:</div>
                                 <ul class="list-disc pl-6 text-sm text-gray-800">
                                     @foreach ($matkulUlang as $matkul)
                                         <li class="mb-2 font-normal">

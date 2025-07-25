@@ -39,7 +39,8 @@
                         @foreach ($data as $index => $item)
                             <tr class="bg-white border-b border-gray-300">
                                 <th scope="row" class="pl-10 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $index + 1 }}.</th>
+                                    {{ $data->firstItem() + $index }}.
+                                </th>
                                 <td class="pl-8 font-medium text-gray-900">{{ $item->nama_matkul }}</td>
                                 <td class="px-4 py-4">{{ $item->kode_matkul }}</td>
                                 <td class="pl-12 py-4 text-center">{{ $item->jml_sks }}</td>

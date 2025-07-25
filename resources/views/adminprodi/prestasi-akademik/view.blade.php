@@ -64,7 +64,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($akademiks as $index => $item)
+                            @foreach ($akademiks->sortByDesc('created_at')->values() as $index => $item)
                                 <tr class="bg-white border-b border-gray-300">
                                     <td class="pl-10 pr-4 py-4">{{ $index + 1 }}.</td>
                                     <td class="px-10 py-4 font-medium text-black">{{ $item->user->nama ?? '-' }}</td>
@@ -113,10 +113,10 @@
                                 <th class="px-4 py-4 w-16">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($matkuls as $index => $matkul)
+                        <tbody></tbody>
+                            @foreach ($matkuls->sortByDesc('created_at')->values() as $index => $matkul)
                                 <tr class="bg-white border-b border-gray-300">
-                                    <td class="pl-10 pr-4 py-4">{{ $matkuls->firstItem() + $index }}.</td>
+                                    <td class="pl-10 pr-4 py-4">{{ $index + 1 }}.</td>
                                     <td class="px-6 py-4">{{ $matkul->kode_matkul }}</td>
                                     <td class="px-6 py-4 font-medium">{{ $matkul->nama_matkul }}</td>
                                     <td class="px-6 py-4 text-center">{{ $matkul->jml_sks }}</td>
@@ -167,7 +167,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($nilais as $index => $item)
+                            @foreach ($nilais->sortByDesc('created_at')->values() as $index => $item)
                                 <tr class="bg-white border-b border-gray-300">
                                     <td class="pl-10 pr-4 py-4">{{ $index + 1 }}.</td>
                                     <td class="px-6 py-4 font-medium text-black">{{ $item->user->nim ?? '-' }}</td>

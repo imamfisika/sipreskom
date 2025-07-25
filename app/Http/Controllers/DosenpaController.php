@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Service\DosenpaService;
 use App\Service\UserService;
 use App\Service\RekomendasiService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Service\PrestasiAkademikService;
 use App\Service\MahasiswaService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class DosenpaController extends Controller
@@ -30,7 +30,7 @@ class DosenpaController extends Controller
 
     public function viewDosenpa()
     {
-        $mahasiswa = $this->dosenpaService->getMahasiswaBimbingan();
+        $mahasiswa = $this->dosenpaService->getMahasiswaBimbingan()->take(6);
         $statusData = $this->dosenpaService->getStatusPrestasiMahasiswa();
         $grafik = $this->dosenpaService->getGrafikStatistikIpMahasiswa();
 
@@ -73,7 +73,6 @@ class DosenpaController extends Controller
         $statusData = $this->dosenpaService->getStatusPrestasiMahasiswa();
         $grafik = $this->dosenpaService->getGrafikStatistikIpMahasiswa();
 
-
         return view('dosenpa.prestasi-akademik.index', compact('mahasiswa', 'statusData', 'grafik'));
     }
 
@@ -88,9 +87,10 @@ class DosenpaController extends Controller
 
         $user = $data['mahasiswa'];
         $rekomendasis = $this->dosenpaService->getGroupedRekomendasiMahasiswaByNim($nim);
-
         $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id) ?? ['ipData' => [], 'avgData' => [], 'deskripsi' => ''];
         $matkulUlang = app(PrestasiAkademikService::class)->getMatkulWajibUlang($user->id);
+        $prediksi = $this->mahasiswaService->getPrediksiIpStatus($user->id);
+
 
         return view('dosenpa.prestasi-akademik.mahasiswa', array_merge($data, [
             'rekomendasis' => $rekomendasis,
@@ -99,12 +99,14 @@ class DosenpaController extends Controller
             'deskripsi' => $grafik['deskripsi'],
             'matkulUlang' => $matkulUlang,
             'user' => $user,
+            'prediksi' => $prediksi,
         ]));
     }
 
     public function viewLaporanAkademik()
     {
         $mahasiswa = $this->dosenpaService->getMahasiswaBimbingan();
+    
         return view('dosenpa.prestasi-akademik.laporan', compact('mahasiswa'));
     }
 
@@ -128,7 +130,10 @@ class DosenpaController extends Controller
 
     public function updatePhoto(Request $request)
     {
-        $this->dosenpaService->updatePhoto($request);
+        $request->validate([
+            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+        $this->dosenpaService->updateProfilePhoto(Auth::id(), $request->file('foto'));
 
         return back()->with('success', 'Foto profil berhasil diperbarui.');
     }

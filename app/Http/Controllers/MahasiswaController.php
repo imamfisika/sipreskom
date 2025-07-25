@@ -32,7 +32,6 @@ class MahasiswaController extends Controller
         $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
         $dosenPa = $this->mahasiswaService->getDosenPaByNim($user->nim);
 
-
         return view('mahasiswa.dashboard', [
             'user' => $user,
             'riwayatAkademik' => $riwayatAkademik,
@@ -51,7 +50,6 @@ class MahasiswaController extends Controller
         $ipksks = $this->mahasiswaService->getIpkSks($user->id);
         $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
 
-
         return view('mahasiswa.prestasi-akademik.index', [
             'data' => $data,
             'ipksks' => $ipksks,
@@ -67,9 +65,7 @@ class MahasiswaController extends Controller
         $rekomendasis = $this->mahasiswaService->getGroupedRekomendasiMahasiswa();
         $grafik = $this->mahasiswaService->getGrafikIpMahasiswa($user->id);
         $matkulUlang = app(PrestasiAkademikService::class)->getMatkulWajibUlang($user->id);
-
         $prediksi = $this->mahasiswaService->getPrediksiIpStatus($user->id);
-
 
         return view('mahasiswa.rekomendasi', [
             'user' => $user,
@@ -90,9 +86,13 @@ class MahasiswaController extends Controller
 
         return view('mahasiswa.profile', compact('mahasiswa', 'ipksks', 'user'));
     }
+
     public function updatePhoto(Request $request)
     {
-        $this->mahasiswaService->updatePhoto($request);
+        $request->validate([
+            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+        $this->mahasiswaService->updateProfilePhoto(Auth::id(), $request->file('foto'));
 
         return back()->with('success', 'Foto profil berhasil diperbarui.');
     }

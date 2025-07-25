@@ -48,7 +48,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($dosenpa->take(5) as $index => $dsn)
+                        @forelse ($dosenpa->sortByDesc('id')->values()->take(5) as $index => $dsn)
                             <tr class="bg-white border-b border-gray-300">
                                 <td class="px-8 py-4">{{ $index + 1 }}.</td>
                                 <td class="px-4 py-4 truncate font-medium text-black">{{ $dsn->nama }}</td>
@@ -87,7 +87,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($mahasiswa as $index => $mhs)
+                        @forelse ($mahasiswa->sortByDesc('id')->values() as $index => $mhs)
                             <tr class="bg-white border-b border-gray-300">
                                 <td class="px-8 py-4">{{ $index + 1 }}.</td>
                                 <td class="px-4 py-4 truncate font-medium text-black">{{ $mhs->nama }}</td>

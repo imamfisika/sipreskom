@@ -25,33 +25,60 @@
                 </ul>
             </div>
         @endif
-        <div class="flex justify-center px-40">
-            <form method="POST" action="{{ route('admin.users.update', $editUser->nim) }}">
+        
+        <div class="flex justify-center gap-6 px-10">
+            <form method="POST" action="{{ route('admin.users.update', $editUser->nim) }}" class="flex flex-col space-y-6 w-1/2">
                 @csrf
                 @method('PUT')
-                <div class="mb-6 flex">
-                    <label for="nama" class="block font-semibold text-gray-600 w-24 content-center">Nama :</label>
+                <div class="flex items-center space-x-4">
+                    <label for="nama" class="block font-semibold text-sm text-gray-600 w-20">Nama:</label>
                     <input type="text" name="nama" value="{{ old('nama', $editUser->nama) }}"
-                        class="w-96 border border-gray-300 text-sm bg-gray-50 rounded-lg p-4">
+                        class="flex-1 border border-gray-300 text-sm bg-gray-50 rounded-lg p-4">
                 </div>
 
-                <div class="mb-6 flex">
-                    <label for="email" class="block font-semibold text-gray-600 w-24 content-center">Email :</label>
+                <div class="flex items-center space-x-4">
+                    <label for="email" class="block font-semibold text-sm text-gray-600 w-20">Email:</label>
                     <input type="email" name="email" id="email" value="{{ old('email', $editUser->email) }}"
-                        class="w-96 border border-gray-300 text-sm bg-gray-50 rounded-lg p-4">
+                        class="flex-1 border border-gray-300 text-sm bg-gray-50 rounded-lg p-4">
                 </div>
 
-                <div class="mb-12 flex">
-                    <label for="nim" class="block font-semibold text-gray-600 w-24 content-center">Nomor Induk
-                        :</label>
+                <div class="flex items-center space-x-4">
+                    <label for="nim" class="block font-semibold text-sm text-gray-600 w-20">Nomor Induk:</label>
                     <input type="text" name="nim" id="nim" value="{{ old('nim', $editUser->nim) }}"
-                        class="w-96 border border-gray-300 text-sm bg-gray-50 rounded-lg p-4">
+                        class="flex-1 border border-gray-300 text-sm bg-gray-50 rounded-lg p-4">
                 </div>
 
-                <div class="text-center">
-                    <button type="submit" class="bg-teal-700 hover:bg-teal-800 text-white text-sm px-4 py-4 rounded-lg">
+                <div class="text-right">
+                    <button type="submit" class="bg-teal-700 hover:bg-teal-800 text-white text-sm px-4 py-4 rounded-lg mt-6">
                         <i class="fa fa-check mr-2" style="font-size:16px"></i>
                         Simpan
+                    </button>
+                </div>
+            </form>
+
+            <form method="POST" action="{{ route('admin.users.updatePassword', $editUser->nim) }}"
+                class="flex flex-col space-y-6 ml-16 w-1/2">
+                @csrf
+                @method('PUT')
+
+                <div class="flex items-center space-x-4">
+                    <label for="password" class="block font-semibold text-sm text-gray-600 w-20">Password Baru:</label>
+                    <input type="password" name="password"
+                        class="flex-1 border border-gray-300 text-sm bg-gray-50 rounded-lg p-4" required>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <label for="password_confirmation" class="block font-semibold text-sm text-gray-600 w-20">Konfirmasi
+                        Password:</label>
+                    <input type="password" name="password_confirmation"
+                        class="flex-1 border border-gray-300 text-sm bg-gray-50 rounded-lg p-4" required>
+                </div>
+
+                <div class="text-right">
+                    <button type="submit"
+                        class="bg-indigo-700 hover:bg-indigo-800 text-white text-sm px-4 py-4 rounded-lg mt-6">
+                        <i class="fa fa-key mr-2" style="font-size:16px"></i>
+                        Ubah
                     </button>
                 </div>
             </form>

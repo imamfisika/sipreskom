@@ -12,6 +12,8 @@ use App\Models\Nilai;
 use App\Imports\NilaiImport;
 use App\Imports\AkademikImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Hash;
+
 class AdminprodiService
 {
     protected $mahasiswaService;
@@ -37,7 +39,7 @@ class AdminprodiService
     }
     public function getAllPrestasi()
     {
-        return Akademik::with('user')->paginate(7, ['*'], 'akademik_page');
+        return Akademik::with('user')->orderBy('created_at', 'desc')->paginate(7, ['*'], 'akademik_page');
     }
 
     public function getAllMatkuls()
@@ -136,5 +138,12 @@ class AdminprodiService
     public function importAkademikExcel($file)
     {
         Excel::import(new AkademikImport, $file);
+    }
+
+    public function updateUserPassword(string $nim, string $password)
+    {
+        $user = User::where('nim', $nim)->firstOrFail();
+        $user->password = Hash::make($password);
+        $user->save();
     }
 }

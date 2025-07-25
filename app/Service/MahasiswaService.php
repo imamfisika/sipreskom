@@ -8,9 +8,8 @@ use App\Models\Akademik;
 use App\Helpers\RekomendasiHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Client;
 
 
 class MahasiswaService
@@ -110,24 +109,24 @@ class MahasiswaService
 
         return RekomendasiHelper::groupRekomendasi($raw);
     }
-    public function updatePhoto(Request $request)
-    {
-        $request->validate([
-            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
 
-        $user = User::find(Auth::id());
-        if (!$user) {
-            throw new \Exception('User not found.');
+    public function getProfile($id)
+    {
+        return User::findOrFail($id);
+    }
+
+    public function updateProfilePhoto($id, $photo)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+            Storage::disk('public')->delete($user->foto);
         }
 
-        $foto = $request->file('foto');
-        $filename = 'profil_' . $user->id . '.' . $foto->getClientOriginalExtension();
-        $foto->storeAs('public/images', $filename);
-
-        $user->foto = $filename;
-        $user->save();
+        $path = $photo->store('images', 'public');
+        $user->update(['foto' => $path]);
     }
+
 
     public function getIpPerSemester($userId)
     {
@@ -164,7 +163,7 @@ class MahasiswaService
 
         $ipData = $akademiks->map(function ($item) {
             return [
-                'semester' => 'smt ' . $item->semester,
+                'semester' => 'Semester ' . $item->semester, // ubah jadi 'Semester'
                 'ip' => $item->IP,
             ];
         });
@@ -175,7 +174,7 @@ class MahasiswaService
             ->get()
             ->map(function ($item) {
                 return [
-                    'semester' => 'Semester ' . $item->semester,
+                    'semester' => 'Semester ' . $item->semester, // sudah sesuai
                     'ip' => round($item->ip, 2),
                 ];
             });
@@ -186,13 +185,20 @@ class MahasiswaService
     }
     private function generateDeskripsiIp($ipData, $avgData)
     {
-        $last = collect($ipData)->last();
-        $prev = collect($ipData)->count() >= 2 ? collect($ipData)->slice(-2, 1)->first() : null;
+        $ipData = collect($ipData);
+        $avgData = collect($avgData);
 
-        $avgLast = collect($avgData)->last();
+        $last = $ipData->last();
+        $prev = $ipData->count() >= 2 ? $ipData->slice(-2, 1)->first() : null;
 
-        if (!$last || !$avgLast) {
+        if (!$last) {
             return 'Data IP belum cukup untuk menampilkan analisis.';
+        }
+
+        $avgLast = $avgData->firstWhere('semester', $last['semester']);
+
+        if (!$avgLast) {
+            return 'Data rata-rata IP tidak tersedia untuk semester terakhir.';
         }
 
         $bandingAvg = $last['ip'] >= $avgLast['ip'] ? 'di atas rata-rata' : 'di bawah rata-rata';
@@ -203,8 +209,9 @@ class MahasiswaService
 
     public function getIPSemester($userId)
     {
+
         return Akademik::where('id_user', $userId)
-            ->whereIn('semester', [1, 2, 3, 4])
+            ->whereBetween('semester', [1, 8])
             ->orderBy('semester')
             ->pluck('ip', 'semester')
             ->toArray();
@@ -225,28 +232,49 @@ class MahasiswaService
     }
 
 
+
     public function getPrediksiIpStatus($userId)
     {
         $ips = $this->getIPSemester($userId);
-        if (empty($ips)) return null;
+
+        if (empty($ips)) {
+            return [
+                'semester_prediksi' => '-',
+                'ip' => '-',
+                'kategori' => '-',
+                'status' => 'Belum ada data IP'
+            ];
+        }
 
         $semesterTerakhir = max(array_keys($ips));
-        if ($semesterTerakhir >= 5) return null;
+
+        if ($semesterTerakhir >= 8) {
+            return [
+                'semester_prediksi' => '-',
+                'ip' => '-',
+                'kategori' => '-',
+                'status' => 'Melewati batas prediksi maksimal (8 semester)'
+            ];
+        }
 
         $nextSemester = $semesterTerakhir + 1;
 
         $fitur = [];
         for ($i = 1; $i <= $semesterTerakhir; $i++) {
-            $fitur["semester$i"] = $ips[$i] ?? 0.0;
+            $fitur["semester{$i}"] = (float)($ips[$i] ?? 0.0);
         }
 
         $prediksiIP = $this->getPrediksiIP($nextSemester, $fitur);
+        $ip = $prediksiIP["prediksi_ip_semester{$nextSemester}"] ?? null;
+
         $prediksiKategori = $this->getPrediksiKategoriBySemester($nextSemester, $fitur);
+        $kategori = $prediksiKategori["kategori_ip_semester{$nextSemester}"] ?? '-';
 
         return [
             'semester_prediksi' => $nextSemester,
-            'ip' => $prediksiIP["prediksi_ip_semester{$nextSemester}"] ?? '-',
-            'kategori' => $prediksiKategori["kategori_ip_semester{$nextSemester}"] ?? '-',
+            'ip' => $ip,
+            'kategori' => $kategori,
+            'status' => 'Berhasil diprediksi'
         ];
     }
 }

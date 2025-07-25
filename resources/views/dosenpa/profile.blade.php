@@ -15,17 +15,31 @@
             <div class="border-b border-gray-300 py-10 grid place-items-center">
                 @include('components.profile.dosenpa', ['user' => $user, 'hideKeterangan' => true])
 
-                <form action="{{ route(Auth::user()->role . '.profile.upload') }}" method="POST" enctype="multipart/form-data"
-                    class="">
+                <form action="{{ route(Auth::user()->role . '.profile.upload') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <div class="mb-1 font-semibold text-gray-900">Upload Foto:</div>
                     <div class="flex items-center gap-3">
-                        <input type="file" name="foto" accept="image/*"
+                        <input id="foto-input" type="file" name="foto" accept="image/*"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
-                        <button type="submit"
-                            class="bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 text-sm rounded-lg">Upload</button>
+                
+                        <button id="upload-button" type="submit"
+                            class="bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 text-sm rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>Upload</button>
                     </div>
+                    @if ($errors->has('foto'))
+                        <p class="text-red-500 text-sm mt-1">{{ $errors->first('foto') }}</p>
+                    @endif
                 </form>
-
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const fileInput = document.getElementById('foto-input');
+                        const submitButton = document.getElementById('upload-button');
+                
+                        fileInput.addEventListener('change', function () {
+                            submitButton.disabled = !fileInput.files.length;
+                        });
+                    });
+                </script>
             </div>
 
             <div class="mx-32 mt-12 py-12 px-16 border rounded-2xl">
@@ -37,24 +51,24 @@
                 <div class="grid gap-10 text-md">
                     <div class="flex gap-10 col-span-2">
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-4 font-semibold">Nama :</div>
+                            <div class="text-gray-600 mb-2 text-sm font-bold">Nama :</div>
                             <input type="text" value="{{ $user->nama }}" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
                         </div>
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-4 font-semibold">NIP :</div>
+                            <div class="text-gray-600 mb-2 text-sm font-bold">NIP :</div>
                             <input type="text" value="{{ $user->nim }}" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
                         </div>
                     </div>
                     <div class="flex gap-10 col-span-2">
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-4 font-semibold">Email :</div>
+                            <div class="text-gray-600 mb-2 text-sm font-bold">Email :</div>
                             <input type="text" value="{{ $user->email }}" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
                         </div>
                         <div class="w-1/2">
-                            <div class="text-gray-600 mb-4 font-semibold">Mahasiswa Bimbingan Akademik :</div>
+                            <div class="text-gray-600 mb-2 text-sm font-bold">Mahasiswa Bimbingan Akademik :</div>
                             <input type="text" value="{{ $jumlahMahasiswaBimbingan }}" disabled
                                 class="bg-gray-50 border border-gray-300 text-gray-500 rounded-lg block w-full p-2.5">
                         </div>
@@ -69,16 +83,16 @@
                             <div class="text-lg font-bold">
                                 Ganti Password
                             </div>
-                            @if (session('success'))
+                            @if (session('password_success'))
                                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                                    {{ session('success') }}
+                                    {{ session('password_success') }}
                                 </div>
                             @endif
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-8">
                         <div>
-                            <label for="current_password" class="text-gray-600 mb-4 font-semibold block">Current Password
+                            <label for="current_password" class="text-gray-600 mb-2 text-sm font-bold block">Password
                                 :</label>
                             <input type="password" name="current_password" id="current_password" required
                                 class="bg-gray-50 border border-gray-300 text-gray-700 rounded-lg block w-full p-2.5">
@@ -87,7 +101,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="new_password" class="text-gray-600 mb-4 font-semibold block">New Password :</label>
+                            <label for="new_password" class="text-gray-600 mb-2 text-sm font-bold block">Password Baru :</label>
                             <input type="password" name="new_password" id="new_password" required
                                 class="bg-gray-50 border border-gray-300 text-gray-700 rounded-lg block w-full p-2.5">
                             @error('new_password')
@@ -95,8 +109,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="new_password_confirmation" class="text-gray-600 mb-4 font-semibold block">Confirm
-                                New Password :</label>
+                            <label for="new_password_confirmation" class="text-gray-600 mb-2 text-sm font-bold block">Konfirmasi Password Baru :</label>
                             <input type="password" name="new_password_confirmation" id="new_password_confirmation" required
                                 class="bg-gray-50 border border-gray-300 text-gray-700 rounded-lg block w-full p-2.5">
                             @error('new_password_confirmation')

@@ -163,4 +163,18 @@ class AdminprodiController extends Controller
             return back()->withErrors(['message' => $e->getMessage()]);
         }
     }
+
+    public function updatePassword(Request $request, $nim)
+    {
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        try {
+            $this->adminprodiService->updateUserPassword($nim, $request->password);
+            return back()->with('success', 'Password berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['message' => $e->getMessage()]);
+        }
+    }
 }

@@ -120,10 +120,13 @@
                                 <td class="pl-12 py-4 text-center">{{ $item->bobot }}</td>
                                 <td class="px-10 py-4 text-center">{{ $item->nilai }}</td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="bg-white px-8 py-8 text-base font-semibold">
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="my-6 px-8">
+                        {{ $riwayat->links() }}
+                    </div>
+                <div class="bg-white px-8 py-8 text-base font-semibold border-t border-gray-300">
                     <div class="mb-2">Jumlah SKS Lulus = {{ $ipksks['total_sks'] }}</div>
                     <div">Index Prestasi Kumulatif (IPK) = {{ $ipksks['ipk'] }}
                 </div>
@@ -132,36 +135,67 @@
 
 
         <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-300">
-            <div class="pb-12 text-center text-lg font-bold">Prediksi Indeks Prestasi</div>
+            <div class="pb-12 text-center text-lg font-bold">Grafik Akademik Mahasiswa dan Prediksi</div>
 
             @include('components.grafik.mahasiswa', ['user' => $user, 'hideDeskripsi' => true])
 
             <div class="flex justify-center items-center">
                 <div class="flex gap-6">
-                    <div class="flex flex-col justify-between h-full w-2/5">
-                        <div class="text-sm mb-5 border border-gray-300 bg-gray-100 p-4 rounded-xl h-full">
-                            <div class="font-semibold mb-2">Prediksi IP Semester 5 :</div> 3.68
+                    @if ($prediksi)
+                    <div class="flex flex-col justify-between h-full w-4/11 space-y-4">
+
+                        <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl">
+                            <div class="font-semibold mb-2">
+                                Prediksi IP Semester {{ $prediksi['semester_prediksi'] }}
+                            </div>
+                            <div class="text-teal-700 font-bold text-md">
+                                {{ $prediksi['ip'] ?? '-' }}
+                            </div>
                         </div>
-                        <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl h-full">
-                            <div class="font-semibold mb-2">Kategori Prestasi:</div> Berprestasi
+
+                        @if (!empty($prediksi['kategori']))
+                        @php
+                            $warna = match($prediksi['kategori']) {
+                                'Berprestasi' => 'text-green-600',
+                                'Cukup Berprestasi' => 'text-yellow-600',
+                                'Kurang Berprestasi' => 'text-red-600',
+                                default => 'text-gray-600'
+                            };
+                        @endphp
+                        <div class="text-sm border border-gray-300 bg-gray-100 p-4 rounded-xl shadow">
+                            <div class="font-semibold mb-2 text-gray-700">
+                                Kategori Prestasi:
+                            </div>
+                            <div class="{{ $warna }} font-bold text-sm">
+                                {{ $prediksi['kategori'] }}
+                            </div>
                         </div>
+                    @endif
+
                     </div>
+                @endif
                     <div class="flex-1">
                         @if (!empty($matkulUlang))
-                            <div class="border border-gray-300 bg-gray-100 p-4 rounded-xl h-full flex flex-col">
-                                <div class="font-semibold text-sm mb-2">Mata Kuliah Mengulang:</div>
-                                <ul class="list-disc pl-6 text-sm text-gray-800">
-                                    @foreach ($matkulUlang as $matkul)
-                                        <li class="mb-2">
-                                            <span class="text-red-600">
-                                                {{ $matkul['nama_matkul'] }} ({{ $matkul['kode_matkul'] }}):
-                                                <strong>{{ $matkul['nilai'] }}</strong>
-                                            </span>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        <div class="border border-gray-300 bg-gray-100 p-4 rounded-xl h-full flex flex-col">
+                            <div class="font-semibold text-sm mb-2">Mata Kuliah yang Tidak Lulus:</div>
+                            <ul class="list-disc pl-6 text-sm text-gray-800">
+                                @foreach ($matkulUlang as $matkul)
+                                    <li class="mb-2 font-normal">
+                                        <span class="text-red-600">
+                                            {{ $matkul['nama_matkul'] }} ({{ $matkul['kode_matkul'] }}):
+                                            {{ $matkul['nilai'] }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @else
+                        <div class="border border-gray-300 bg-gray-100 p-4 rounded-xl h-full flex flex-col">
+                            <div class="font-semibold text-sm mb-2">Mata Kuliah Mengulang:</div>
+                            <div class="text-sm text-gray-800">Tidak ada mata kuliah yang harus diulang.</div>
+                        </div>
+                    @endif
+                        
                     </div>
                 </div>
             </div>

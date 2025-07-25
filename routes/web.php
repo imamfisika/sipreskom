@@ -57,6 +57,7 @@ Route::middleware(['auth', 'has_role:adminprodi'])->group(function () {
     Route::put('/{nim}', [UserController::class, 'update'])->name('admin.users.update');
     Route::get('/{nim}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::delete('/{id}/delete', [UserController::class, 'delete'])->name('admin.users.delete');
+    Route::put('/{nim}/password', [AdminprodiController::class, 'updatePassword'])->name('admin.users.updatePassword');
 
     Route::get('/adminprodi/kelola-prestasi-akademik', [AdminprodiController::class, 'viewKelolaPrestasi'])->name('adminprodi.prestasi-akademik.view');
     Route::delete('/adminprodi/prestasi-akademik/delete-prestasi/{id}', [AdminprodiController::class, 'deletePrestasi'])->name('adminprodi.prestasi-akademik.deletePrestasi');

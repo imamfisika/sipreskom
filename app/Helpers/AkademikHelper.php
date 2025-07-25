@@ -27,10 +27,10 @@ class AkademikHelper
         $query = User::where('role', 'mahasiswa');
 
         return match ($nimDosen) {
-            '197511212005012004' => $query, // semua
-            '196605171994031003' => $query->whereRaw('CAST(RIGHT(nim, 1) AS UNSIGNED) % 2 = 1'), //ganjil
-            '198811022022031002' => $query->whereRaw('CAST(RIGHT(nim, 1) AS UNSIGNED) % 2 = 0'), //genap
-            default => collect(),
+            '197511212005012004' => $query, 
+            '196605171994031003' => $query->whereRaw('CAST(RIGHT(nim, 1) AS UNSIGNED) % 2 = 1'), 
+            '198811022022031002' => $query->whereRaw('CAST(RIGHT(nim, 1) AS UNSIGNED) % 2 = 0'), 
+            default => User::whereRaw('0 = 1'), 
         };
     }
 }

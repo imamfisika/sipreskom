@@ -38,7 +38,7 @@
                         </a>
                     </div>
                 </div>
-
+        
                 <table class="w-full text-sm text-left bg-teal-900 border-collapse">
                     <thead class="font-black text-gray-200 border-b border-t border-gray-400">
                         <tr>
@@ -49,14 +49,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($mahasiswa as $mhs)
+                        @forelse ($mahasiswa as $mhs)
                             <tr class="bg-white border-b border-gray-300">
                                 <td class="pl-12 font-medium text-gray-900">{{ $mhs['nama'] }}</td>
                                 <td class="pl-12 pr-6">{{ $mhs['nim'] }}</td>
                                 <td class="px-8 py-4 text-center">{{ $mhs['total_sks'] }}</td>
                                 <td class="px-8">{{ $mhs['ipk'] }}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr class="bg-white">
+                                <td colspan="4" class="text-center py-8 text-gray-500">Belum ada data mahasiswa.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

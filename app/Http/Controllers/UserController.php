@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Carbon\Carbon;
 use App\Service\UserService;
+use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\UpdatePasswordRequest;
 
 class UserController extends Controller
 {
